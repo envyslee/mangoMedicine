@@ -164,6 +164,7 @@
                     android:paddingTop="4dip"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/disease_lay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"

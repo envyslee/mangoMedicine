@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nicholas.fastmedicine.adppter.CategoryListAdapter;
+import com.nicholas.fastmedicine.adapter.CategoryListAdapter;
 
 /**
  * Created by eggri_000 on 2015/10/13.

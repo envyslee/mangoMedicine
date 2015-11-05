@@ -1,4 +1,4 @@
-package com.nicholas.fastmedicine.adppter;
+package com.nicholas.fastmedicine.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

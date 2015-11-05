@@ -66,6 +66,7 @@
             android:name="cn.sharesdk.tencent.qq.ResultReceiver"
             android:launchMode="singleTask"
             android:noHistory="true" >
+
             <!--
             如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW
             事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，
@@ -109,11 +110,15 @@
         </activity>
         <activity android:name=".CommunityActivity" >
         </activity>
-        <activity android:name=".SplashActivity"  android:theme="@style/StartAppTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/StartAppTheme" >
         </activity>
         <activity android:name=".FeedbackActivity" >
         </activity>
         <activity android:name=".ProductDetialActivity" >
+        </activity>
+        <activity android:name=".SelfCheckListActivity" >
         </activity>
     </application>
 

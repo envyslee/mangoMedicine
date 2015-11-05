@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,13 +25,12 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.geocode.GeoCodeOption;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
-import com.nicholas.fastmedicine.adppter.AddressPoiAdapter;
+import com.nicholas.fastmedicine.adapter.AddressPoiAdapter;
 import com.nicholas.fastmedicine.item.AddressPoiItem;
 
 import java.util.ArrayList;
@@ -45,17 +43,16 @@ import java.util.List;
 public class MapActivity extends Activity {
 
     private int SETADAPTER = 0;
-    private int NOTIFYADAPTER=1;
     private AddressPoiAdapter adapter;
-    private List<AddressPoiItem> list= new ArrayList<>();
+    private List<AddressPoiItem> list = new ArrayList<>();
     private List<PoiInfo> poiInfos;
     private ListView address_list;
-    private TextView textView;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
     private MyLocationConfiguration.LocationMode mCurrentMode;
     private LocationClient mLocClient;
     private GeoCoder mSearch = null;
+    private String geoCurrCity;
     BitmapDescriptor mCurrentMarker;//maker 图标
 
 
@@ -69,28 +66,22 @@ public class MapActivity extends Activity {
         Double lo = bundle.getDouble("lontitude");
         Float ra = bundle.getFloat("radius");
         final String city = bundle.getString("city");
-        //String address = bundle.getString("address");
-        /*textView = (TextView) findViewById(R.id.jingwei);
-        textView.setText("wei " + la.toString() + "jing " + lo.toString());*/
 
         //地址列表
         address_list = (ListView) findViewById(R.id.address_list);
         address_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (view.getTag().toString().equals(city))
-                {
-                    TextView poiNameView=(TextView)view.findViewById(R.id.item_name);
-                    String poiName=poiNameView.getText().toString();
-                    TextView poiAddressView=(TextView)view.findViewById(R.id.item_address);
-                    String poiAddress=poiAddressView.getText().toString();
-                    Intent intent=getIntent();
+                if (geoCurrCity.equals(city)) {
+                    TextView poiNameView = (TextView) view.findViewById(R.id.item_name);
+                    String poiName = poiNameView.getText().toString();
+                    TextView poiAddressView = (TextView) view.findViewById(R.id.item_address);
+                    String poiAddress = poiAddressView.getText().toString();
+                    Intent intent = getIntent();
                     intent.putExtra("poiName", poiName);
                     MapActivity.this.setResult(0, intent);
                     finish();
-                }
-                else
-                {
+                } else {
                     Toast.makeText(MapActivity.this, "所选地址跟城市不匹配", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -161,25 +152,34 @@ public class MapActivity extends Activity {
                     list.clear();
                 }
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+                    if (adapter != null) {
+                        adapter.notifyDataSetChanged();
+                    }
                     Toast.makeText(MapActivity.this, "该位置无信息", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 mBaiduMap.clear();
-                mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(result.getLocation()));
-                //ReverseGeoCodeResult.AddressComponent addressDetail=result.getAddressDetail();
 
-       /*         Toast.makeText(MapActivity.this, result.getAddressDetail().city + "  "+
-                                result.getAddressDetail().district +"  "+ result.getAddressDetail().street +
-                                result.getAddressDetail().streetNumber,
-                        Toast.LENGTH_LONG).show();*/
-                String currCity=result.getAddressDetail().city;
-                poiInfos = result.getPoiList();
+                mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(result.getLocation()));
+
+                //获取地址详情
+                geoCurrCity = result.getAddressDetail().city;
+                if (result.getPoiList() != null && result.getPoiList().size() > 0) {
+                    poiInfos = result.getPoiList();
+                } else {
+                    if (adapter != null) {
+                        adapter.notifyDataSetChanged();
+                    }
+                    Toast.makeText(MapActivity.this, "该位置无信息", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 for (PoiInfo p : poiInfos) {
                     list.add(new AddressPoiItem(p.name, p.address));
                 }
                 if (adapter == null) {
-                    adapter = new AddressPoiAdapter(MapActivity.this, R.layout.address_list_item, list,currCity);
+                    adapter = new AddressPoiAdapter(MapActivity.this, R.layout.address_list_item, list);
                     handler.sendEmptyMessage(SETADAPTER);
                 } else {
                     adapter.notifyDataSetChanged();

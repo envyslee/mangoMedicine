@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nicholas.fastmedicine.adppter.ProductListAdapter;
+import com.nicholas.fastmedicine.adapter.ProductListAdapter;
 import com.nicholas.fastmedicine.item.CategoryItem;
 
 import java.util.Collections;

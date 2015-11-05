@@ -76,26 +76,5 @@ public class ProvinceActivity extends AppCompatActivity {
         }
     }
 
-    private List<String> ReadProvince() {
-        List<String> province = new ArrayList<>();
-        try {
-            InputStream is = this.getResources().openRawResource(R.raw.province_city);
-            byte[] buffer = new byte[is.available()];
-            is.read(buffer);
-            //中文乱码
-            String json = new String(buffer, "UTF-8");
 
-            JSONArray jsonArray = new JSONArray(json);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject item = (JSONObject) jsonArray.opt(i);
-                province.add(item.getString("province"));
-            }
-            return province;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
-
-    }
 }

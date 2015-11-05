@@ -87,6 +87,10 @@ public class Fragment1 extends BaseFragment implements View.OnClickListener {
                 /*intent=new Intent(getContext(),FloatActivity.class);
                 startActivity(intent);*/
                 break;
+            case R.id.disease_lay:
+                intent=new Intent(getContext(),SelfCheckListActivity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -128,6 +132,10 @@ public class Fragment1 extends BaseFragment implements View.OnClickListener {
         //今日特价
         LinearLayout price_lay=(LinearLayout)view.findViewById(R.id.price_lay);
         price_lay.setOnClickListener(this);
+
+        //常见病症
+        LinearLayout disease_lay=(LinearLayout)view.findViewById(R.id.disease_lay);
+        disease_lay.setOnClickListener(this);
 
         if (Method.isNetAvailable(getContext()))
         {

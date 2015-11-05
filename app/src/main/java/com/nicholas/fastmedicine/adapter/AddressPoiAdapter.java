@@ -1,7 +1,6 @@
-package com.nicholas.fastmedicine.adppter;
+package com.nicholas.fastmedicine.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +18,10 @@ import java.util.List;
 public class AddressPoiAdapter extends ArrayAdapter<AddressPoiItem> {
 
     private Activity activity;
-    private String city;
-    public AddressPoiAdapter(Activity a,int i,List<AddressPoiItem> o,String c)
+    public AddressPoiAdapter(Activity a,int i,List<AddressPoiItem> o)
     {
         super(a,i,o);
         this.activity=a;
-        this.city=c;
     }
 
     @Override
@@ -39,7 +36,6 @@ public class AddressPoiAdapter extends ArrayAdapter<AddressPoiItem> {
         TextView item_address=(TextView)view.findViewById(R.id.item_address);
         item_name.setText(item.getPoiName());
         item_address.setText(item.getPoiAddress());
-        view.setTag(city);
         return view;
     }
 }
