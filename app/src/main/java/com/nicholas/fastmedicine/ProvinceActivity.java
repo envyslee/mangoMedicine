@@ -5,18 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nicholas.fastmedicine.common.Constant;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProvinceActivity extends AppCompatActivity {
 
@@ -39,9 +32,7 @@ public class ProvinceActivity extends AppCompatActivity {
             }
         });
 
-       /*list_province=(ListView)findViewById(R.id.list_province);
-        ArrayAdapter<String> pAdapter=new ArrayAdapter<>(this,R.layout.address_list_item,ReadProvince());
-        list_province.setAdapter(pAdapter);*/
+
         TextView city_et = (TextView) findViewById(R.id.city_et);
         String c = Constant.cityName;
         if (c.isEmpty()) {

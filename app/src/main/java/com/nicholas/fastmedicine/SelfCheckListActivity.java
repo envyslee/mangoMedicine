@@ -35,6 +35,7 @@ public class SelfCheckListActivity extends AppCompatActivity {
         });
 
         final Map<String,String> map=new HashMap<>();
+        //读取json
         try {
             InputStream is = this.getResources().openRawResource(R.raw.self_check);
             byte[] buffer = new byte[is.available()];
