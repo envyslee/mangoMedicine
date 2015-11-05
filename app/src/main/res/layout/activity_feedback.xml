@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.nicholas.fastmedicine.FeedbackActivity">
+    <include layout="@layout/toorbar_layout"></include>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/contentEt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minLines="8"
+            android:background="@drawable/edit_frame"
+            android:inputType="textMultiLine"
+            android:singleLine="false"
+            android:hint="请输入您对本产品的任何意见和建议，我们将不断优化体验"
+            android:gravity="left|top"
+            android:paddingTop="6dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
+            android:textSize="18sp"
+            android:maxLength="120"
+            style="?android:attr/textViewStyle"/>
+        <TextView
+            android:id="@+id/charctorcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/120"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="4dip"
+            android:layout_marginRight="8dip"/>
+    </FrameLayout>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:text="提交"
+        android:layout_marginTop="16dp"
+        android:background="@color/beautyGreen"
+        android:textSize="18sp"/>
+</LinearLayout>

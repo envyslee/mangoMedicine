@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground">
+
+
+    <include layout="@layout/toorbar_layout"></include>
+    <View
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@android:color/darker_gray" />
+
+    <EditText
+        style="?android:attr/textViewStyle"
+        android:id="@+id/userName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:phoneNumber="true"
+        android:maxLength="11"
+        android:typeface="monospace"
+        android:inputType="number"
+        android:background="@android:color/white"
+        android:hint="请输入手机号码"
+        android:paddingBottom="8dip"
+        android:paddingTop="8dip"
+        android:paddingLeft="8dip"
+        android:textSize="18sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="@android:color/darker_gray" />
+    <EditText
+        style="?android:attr/textViewStyle"
+        android:id="@+id/password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:background="@android:color/white"
+        android:hint="请输入密码"
+        android:paddingBottom="8dip"
+        android:paddingTop="8dip"
+        android:paddingLeft="8dip"
+        android:textSize="18sp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:text="@string/login_str"
+        android:layout_marginTop="16dp"
+        android:background="@color/beautyGreen"
+        android:textSize="18sp"/>
+</LinearLayout>

@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "com.nicholas.fastmedicine"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    /*  sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }*/
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':smssdk')
+    compile files('libs/baidumapapi_v3_5_0.jar')
+    compile files('libs/locSDK_6.03.jar')
+
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.githang:iconpagerindicator:1.2'
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    compile 'com.android.support:design:23.1.0'
+    /*compile 'org.litepal.android:core:1.3.0'*/
+
+}
+
+/*android {compileOptions.encoding = "GBK"}*/
+
+/*tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}*/
+
+
+
+
+
