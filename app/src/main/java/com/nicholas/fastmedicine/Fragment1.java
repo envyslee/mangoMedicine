@@ -74,9 +74,15 @@ public class Fragment1 extends BaseFragment implements View.OnClickListener {
             case R.id.locateCityName:
                 if (locateSuccess)
                 {
-                    intent=new Intent(getContext(),MapActivity.class);
+                    /*intent=new Intent(getContext(),MapActivity.class);
                     intent.putExtras(bundle);
-                    startActivity(intent);
+                    startActivity(intent);*/
+                    Toast.makeText(getActivity(),"已定位成功",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    mLocationClient.start();//重新定位
+                    Toast.makeText(getActivity(),"正在定位",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.community_lay:
