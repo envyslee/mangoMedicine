@@ -69,7 +69,7 @@ public class CollectionActivity extends AppCompatActivity {
 
         medicine = (TextView) findViewById(R.id.medicine);
         article = (TextView) findViewById(R.id.artical);
-        medicine.setTextColor(getResources().getColor(R.color.beautyGreen));
+        medicine.setTextColor(Color.BLACK);
         viewPager = (ViewPager) findViewById(R.id.collectionvp);
         final List<Fragment> fragments = new ArrayList<>();
         FragmentArticle fa = new FragmentArticle();
@@ -106,10 +106,10 @@ public class CollectionActivity extends AppCompatActivity {
                 ResetTextColor();
                 switch (position) {
                     case 0:
-                        medicine.setTextColor(getResources().getColor(R.color.beautyGreen));
+                        medicine.setTextColor(Color.BLACK);
                         break;
                     case 1:
-                        article.setTextColor(getResources().getColor(R.color.beautyGreen));
+                        article.setTextColor(Color.BLACK);
                         break;
                 }
             }
@@ -122,7 +122,7 @@ public class CollectionActivity extends AppCompatActivity {
     }
 
     private void ResetTextColor() {
-        medicine.setTextColor(Color.BLACK);
-        article.setTextColor(Color.BLACK);
+        medicine.setTextColor(getResources().getColor(R.color.subTitleBg));
+        article.setTextColor(getResources().getColor(R.color.subTitleBg));
     }
 }
