@@ -3,6 +3,7 @@ package com.nicholas.fastmedicine;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -123,6 +124,7 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
         {
             case R.id.favor_img:
                 Toast.makeText(this,"收藏图标",Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.car_img:
                 Toast.makeText(this,"购物车图标",Toast.LENGTH_SHORT).show();
@@ -183,6 +185,7 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
         set.setDuration(1500);
         set.start();
     }
+
     class AvfAdapter extends BaseAdapter{
 
         private AvfAdapter()

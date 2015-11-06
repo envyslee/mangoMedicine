@@ -1,6 +1,6 @@
 package com.nicholas.fastmedicine;
 
-import android.app.Fragment;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,6 +19,7 @@ public class Fragment3 extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment3, null, false);
         TextView textView=(TextView)view.findViewById(R.id.fragthree);
         textView.setText(new Date().toString());
+
         return view;
     }
 }

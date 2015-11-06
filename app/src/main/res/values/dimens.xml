@@ -12,4 +12,5 @@
     <dimen name="text_padding6">6dip</dimen>
     <dimen name="view_line_height">0.8dip</dimen>
     <dimen name="textSize18">18sp</dimen>
+    <dimen name="textSize22">22sp</dimen>
 </resources>
