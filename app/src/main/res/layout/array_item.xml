@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textColor="@android:color/black"
-    android:textSize="16sp"
-    android:padding="12dip"
+    android:textSize="@dimen/textSize"
+    android:padding="@dimen/text_padding12"
     android:background="@drawable/border">
 
 </TextView>

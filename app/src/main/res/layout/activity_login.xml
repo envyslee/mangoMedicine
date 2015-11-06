@@ -8,7 +8,7 @@
 
     <include layout="@layout/toorbar_layout"></include>
     <View
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/content_marginTop"
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:background="@android:color/darker_gray" />
@@ -30,7 +30,7 @@
         android:textSize="18sp" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.8dip"
+        android:layout_height="@dimen/view_line_height"
         android:background="@android:color/darker_gray" />
     <EditText
         style="?android:attr/textViewStyle"
@@ -46,14 +46,14 @@
         android:textSize="18sp"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.8dip"
+        android:layout_height="@dimen/view_line_height"
         android:background="@android:color/darker_gray" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="48dp"
         android:text="@string/login_str"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/content_marginTop"
         android:background="@color/beautyGreen"
-        android:textSize="18sp"/>
+        android:textSize="@dimen/textSize18"/>
 </LinearLayout>

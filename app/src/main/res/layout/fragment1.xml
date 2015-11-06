@@ -130,7 +130,7 @@
                     android:text="科普文章"
                     android:paddingTop="4dip"/>
             </LinearLayout>
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/community_lay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -145,9 +145,25 @@
                     android:layout_height="wrap_content"
                     android:text="社区"
                     android:paddingTop="4dip"/>
+            </LinearLayout>-->
+            <LinearLayout
+                android:id="@+id/disease_lay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cat_40"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="常见病症"
+                    android:paddingTop="4dip"/>
             </LinearLayout>
         </TableRow>
-        <TableRow android:layout_marginTop="12dip">
+        <!--<TableRow android:layout_marginTop="12dip">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -209,6 +225,7 @@
                     android:text="服药提醒"
                     android:paddingTop="4dip"/>
             </LinearLayout>
-        </TableRow>
+        </TableRow>-->
     </TableLayout>
+
 </LinearLayout>

@@ -85,10 +85,10 @@ public class Fragment1 extends BaseFragment implements View.OnClickListener {
                     Toast.makeText(getActivity(),"正在定位",Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.community_lay:
+           /* case R.id.community_lay:
                 intent=new Intent(getContext(),CommunityActivity.class);
                 startActivity(intent);
-                break;
+                break;*/
             case R.id.price_lay:
                 /*intent=new Intent(getContext(),FloatActivity.class);
                 startActivity(intent);*/
@@ -132,8 +132,8 @@ public class Fragment1 extends BaseFragment implements View.OnClickListener {
         cityTv.setOnClickListener(this);
 
         //进入社区
-        LinearLayout community_lay=(LinearLayout)view.findViewById(R.id.community_lay);
-        community_lay.setOnClickListener(this);
+       /* LinearLayout community_lay=(LinearLayout)view.findViewById(R.id.community_lay);
+        community_lay.setOnClickListener(this);*/
 
         //今日特价
         LinearLayout price_lay=(LinearLayout)view.findViewById(R.id.price_lay);

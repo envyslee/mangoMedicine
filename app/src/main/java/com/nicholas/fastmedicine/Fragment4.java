@@ -27,6 +27,9 @@ public class Fragment4 extends  BaseFragment implements View.OnClickListener {
         //意见反馈
         LinearLayout feedbackly=(LinearLayout)view.findViewById(R.id.feedbackly);
         feedbackly.setOnClickListener(this);
+        //更多
+        LinearLayout morely=(LinearLayout)view.findViewById(R.id.morely);
+        morely.setOnClickListener(this);
 
         return view;
     }
@@ -47,6 +50,10 @@ public class Fragment4 extends  BaseFragment implements View.OnClickListener {
                 break;
             case R.id.feedbackly:
                 intent=new Intent(getActivity(),FeedbackActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.morely:
+                intent=new Intent(getActivity(),MoreActivity.class);
                 startActivity(intent);
                 break;
             default:
