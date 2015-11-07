@@ -9,16 +9,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nicholas.fastmedicine.adapter.ArrayColorAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SelfCheckListActivity extends AppCompatActivity {
 
-    private int index;//记录上一次被选中的area item
+
+    private List<String> diseaseData=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,23 +59,29 @@ public class SelfCheckListActivity extends AppCompatActivity {
         }
         final ListView areaList=(ListView)findViewById(R.id.area);
         final ListView diseaseList=(ListView)findViewById(R.id.disease);
-        ArrayAdapter areaAdapter=new ArrayAdapter(this,R.layout.array_item,map.keySet().toArray());
 
+        final ArrayColorAdapter areaAdapter=new ArrayColorAdapter(this,new ArrayList<>(map.keySet()));
         areaList.setAdapter(areaAdapter);
+        for (String i:map.get("头面部").split("\\|"))
+        {
+            diseaseData.add(i);
+        }
+        final ArrayAdapter diseaseAdapter=new ArrayAdapter(SelfCheckListActivity.this,R.layout.array_item, diseaseData);
+        diseaseList.setAdapter(diseaseAdapter);
+
         areaList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView v=(TextView)parent.getChildAt(index);
-                v.setTextColor(getResources().getColor(R.color.smssdk_black));
-                index=position;
-                TextView tv=(TextView)view;
-                tv.setTextColor(getResources().getColor(R.color.beautyGreen));
-                String area=tv.getText().toString();
-                String diseaseStr=map.get(area);
-                String[] diseaseData=  diseaseStr.split("\\|");
-                ArrayAdapter diseaseAdapter=new ArrayAdapter(SelfCheckListActivity.this,R.layout.array_item,diseaseData);
-                diseaseList.setAdapter(diseaseAdapter);
-
+                areaAdapter.CurrentPosition(position);
+                areaAdapter.notifyDataSetChanged();
+                TextView tv = (TextView) view;
+                String area = tv.getText().toString();
+                String diseaseStr = map.get(area);
+                diseaseData.clear();
+                for (String item : diseaseStr.split("\\|")) {
+                    diseaseData.add(item);
+                }
+                diseaseAdapter.notifyDataSetChanged();
             }
         });
 
