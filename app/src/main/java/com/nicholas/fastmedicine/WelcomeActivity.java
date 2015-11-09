@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcelable;
@@ -18,6 +19,8 @@ import android.view.ViewTreeObserver;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import org.litepal.tablemanager.Connector;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,6 +42,8 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        //建表
+        SQLiteDatabase db = Connector.getDatabase();
 
         //Display the current version number
         PackageManager pm = getPackageManager();

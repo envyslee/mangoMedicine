@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nicholas.fastmedicine.adapter.ArrayColorAdapter;
 
@@ -16,7 +17,6 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +55,9 @@ public class SelfCheckListActivity extends AppCompatActivity {
                 map.put(item.getString("area"),item.getString("disease"));
             }
         } catch (Exception e) {
+            Toast.makeText(this,"数据读取错误",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            return;
         }
         final ListView areaList=(ListView)findViewById(R.id.area);
         final ListView diseaseList=(ListView)findViewById(R.id.disease);

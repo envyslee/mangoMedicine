@@ -3,14 +3,11 @@ package com.nicholas.fastmedicine;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +24,7 @@ public class CollectionActivity extends AppCompatActivity {
     private TextView article;
     private View tabline;
     private int screen1_2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +43,17 @@ public class CollectionActivity extends AppCompatActivity {
 
         initTabLine();
         initViewPager();
+
+
     }
 
 
+
+
+
+    /**
+     * 初始化ViewPager下的线
+     */
     private void initTabLine() {
         tabline = findViewById(R.id.tabline);
         //取屏幕1/2
@@ -61,6 +67,9 @@ public class CollectionActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *初始化ViewPager
+     */
     private void initViewPager() {
   /*      PagerTabStrip tab=(PagerTabStrip)findViewById(R.id.tab);
         tab.setTextColor(Color.RED);

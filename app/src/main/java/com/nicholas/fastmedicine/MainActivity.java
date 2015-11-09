@@ -7,14 +7,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.githang.viewpagerindicator.IconPagerAdapter;
 import com.githang.viewpagerindicator.IconTabPageIndicator;
 
@@ -22,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.onekeyshare.OnekeyShare;
 
 
 public class MainActivity extends FragmentActivity {

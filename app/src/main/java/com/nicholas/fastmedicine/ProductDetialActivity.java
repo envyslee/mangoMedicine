@@ -3,7 +3,6 @@ package com.nicholas.fastmedicine;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.nicholas.fastmedicine.common.BitmapCache;
 
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import litepalDB.CollectionItem;
 
 public class ProductDetialActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,6 +37,7 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
     private float oldTouchValue;
     private AdapterViewFlipper flipper;
     private ImageView car_img;
+    private ImageView favor_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,7 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
         desc_tv.setText("清热解毒，用于外感风所导致的感冒，症见发热、咳嗽、咽痛");
 
         //收藏
-        ImageView favor_img=(ImageView)findViewById(R.id.favor_img);
+        favor_img=(ImageView)findViewById(R.id.favor_img);
         favor_img.setOnClickListener(this);
         //购物车
         car_img=(ImageView)findViewById(R.id.car_img);
@@ -123,8 +124,12 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
         switch (v.getId())
         {
             case R.id.favor_img:
-                Toast.makeText(this,"收藏图标",Toast.LENGTH_SHORT).show();
+                //检查数据库中是否已存在
 
+                CollectionItem item=new CollectionItem("001","秋季养生","吃胡萝卜吃胡萝卜吃胡萝卜",0);
+                item.save();
+                Toast.makeText(ProductDetialActivity.this,"已收藏",Toast.LENGTH_SHORT).show();
+                favor_img.setEnabled(false);
                 break;
             case R.id.car_img:
                 Toast.makeText(this,"购物车图标",Toast.LENGTH_SHORT).show();
@@ -136,6 +141,8 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
+
+
 
     /**
      * 社会化分享
