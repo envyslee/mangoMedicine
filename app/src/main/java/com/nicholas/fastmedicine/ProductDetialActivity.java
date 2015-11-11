@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -24,6 +25,10 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.nicholas.fastmedicine.common.BitmapCache;
 
+import com.squareup.okhttp.Request;
+import com.zhy.http.okhttp.callback.ResultCallback;
+import com.zhy.http.okhttp.request.OkHttpRequest;
+
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import litepalDB.CollectionItem;
 
@@ -38,6 +43,7 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
     private AdapterViewFlipper flipper;
     private ImageView car_img;
     private ImageView favor_img;
+    private TextView desc_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +104,7 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
         TextView spec_tv=(TextView)findViewById(R.id.spec_tv);
         spec_tv.setText("10ml/支x10支/盒");
         //描述
-        TextView desc_tv=(TextView)findViewById(R.id.desc_tv);
+        desc_tv=(TextView)findViewById(R.id.desc_tv);
         desc_tv.setText("清热解毒，用于外感风所导致的感冒，症见发热、咳嗽、咽痛");
 
         //收藏
@@ -112,6 +118,30 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
         Button addtocar_btn=(Button)findViewById(R.id.addtocar_btn);
         addtocar_btn.setOnClickListener(this);
     }
+
+
+    private void GetData()
+    {
+          String url = "https://raw.githubusercontent.com/hongyangAndroid/okhttp-utils/master/user.gson";
+          new OkHttpRequest.Builder().url(url)
+                .get(new ResultCallback<String>() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+                        Log.e("TAG", "onError , e = " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        desc_tv.setText(response);
+                    }
+
+
+                });
+
+
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,6 +165,7 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
                 Toast.makeText(this,"购物车图标",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.addtocar_btn:
+                GetData();
                 CarAnimator();
                 break;
             default:

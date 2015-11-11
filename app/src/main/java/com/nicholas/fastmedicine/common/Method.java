@@ -14,7 +14,7 @@ public  class Method {
      * 手机号校验
      */
     public static boolean isMobileNum(String mobiles) {
-        String telRegex = "[1][34578]\\d{9}";//"[1]"����1λΪ����1��"[358]"���ڶ�λ����Ϊ3��5��8�е�һ����"\\d{9}"�������ǿ�����0��9�����֣���9λ��
+        String telRegex = "[1][34578]\\d{9}";
         if (TextUtils.isEmpty(mobiles))
             return false;
         else
