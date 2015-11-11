@@ -1,6 +1,7 @@
 package com.nicholas.fastmedicine;
 
 import android.app.Activity;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,15 +22,15 @@ import android.widget.Toast;
 public class SearchActivity extends AppCompatActivity {
 
 
-    private ImageView ivDeleteText;
-    private EditText etSearch;
-    private Button btnSearch;
+
 
     private TextView keyword;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search,menu);
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+/*     MenuItem   delItem=  menu.findItem(R.id.delete_btn);
+        delItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);*/
         return true;
     }
 
@@ -66,49 +67,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
-       /* ivDeleteText = (ImageView) findViewById(R.id.ivDeleteText);
-        etSearch = (EditText) findViewById(R.id.etSearch);
-        btnSearch=(Button)findViewById(R.id.btnSearch);
-
-        ivDeleteText.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                etSearch.setText("");
-            }
-        });
-
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() == 0) {
-                    ivDeleteText.setVisibility(View.GONE);
-                } else {
-                    ivDeleteText.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String keywords=etSearch.getText().toString();
-                if (!keywords.isEmpty())
-                {
-                    Toast.makeText(SearchActivity.this,keywords,Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
 
     }
 }

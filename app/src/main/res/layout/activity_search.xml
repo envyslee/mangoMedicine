@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.AppBarLayout
@@ -20,8 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入药品或药店名称"
-                style="?android:attr/textViewStyle"
-                android:background="@null"/>
+               />
 
         </android.support.v7.widget.Toolbar>
 
@@ -35,7 +35,8 @@
             android:background="@drawable/top_background"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
-
+ style="?android:attr/textViewStyle"
+                android:background="@null"
             <Button
                 android:id="@+id/btnSearch"
                 android:layout_width="wrap_content"

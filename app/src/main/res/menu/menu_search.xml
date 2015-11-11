@@ -4,10 +4,10 @@
     <item android:id="@+id/delete_btn"
         android:icon="@drawable/delete"
         android:title="清空"
-        app:showAsAction="always"></item>
+        app:showAsAction="never"/>
     <item
         android:id="@+id/search_btn"
         android:icon="@drawable/actionbar_search_icon"
         android:title="搜索"
-        app:showAsAction="always"></item>
+        app:showAsAction="always"/>
 </menu>
