@@ -25,9 +25,13 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.nicholas.fastmedicine.common.BitmapCache;
 
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
 import com.zhy.http.okhttp.request.OkHttpRequest;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import litepalDB.CollectionItem;
@@ -137,8 +141,27 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
 
 
                 });
+    }
 
+    private void PostData(String url)
+    {
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        builder.add("username","bic");
+        builder.add("password", "123456");
+        Map<String ,String > map=new HashMap<>();
+        map.put("username","bic");
+        map.put("password", "123456");
+        new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
 
+            }
+
+            @Override
+            public void onResponse(Object o) {
+
+            }
+        });
     }
 
 
