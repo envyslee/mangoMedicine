@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.nicholas.fastmedicine.adapter.ImageAdapter;
 import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.common.Method;
 
@@ -90,8 +92,8 @@ public class Fragment1 extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;*/
             case R.id.price_lay:
-                /*intent=new Intent(getContext(),FloatActivity.class);
-                startActivity(intent);*/
+                intent=new Intent(getContext(),WebActivity.class);
+                startActivity(intent);
                 break;
             case R.id.disease_lay:
                 intent=new Intent(getContext(),SelfCheckListActivity.class);

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.nicholas.fastmedicine;
+package com.nicholas.fastmedicine.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +24,9 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.nicholas.fastmedicine.DetailActivity;
+import com.nicholas.fastmedicine.R;
 
 public class ImageAdapter extends BaseAdapter {
 
