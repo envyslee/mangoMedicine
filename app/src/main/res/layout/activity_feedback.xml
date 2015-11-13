@@ -4,11 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nicholas.fastmedicine.FeedbackActivity">
+    tools:context="com.nicholas.fastmedicine.FeedbackActivity"
+    android:background="@color/pageBackground">
+
     <include layout="@layout/toorbar_layout"></include>
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_marginTop">
         <EditText
             android:id="@+id/contentEt"
             android:layout_width="fill_parent"
@@ -40,5 +43,7 @@
         android:text="提交"
         android:layout_marginTop="16dp"
         android:background="@color/beautyGreen"
-        android:textSize="18sp"/>
+        android:textSize="@dimen/textSize18"
+        android:layout_marginRight="@dimen/text_padding12"
+        android:layout_marginLeft="@dimen/text_padding12"/>
 </LinearLayout>

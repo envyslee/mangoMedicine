@@ -6,7 +6,9 @@
 
     <item android:id="@+id/register_activity"
         android:title="注册"
+        android:icon="@drawable/icon_gcoding"
         android:orderInCategory="80"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        />
 
 </menu>

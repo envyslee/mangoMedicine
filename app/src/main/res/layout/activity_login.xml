@@ -55,5 +55,7 @@
         android:text="@string/login_str"
         android:layout_marginTop="@dimen/content_marginTop"
         android:background="@color/beautyGreen"
-        android:textSize="@dimen/textSize18"/>
+        android:textSize="@dimen/textSize18"
+        android:layout_marginRight="@dimen/text_padding12"
+        android:layout_marginLeft="@dimen/text_padding12"/>
 </LinearLayout>

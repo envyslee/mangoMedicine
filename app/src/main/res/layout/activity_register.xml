@@ -112,14 +112,10 @@
         android:layout_marginTop="@dimen/content_marginTop"
         android:background="@color/beautyGreen"
         android:text="注册"
-        android:textSize="@dimen/textSize18"/>
+        android:textSize="@dimen/textSize18"
+        android:layout_marginRight="@dimen/text_padding12"
+        android:layout_marginLeft="@dimen/text_padding12"/>
 
 
- <!--   <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timer_btn"
-        android:text="getCode"
-        android:layout_marginTop="16dp"/>-->
 
 </LinearLayout>

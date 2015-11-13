@@ -2,6 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbarColor">
+
+        <TextView
+            android:id="@+id/car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_padding12"
+            android:text="购物车"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/textSize24"
+            android:layout_marginTop="@dimen/text_padding8"
+            android:layout_marginBottom="@dimen/text_padding8"/>
+        <View
+            android:layout_below="@id/car"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewheight06"
+            android:background="@android:color/darker_gray" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/fragthree"
         android:layout_width="wrap_content"
