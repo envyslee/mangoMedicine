@@ -31,5 +31,7 @@
         android:text="退出当前账号"
         android:background="@color/beautyGreen"
         android:layout_marginTop="@dimen/content_marginTop"
-        android:textSize="@dimen/textSize18"/>
+        android:textSize="@dimen/textSize18"
+        android:layout_marginRight="@dimen/text_padding12"
+        android:layout_marginLeft="@dimen/text_padding12"/>
 </LinearLayout>

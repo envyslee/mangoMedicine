@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:background="@color/pageBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.AppBarLayout
@@ -21,12 +22,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入药品或药店名称"
-               />
+                android:textColor="@color/beautyTextColor"
+                android:textColorHint="@color/beautyTextColor"/>
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/viewheight06"
+        android:background="@android:color/darker_gray" />
         <!--<RelativeLayout
             android:id="@+id/top"
             android:layout_width="fill_parent"

@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +25,12 @@ import com.baidu.location.LocationClientOption;
 import com.nicholas.fastmedicine.adapter.ImageAdapter;
 import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.common.Method;
+import com.nicholas.fastmedicine.controller.MyScrollView;
 
 import org.taptwo.android.widget.CircleFlowIndicator;
 import org.taptwo.android.widget.ViewFlow;
+
+import java.util.logging.Logger;
 
 /**
  * Created by eggri_000 on 2015/10/13.
@@ -36,6 +41,7 @@ public class Fragment1 extends BaseFragment implements View.OnClickListener {
     private ViewFlow viewFlow;
     private TextView cityTv;
     private Intent intent;
+    //private RelativeLayout toolbar_ly;
 
     //百度定位
     public LocationClient mLocationClient = null;
@@ -144,6 +150,22 @@ public class Fragment1 extends BaseFragment implements View.OnClickListener {
         //常见病症
         LinearLayout disease_lay=(LinearLayout)view.findViewById(R.id.disease_lay);
         disease_lay.setOnClickListener(this);
+
+        //toobar布局
+       /* toolbar_ly=(RelativeLayout)view.findViewById(R.id.toolbar_ly);
+
+        //scrollview监听
+        MyScrollView home_scroll=(MyScrollView)view.findViewById(R.id.home_scroll);
+        home_scroll.setOnMyScrollListener(new MyScrollView.OnScrollListener() {
+            @Override
+            public void onScroll(int scrollY) {
+                if (scrollY < 100) {
+                    toolbar_ly.setAlpha((float) scrollY/100);
+                    Log.e("TAG", "Alpha : " + (float) scrollY/100);
+                }
+            }
+        });*/
+
 
         if (Method.isNetAvailable(getContext()))
         {

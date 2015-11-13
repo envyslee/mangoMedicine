@@ -30,7 +30,7 @@ public class CollectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
-/*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("收藏");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backpng);
@@ -39,7 +39,7 @@ public class CollectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
             }
-        });*/
+        });
 
         initTabLine();
         initViewPager();

@@ -14,9 +14,10 @@
             android:layout_marginLeft="@dimen/text_padding12"
             android:text="购物车"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/textSize24"
-            android:layout_marginTop="@dimen/text_padding8"
-            android:layout_marginBottom="@dimen/text_padding8"/>
+            android:textSize="@dimen/textSize22"
+            android:layout_marginTop="@dimen/text_padding10"
+            android:layout_marginBottom="@dimen/text_padding10"
+            android:textColor="@color/beautyTextColor"/>
         <View
             android:layout_below="@id/car"
             android:layout_width="match_parent"

@@ -9,7 +9,9 @@
     <dimen name="content_marginTop">16dip</dimen>
     <dimen name="textSize">17sp</dimen>
     <dimen name="text_padding12">12dip</dimen>
+    <dimen name="text_padding10">10dip</dimen>
     <dimen name="text_padding6">6dip</dimen>
+    <dimen name="text_padding4">4dip</dimen>
     <dimen name="text_padding8">8dip</dimen>
     <dimen name="view_line_height">0.8dip</dimen>
     <dimen name="textSize18">18sp</dimen>

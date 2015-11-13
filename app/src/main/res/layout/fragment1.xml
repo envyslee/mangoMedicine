@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -6,248 +7,197 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/toolbar_ly"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/beautyGreen">
+        android:background="@color/beautyGreen" >
 
         <TextView
             android:id="@+id/locateCityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/text_padding12"
             android:text="城市"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/textSize24" />
-        <!--    <ImageView
-                android:id="@+id/searchBanner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/search_frame"
-                android:layout_marginLeft="12dip"
-                android:layout_marginRight="12dip"
-                android:layout_marginTop="6dip"
-                android:layout_marginBottom="6dip"/>-->
+            android:textSize="@dimen/textSize22"
+            android:textColor="@color/beautyTextColor"/>
+
         <ImageView
             android:id="@+id/searchBanner"
             android:layout_width="48dip"
             android:layout_height="48dip"
             android:layout_alignParentRight="true"
-            android:src="@drawable/actionbar_search_icon"
+            android:layout_marginBottom="@dimen/text_padding4"
             android:layout_marginRight="48dip"
-            android:layout_marginTop="@dimen/text_padding6"
-            android:layout_marginBottom="@dimen/text_padding6"/>
+            android:layout_marginTop="@dimen/text_padding4"
+            android:src="@drawable/actionbar_search_icon" />
 
         <ImageView
             android:id="@+id/servicePhone"
             android:layout_width="48dip"
             android:layout_height="46dip"
+            android:layout_alignParentRight="true"
             android:layout_gravity="center_vertical|right"
-            android:background="@drawable/telephone"
-            android:layout_alignParentRight="true"/>
+            android:background="@drawable/telephone" />
     </RelativeLayout>
 
-
-    <FrameLayout
-        android:id="@+id/framelayout"
-        android:layout_width="fill_parent"
-        android:layout_height="150dip"
-        android:background="#ffffff">
-
-        <org.taptwo.android.widget.ViewFlow
-            android:id="@+id/viewflow"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"></org.taptwo.android.widget.ViewFlow>
+    <com.nicholas.fastmedicine.controller.MyScrollView
+        android:id="@+id/home_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:padding="3dip">
-            <!--android:background="#88252525"--><!--写在上面设置点后面的横条背景色-->
-            <org.taptwo.android.widget.CircleFlowIndicator
-                android:id="@+id/viewflowindic"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/framelayout"
+                android:layout_width="fill_parent"
+                android:layout_height="150dip"
+                android:background="#ffffff">
+
+                <org.taptwo.android.widget.ViewFlow
+                    android:id="@+id/viewflow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:padding="3dip">
+                    <!--android:background="#88252525"--><!--写在上面设置点后面的横条背景色-->
+                    <org.taptwo.android.widget.CircleFlowIndicator
+                        android:id="@+id/viewflowindic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:padding="2dip"
+                        app:activeColor="@color/beautyGreen"
+                        app:activeType="fill"
+                        app:circleSeparation="20dip"
+                        app:inactiveColor="@android:color/white"
+                        app:inactiveType="fill"
+                        app:radius="4dip" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:padding="2dip"
-                app:activeColor="@color/beautyGreen"
-                app:activeType="fill"
-                app:circleSeparation="20dip"
-                app:inactiveColor="@android:color/white"
-                app:inactiveType="fill"
-                app:radius="4dip" />
+                android:background="@android:color/white"
+                android:paddingBottom="12dip"
+                android:paddingTop="12dip"
+                android:stretchColumns="0,1,2,3">
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:id="@+id/price_lay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/cat_40" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dip"
+                            android:text="今日特价" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/shake_lay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/cat_40" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dip"
+                            android:text="摇一摇" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/cat_40" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dip"
+                            android:text="科普文章" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/disease_lay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/cat_40" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dip"
+                            android:text="常见病症" />
+                    </LinearLayout>
+                </TableRow>
+
+            </TableLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="150dip"
+                android:layout_marginTop="@dimen/text_padding6"
+                android:layout_marginRight="@dimen/text_padding4"
+                android:layout_marginLeft="@dimen/text_padding4"
+                android:scaleType="fitXY"
+                android:src="@drawable/test3" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="150dip"
+                android:layout_marginTop="@dimen/text_padding6"
+                android:layout_marginRight="@dimen/text_padding4"
+                android:layout_marginLeft="@dimen/text_padding4"
+                android:scaleType="fitXY"
+                android:src="@drawable/test3" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="150dip"
+                android:layout_marginTop="@dimen/text_padding6"
+                android:layout_marginRight="@dimen/text_padding4"
+                android:layout_marginLeft="@dimen/text_padding4"
+                android:scaleType="fitXY"
+                android:src="@drawable/test3" />
         </LinearLayout>
-    </FrameLayout>
-
-    <!--<ViewFlipper
-        android:id="@+id/myflipper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></ViewFlipper>-->
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:paddingBottom="12dip"
-        android:paddingTop="12dip"
-        android:stretchColumns="0,1,2,3">
-
-        <TableRow>
-
-            <LinearLayout
-                android:id="@+id/price_lay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cat_40" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dip"
-                    android:text="今日特价" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/shake_lay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cat_40" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dip"
-                    android:text="摇一摇" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cat_40" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dip"
-                    android:text="科普文章" />
-            </LinearLayout>
-            <!--<LinearLayout
-                android:id="@+id/community_lay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cat_40"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="社区"
-                    android:paddingTop="4dip"/>
-            </LinearLayout>-->
-            <LinearLayout
-                android:id="@+id/disease_lay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cat_40" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dip"
-                    android:text="常见病症" />
-            </LinearLayout>
-        </TableRow>
-        <!--<TableRow android:layout_marginTop="12dip">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cat_40" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="健康测评"
-                    android:paddingTop="4dip"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/disease_lay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cat_40"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="常见病症"
-                    android:paddingTop="4dip"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cat_40"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="疫苗"
-                    android:paddingTop="4dip"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/cat_40"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="服药提醒"
-                    android:paddingTop="4dip"/>
-            </LinearLayout>
-        </TableRow>-->
-    </TableLayout>
-
+    </com.nicholas.fastmedicine.controller.MyScrollView>
 </LinearLayout>
