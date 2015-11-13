@@ -61,9 +61,11 @@ public class ProvinceActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==0&&resultCode==0)
         {
-            Bundle bundle=data.getExtras();
-            String poiName=bundle.getString("poiName");
-            address_et.setText(poiName);
+            if (data!=null){
+                Bundle bundle=data.getExtras();
+                String poiName=bundle.getString("poiName");
+                address_et.setText(poiName);
+            }
         }
     }
 
