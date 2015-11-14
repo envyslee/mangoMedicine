@@ -55,9 +55,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.delete_btn:
+                    /*case R.id.delete_btn:
                         keyword.setText("");
-                        break;
+                        break;*/
                     case R.id.search_btn:
                         Toast.makeText(SearchActivity.this, keyword.getText(), Toast.LENGTH_SHORT).show();
                         break;
