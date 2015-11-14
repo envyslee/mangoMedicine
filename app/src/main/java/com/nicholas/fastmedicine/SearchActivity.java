@@ -60,7 +60,7 @@ public class SearchActivity extends AppCompatActivity {
                         break;*/
                     case R.id.search_btn:
                         Toast.makeText(SearchActivity.this, keyword.getText(), Toast.LENGTH_SHORT).show();
-                        break;
+                    break;
                 }
 
                 return true;
