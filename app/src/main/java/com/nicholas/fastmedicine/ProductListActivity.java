@@ -13,17 +13,28 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nicholas.fastmedicine.adapter.ProductListAdapter;
 import com.nicholas.fastmedicine.item.CategoryItem;
+import com.nicholas.fastmedicine.item.ProductListItem;
+import com.nicholas.fastmedicine.item.WsResponse;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.Request;
+import com.zhy.http.okhttp.callback.ResultCallback;
+import com.zhy.http.okhttp.request.OkHttpRequest;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductListActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private List<CategoryItem> categoryItems;
+    //private List<CategoryItem> categoryItems;
     private ProductListAdapter productListAdapter;
     private boolean sortbyprice=false;
     private boolean sortbysales=false;
@@ -31,6 +42,7 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
     private boolean haveData=true;
     private RelativeLayout loading_lay;
     private ListView product_list;
+    private List<ProductListItem> productList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +50,8 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_product_list);
         Bundle bundle = getIntent().getExtras();
         String title = bundle.getString("title");
+        Integer categoryId=(int)bundle.getDouble("categoryId");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
@@ -48,17 +62,46 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
                 finish();
             }
         });
-
-
-
         loading_lay=(RelativeLayout)findViewById(R.id.loading_lay);
         loading_lay.setVisibility(View.VISIBLE);
 
-        categoryItems=Images.Get_Product(index);
-        productListAdapter = new ProductListAdapter(this, categoryItems);
         product_list = (ListView) findViewById(R.id.product_list);
-        product_list.setAdapter(productListAdapter);
-        loading_lay.setVisibility(View.INVISIBLE);
+
+
+        String url="http://10.151.11.103:8080/fastMedicine/medicine/postProductList";
+        Map<String ,String > map=new HashMap<>();
+        map.put("categoryId", categoryId.toString());
+        new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Toast.makeText(ProductListActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(WsResponse response) {
+                if (response.getResCode().equals("0")) {
+                    List<Map<String, Object>> s = (List) response.getContent();
+                    int size = s.size();
+                    for (int i = 0; i < size; i++) {
+                        ProductListItem item = new ProductListItem();
+                        item.setProductName(s.get(i).get("productName").toString());
+                        item.setProductDesc(s.get(i).get("productDesc").toString());
+                        item.setProductSpec(s.get(i).get("productSpec").toString());
+                        item.setProductSale((Double) s.get(i).get("productSale"));
+                        item.setProductPrice((Double) s.get(i).get("productPrice"));
+                        productList.add(item);
+                    }
+                    productListAdapter = new ProductListAdapter(ProductListActivity.this, productList);
+                    product_list.setAdapter(productListAdapter);
+                    loading_lay.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
+
+        //categoryItems=Images.Get_Product(index);
+
 
         product_list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -106,7 +149,7 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
             index++;
             List<CategoryItem> tmpItems = Images.Get_Product(index);
             if (tmpItems.size() > 0) {
-                categoryItems.addAll(tmpItems);
+                //categoryItems.addAll(tmpItems);
                 productListAdapter.notifyDataSetChanged();
             } else {
                 haveData = false;
@@ -123,17 +166,17 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
             case R.id.sort_sale:
                 if (!sortbysales)
                 {
-                    Collections.sort(categoryItems, new Comparator<CategoryItem>() {
+                    Collections.sort(productList, new Comparator<ProductListItem>() {
                         @Override
-                        public int compare(CategoryItem lhs, CategoryItem rhs) {
-                            return lhs.getSales().compareTo(rhs.getSales());
+                        public int compare(ProductListItem lhs, ProductListItem rhs) {
+                            return lhs.getProductSale().compareTo(rhs.getProductSale());
                         }
                     });
                     sortbysales=true;
                 }
                 else
                 {
-                    Collections.reverse(categoryItems);
+                    Collections.reverse(productList);
                 }
                 productListAdapter.notifyDataSetChanged();
                 break;
@@ -141,17 +184,17 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
             case R.id.sort_price:
                 if (!sortbyprice)
                 {
-                    Collections.sort(categoryItems, new Comparator<CategoryItem>() {
+                    Collections.sort(productList, new Comparator<ProductListItem>() {
                         @Override
-                        public int compare(CategoryItem lhs, CategoryItem rhs) {
-                            return  lhs.getPrice().compareTo(rhs.getPrice());
+                        public int compare(ProductListItem lhs, ProductListItem rhs) {
+                            return  lhs.getProductPrice().compareTo(rhs.getProductPrice());
                         }
                     });
                     sortbyprice=true;
                 }
                 else
                 {
-                    Collections.reverse(categoryItems);
+                    Collections.reverse(productList);
                 }
 
                 //productListAdapter.setData(categoryItems);

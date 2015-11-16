@@ -5,6 +5,8 @@ package com.nicholas.fastmedicine.item;
  */
 public class CategoryItem {
 
+
+
     public CategoryItem(String content, String subtitle,String imgUrl,String price,Integer  sales,String spec)
     {
         this.title=content;

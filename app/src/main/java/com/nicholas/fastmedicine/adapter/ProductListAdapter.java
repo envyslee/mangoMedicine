@@ -14,6 +14,7 @@ import com.android.volley.toolbox.Volley;
 import com.nicholas.fastmedicine.common.BitmapCache;
 import com.nicholas.fastmedicine.item.CategoryItem;
 import com.nicholas.fastmedicine.R;
+import com.nicholas.fastmedicine.item.ProductListItem;
 
 import java.util.List;
 
@@ -23,10 +24,10 @@ import java.util.List;
 public class ProductListAdapter extends BaseAdapter {
 
     private Activity mActivity;
-    private List<CategoryItem> items;
+    private List<ProductListItem> items;
     private ImageLoader imageLoader;
 
-    public ProductListAdapter(Activity activity, List<CategoryItem> objects)
+    public ProductListAdapter(Activity activity, List<ProductListItem> objects)
     {
         this.mActivity=activity;
         this.items=objects;
@@ -56,7 +57,7 @@ public class ProductListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CategoryItem item=items.get(position);
+        ProductListItem item=items.get(position);
         View view;
         if (convertView==null)
         {
@@ -74,12 +75,12 @@ public class ProductListAdapter extends BaseAdapter {
         TextView specTV=(TextView)view.findViewById(R.id.list_spec);
         image.setDefaultImageResId(R.drawable.head);
         image.setErrorImageResId(R.drawable.head);
-        image.setImageUrl(item.imgUrl, imageLoader);
-        titleTV.setText(item.getTitle());
-        subtitleTV.setText(item.getSubtitle());
-        priceTV.setText("￥"+item.getPrice());
-        salesTV.setText("销量:"+item.getSales());
-        specTV.setText("规格:"+item.getSpec());
+        image.setImageUrl(item.getIconUrl(), imageLoader);
+        titleTV.setText(item.getProductName());
+        subtitleTV.setText(item.getProductDesc());
+        priceTV.setText("￥"+item.getProductPrice());
+        salesTV.setText("销量:"+item.getProductSale());
+        specTV.setText("规格:"+item.getProductSpec());
         return view;
     }
 }

@@ -14,6 +14,8 @@ import com.android.volley.toolbox.Volley;
 import com.nicholas.fastmedicine.common.BitmapCache;
 import com.nicholas.fastmedicine.item.CategoryItem;
 import com.nicholas.fastmedicine.R;
+import com.nicholas.fastmedicine.item.ProductCategory;
+import com.nicholas.fastmedicine.item.ProductListItem;
 
 import java.util.List;
 
@@ -23,11 +25,11 @@ import java.util.List;
 public class CategoryListAdapter extends BaseAdapter {
 
     ImageLoader mImageLoader;
-    List<CategoryItem> categoryItems;
+    List<ProductCategory> categoryItems;
 
     private Activity mActivity;
 
-    public CategoryListAdapter(Activity mActivity, List<CategoryItem> objects) {
+    public CategoryListAdapter(Activity mActivity, List<ProductCategory> objects) {
         this.categoryItems =objects;
         this.mActivity=mActivity;
         RequestQueue queue = Volley.newRequestQueue(mActivity);
@@ -49,10 +51,14 @@ public class CategoryListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CategoryItem item= categoryItems.get(position);
-        String url=item.getImgUrl();
+        ProductCategory item= categoryItems.get(position);
+        String url=item.getIconUrl();
+        String itemTitle=item.getCategoryName();
+        String itemSubtitle=item.getCategoryDesc();
+        Double id=item.getId();
+      /*  String url=item.getImgUrl();
         String itemTitle=item.getTitle();
-        String itemSubtitle=item.getSubtitle();
+        String itemSubtitle=item.getSubtitle();*/
 
         View view;
         if (convertView == null) {
@@ -60,6 +66,7 @@ public class CategoryListAdapter extends BaseAdapter {
         } else {
             view = convertView;
         }
+        view.setTag(id);
         NetworkImageView image = (NetworkImageView) view.findViewById(R.id.image);
         TextView list_titleTV=(TextView)view.findViewById(R.id.list_title);
         TextView list_subtitleTV=(TextView)view.findViewById(R.id.list_subtitle);
