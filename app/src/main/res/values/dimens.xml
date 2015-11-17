@@ -14,10 +14,13 @@
     <dimen name="text_padding4">4dip</dimen>
     <dimen name="text_padding8">8dip</dimen>
     <dimen name="view_line_height">0.8dip</dimen>
+    <dimen name="img_size">70dip</dimen>
+    <dimen name="img_size6">60dip</dimen>
     <dimen name="textSize12">12sp</dimen>
     <dimen name="textSize14">14sp</dimen>
     <dimen name="textSize16">16sp</dimen>
     <dimen name="textSize18">18sp</dimen>
+    <dimen name="textSize20">20sp</dimen>
     <dimen name="textSize22">22sp</dimen>
     <dimen name="textSize24">24sp</dimen>
     <dimen name="viewheight06">0.6dip</dimen>

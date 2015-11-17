@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/text_padding12"
             android:text="城市"
-            android:textSize="@dimen/textSize22"
+            android:textSize="@dimen/textSize20"
             android:textColor="@color/beautyTextColor"/>
 
         <ImageView

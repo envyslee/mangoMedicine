@@ -60,9 +60,9 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_record_normal" />
+                    android:layout_width="@dimen/img_size6"
+                    android:layout_height="@dimen/img_size6"
+                    android:src="@drawable/allorder" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,9 +78,9 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_record_normal" />
+                    android:layout_width="@dimen/img_size6"
+                    android:layout_height="@dimen/img_size6"
+                    android:src="@drawable/pay" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -96,9 +96,9 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_record_normal" />
+                    android:layout_width="@dimen/img_size6"
+                    android:layout_height="@dimen/img_size6"
+                    android:src="@drawable/receive" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -115,9 +115,9 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_record_normal" />
+                    android:layout_width="@dimen/img_size6"
+                    android:layout_height="@dimen/img_size6"
+                    android:src="@drawable/review" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -144,9 +144,9 @@
             android:paddingBottom="6dip">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_record_normal" />
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
+                android:src="@drawable/count" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -163,9 +163,9 @@
             android:paddingBottom="6dip">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_record_normal" />
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
+                android:src="@drawable/card" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -184,9 +184,9 @@
             android:paddingBottom="6dip">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_record_normal" />
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
+                android:src="@drawable/collection" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -206,9 +206,9 @@
             android:paddingBottom="6dip"  >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_record_normal" />
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
+                android:src="@drawable/address" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -226,9 +226,9 @@
             android:paddingBottom="6dip">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_record_normal" />
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
+                android:src="@drawable/feedback" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -247,9 +247,9 @@
             android:paddingBottom="6dip">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_record_normal" />
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
+                android:src="@drawable/more" />
 
             <TextView
                 android:layout_width="wrap_content"
