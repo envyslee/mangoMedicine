@@ -39,25 +39,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/icon_geo"/>
+                android:src="@drawable/playpointback"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:src="@drawable/icon_geo" />
+                android:src="@drawable/playpointback" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:src="@drawable/icon_geo" />
+                android:src="@drawable/playpointback" />
 
         </LinearLayout>
         <ImageView
             android:id="@+id/cur_dot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_geo" />
+            android:src="@drawable/playpoint" />
 
     </FrameLayout>
 
