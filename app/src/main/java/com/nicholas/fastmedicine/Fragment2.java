@@ -3,6 +3,7 @@ package com.nicholas.fastmedicine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,7 +32,7 @@ import java.util.Map;
 /**
  * Created by eggri_000 on 2015/10/13.
  */
-public class Fragment2 extends BaseFragment {
+public class Fragment2 extends Fragment {
     private ListView listView;
     private List<ProductCategory> itemList = new ArrayList<>();
 

@@ -2,7 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="tabView">@style/MyTabView</item><!--新建一个主题-->
         <item name="colorPrimary">@color/toolbarColor</item>
         <item name="colorPrimaryDark">@color/smssdk_black</item><!--状态栏底色，这里设置了貌似没有效果-->
         <item name="colorAccent">@color/beautyGreen</item>
@@ -13,10 +12,6 @@
         <item name="android:background">@drawable/layout_list_start_pic</item>
     </style>
 
-    <style name="MyTabView" parent="TabView">
-        <item name="iconWidth">28dp</item>
-        <item name="iconHeight">28dp</item>
-    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

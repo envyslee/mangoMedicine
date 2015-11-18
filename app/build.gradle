@@ -31,7 +31,7 @@ dependencies {
     compile files('libs/locSDK_6.03.jar')*/
 
     /*compile 'com.android.support:appcompat-v7:23.1.0'*/
-    compile 'com.githang:iconpagerindicator:1.2'
+   /* compile 'com.githang:iconpagerindicator:1.2'*/
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile 'com.android.support:design:23.1.0'
     compile 'org.litepal.android:core:1.3.0'

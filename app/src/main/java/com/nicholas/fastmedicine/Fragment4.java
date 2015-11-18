@@ -3,6 +3,7 @@ package com.nicholas.fastmedicine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,7 @@ import com.nicholas.fastmedicine.controller.BadgeView;
 /**
  * Created by eggri_000 on 2015/10/13.
  */
-public class Fragment4 extends  BaseFragment implements View.OnClickListener {
+public class Fragment4 extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment4, null, false);

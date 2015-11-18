@@ -6,15 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +33,7 @@ import java.util.logging.Logger;
 /**
  * Created by eggri_000 on 2015/10/13.
  */
-public class Fragment1 extends BaseFragment implements View.OnClickListener {
+public class Fragment1 extends Fragment implements View.OnClickListener {
 
     /*private ViewFlipper myflipper;*/
     private ViewFlow viewFlow;

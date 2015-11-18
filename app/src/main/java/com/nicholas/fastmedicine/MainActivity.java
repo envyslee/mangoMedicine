@@ -1,63 +1,160 @@
 package com.nicholas.fastmedicine;
 
 
-import android.support.v4.app.Fragment;
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.ViewGroup;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.githang.viewpagerindicator.IconPagerAdapter;
-import com.githang.viewpagerindicator.IconTabPageIndicator;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.nicholas.fastmedicine.controller.BadgeView;
 
 import cn.sharesdk.framework.ShareSDK;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements View.OnClickListener ,Fragment3.loadCarDataListener {
 
-    //viewpager
-    private ViewPager mViewPager;
-    private IconTabPageIndicator mIndicator;
+    private Fragment1 fragment1;
+    private Fragment2 fragment2;
+    private Fragment3 fragment3;
+    private Fragment4 fragment4;
 
+    private View home;
+    private View list;
+    private View car;
+    private View personal;
+
+    private ImageView homeImg;
+    private ImageView listImg;
+    private ImageView carImg;
+    private ImageView personalImg;
+
+    private TextView homeText;
+    private TextView listText;
+    private TextView carText;
+    private TextView personalText;
+
+    private FragmentManager fragmentManager;
+
+    private int lastIndex;
 
     private long exitTime = 0;
 
-    private FragmentAdapter adapter;
-
+    private BadgeView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fragmentManager = getSupportFragmentManager();
 
         initViews();
-
+        setTabSelection(0);
         //初始化分享
         ShareSDK.initSDK(this);
+
     }
 
+    @Override
+    public void onClick(View v) {
+        // 每次选中之前先清楚掉上次的选中状态
+        clearSelection(lastIndex);
+        switch (v.getId()) {
+            case R.id.message_layout:
+                lastIndex = 0;
+                setTabSelection(0);
+                break;
+            case R.id.contacts_layout:
+                lastIndex = 1;
+                setTabSelection(1);
+                break;
+            case R.id.news_layout:
+                lastIndex = 2;
+                setTabSelection(2);
+                break;
+            case R.id.setting_layout:
+                lastIndex = 3;
+                setTabSelection(3);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setTabSelection(int index) {
+        // 开启一个Fragment事务
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
+        hideFragments(transaction);
+        switch (index) {
+            case 0:
+                // 当点击了消息tab时，改变控件的图片和文字颜色
+                homeImg.setImageResource(R.drawable.home);
+                homeText.setTextColor(Color.parseColor("#32B9AA"));
+                if (fragment1 == null) {
+                    // 如果MessageFragment为空，则创建一个并添加到界面上
+                    fragment1 = new Fragment1();
+                    transaction.add(R.id.content, fragment1);
+                } else {
+                    // 如果MessageFragment不为空，则直接将它显示出来
+                    transaction.show(fragment1);
+                }
+                break;
+            case 1:
+                listImg.setImageResource(R.drawable.list);
+                listText.setTextColor(Color.parseColor("#32B9AA"));
+                if (fragment2 == null) {
+                    fragment2 = new Fragment2();
+                    transaction.add(R.id.content, fragment2);
+                } else {
+                    transaction.show(fragment2);
+                }
+                break;
+            case 2:
+                carImg.setImageResource(R.drawable.car);
+                carText.setTextColor(Color.parseColor("#32B9AA"));
+                fragment3 = new Fragment3();
+                transaction.add(R.id.content, fragment3);
+                transaction.show(fragment3);
+                break;
+            case 3:
+            default:
+                personalImg.setImageResource(R.drawable.personal);
+                personalText.setTextColor(Color.parseColor("#32B9AA"));
+                if (fragment4 == null) {
+                    fragment4 = new Fragment4();
+                    transaction.add(R.id.content, fragment4);
+                } else {
+                    transaction.show(fragment4);
+                }
+                break;
+        }
+        transaction.commit();
+    }
 
     @Override
     protected void onResume() {
-        adapter.notifyDataSetChanged();
+        //取购物车数据量
+        view =new BadgeView(this);
+
+        view.setTargetView(carImg);
+        view.setBadgeGravity(Gravity.RIGHT);
+        view.setBadgeCount(2);
         super.onResume();
     }
 
     @Override
     public void onBackPressed() {
-        if (System.currentTimeMillis()-exitTime>2000)
-        {
+        if (System.currentTimeMillis() - exitTime > 2000) {
             Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
             exitTime = System.currentTimeMillis();
-        }
-        else
-        {
+        } else {
             //停止社交分享
             ShareSDK.stopSDK(this);
             finish();
@@ -66,131 +163,65 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-    /**
-     * 初始化viewpager
-     */
     private void initViews() {
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mViewPager.setOffscreenPageLimit(3);//缓存fargment的数量
-        mIndicator = (IconTabPageIndicator) findViewById(R.id.indicator);
-        List<BaseFragment>  fragments = initFragments();
-
-        adapter = new FragmentAdapter(fragments, getSupportFragmentManager());
-
-
-        mViewPager.setAdapter(adapter);
-        mIndicator.setViewPager(mViewPager);
-
-
-      /*  mIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });*/
+        home = findViewById(R.id.message_layout);
+        list = findViewById(R.id.contacts_layout);
+        car = findViewById(R.id.news_layout);
+        personal = findViewById(R.id.setting_layout);
+        homeImg = (ImageView) findViewById(R.id.message_image);
+        listImg = (ImageView) findViewById(R.id.contacts_image);
+        carImg = (ImageView) findViewById(R.id.news_image);
+        personalImg = (ImageView) findViewById(R.id.setting_image);
+        homeText = (TextView) findViewById(R.id.message_text);
+        listText = (TextView) findViewById(R.id.contacts_text);
+        carText = (TextView) findViewById(R.id.news_text);
+        personalText = (TextView) findViewById(R.id.setting_text);
+        home.setOnClickListener(this);
+        list.setOnClickListener(this);
+        car.setOnClickListener(this);
+        personal.setOnClickListener(this);
     }
 
-
-
-    private List<BaseFragment> initFragments() {
-        List<BaseFragment> fragments = new ArrayList<>();
-
-        BaseFragment userFragment = new Fragment1();
-        userFragment.setTitle("首页");
-        userFragment.setIconId(R.drawable.tab_user_selector);
-        fragments.add(userFragment);
-
-        BaseFragment noteFragment = new Fragment2();
-        noteFragment.setTitle("分类");
-        noteFragment.setIconId(R.drawable.tab_record_selector);
-        fragments.add(noteFragment);
-
-        BaseFragment contactFragment = new Fragment3();
-        contactFragment.setTitle("购物车");
-        contactFragment.setIconId(R.drawable.tab_user_selector);
-        fragments.add(contactFragment);
-
-        BaseFragment recordFragment = new Fragment4();
-        recordFragment.setTitle("我的");
-        recordFragment.setIconId(R.drawable.tab_record_selector);
-        fragments.add(recordFragment);
-
-        return fragments;
-    }
-
-    class FragmentAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
-        private List<BaseFragment> mFragments;
-
-        private String tagString="";
-        public FragmentAdapter(List<BaseFragment> fragments, FragmentManager fm) {
-            super(fm);
-            mFragments = fragments;
+    private void hideFragments(FragmentTransaction transaction) {
+        if (fragment1 != null) {
+            transaction.hide(fragment1);
         }
-
-
-
-    /*    public  String makeFragmentName(int viewId, long index) {
-            return "android:switcher:" + viewId + ":" + index;
-        }*/
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-
-
-            Fragment fragment=(Fragment) super.instantiateItem(container, position);
-            if (position==2)
-            {
-                tagString=fragment.getTag();
-             /*   android.support.v4.app.FragmentTransaction ft=fragmentManager.beginTransaction();
-                ft.remove(fragment);
-                fragment=initFragments().get(2);
-                ft.add(container.getId(), fragment, fragmentTag);
-                ft.attach(fragment);
-                ft.commit();*/
-
-            }
-            return fragment;
+        if (fragment2 != null) {
+            transaction.hide(fragment2);
         }
-
-        @Override
-        public int getItemPosition(Object object) {
-            Fragment view = (Fragment)object;
-            String tag=view.getTag().toString();
-            if (tag.equals(tagString))
-                return POSITION_NONE;
-            else
-                return POSITION_UNCHANGED;
-            //return super.getItemPosition(object);
+        if (fragment3 != null) {
+            transaction.hide(fragment3);
         }
-
-        @Override
-        public Fragment getItem(int i) {
-            return mFragments.get(i);
-        }
-
-        @Override
-        public int getIconResId(int index) {
-            return mFragments.get(index).getIconId();
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragments.get(position).getTitle();
+        if (fragment4 != null) {
+            transaction.hide(fragment4);
         }
     }
 
+    private void clearSelection(int index) {
+        switch (index) {
+            case 0:
+                homeImg.setImageResource(R.drawable.home_back);
+                homeText.setTextColor(Color.parseColor("#82858b"));
+                break;
+            case 1:
+                listImg.setImageResource(R.drawable.list_back);
+                listText.setTextColor(Color.parseColor("#82858b"));
+                break;
+            case 2:
+                carImg.setImageResource(R.drawable.car_back);
+                carText.setTextColor(Color.parseColor("#82858b"));
+                break;
+            case 3:
+                personalImg.setImageResource(R.drawable.personal_back);
+                personalText.setTextColor(Color.parseColor("#82858b"));
+                break;
+        }
+
+    }
+
+
+    @Override
+    public void clearCarCount() {
+        view.setBadgeCount(0);
+    }
 }

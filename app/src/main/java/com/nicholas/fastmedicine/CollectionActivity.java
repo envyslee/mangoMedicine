@@ -1,6 +1,7 @@
 package com.nicholas.fastmedicine;
 
 import android.graphics.Color;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -46,10 +47,6 @@ public class CollectionActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
 
     /**
      * 初始化ViewPager下的线
@@ -131,7 +128,7 @@ public class CollectionActivity extends AppCompatActivity {
     }
 
     private void ResetTextColor() {
-        medicine.setTextColor(getResources().getColor(R.color.subTitleBg));
-        article.setTextColor(getResources().getColor(R.color.subTitleBg));
+        medicine.setTextColor(Color.parseColor("#999999"));
+        article.setTextColor(Color.parseColor("#999999"));
     }
 }
