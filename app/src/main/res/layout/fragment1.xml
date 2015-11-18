@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -10,7 +9,7 @@
         android:id="@+id/toolbar_ly"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/beautyGreen" >
+        android:background="@color/beautyGreen">
 
         <TextView
             android:id="@+id/locateCityName"
@@ -19,8 +18,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/text_padding12"
             android:text="城市"
-            android:textSize="@dimen/textSize20"
-            android:textColor="@color/beautyTextColor"/>
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize20" />
 
         <ImageView
             android:id="@+id/searchBanner"
@@ -172,30 +171,55 @@
 
             </TableLayout>
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_marginTop="6dip"
+
+                android:padding="4dip">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/left"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/right"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="4dip"/>
+            </LinearLayout>
+
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="150dip"
-                android:layout_marginTop="@dimen/text_padding6"
-                android:layout_marginRight="@dimen/text_padding4"
                 android:layout_marginLeft="@dimen/text_padding4"
+                android:layout_marginRight="@dimen/text_padding4"
+                android:layout_marginTop="@dimen/text_padding6"
                 android:scaleType="fitXY"
                 android:src="@drawable/test3" />
 
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="150dip"
-                android:layout_marginTop="@dimen/text_padding6"
-                android:layout_marginRight="@dimen/text_padding4"
                 android:layout_marginLeft="@dimen/text_padding4"
+                android:layout_marginRight="@dimen/text_padding4"
+                android:layout_marginTop="@dimen/text_padding6"
                 android:scaleType="fitXY"
                 android:src="@drawable/test3" />
 
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="150dip"
-                android:layout_marginTop="@dimen/text_padding6"
-                android:layout_marginRight="@dimen/text_padding4"
                 android:layout_marginLeft="@dimen/text_padding4"
+                android:layout_marginRight="@dimen/text_padding4"
+                android:layout_marginTop="@dimen/text_padding6"
                 android:scaleType="fitXY"
                 android:src="@drawable/test3" />
         </LinearLayout>

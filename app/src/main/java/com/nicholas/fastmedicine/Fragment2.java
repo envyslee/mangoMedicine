@@ -2,11 +2,10 @@ package com.nicholas.fastmedicine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.adapter.CategoryListAdapter;
-import com.nicholas.fastmedicine.item.CategoryItem;
 import com.nicholas.fastmedicine.item.ProductCategory;
-import com.nicholas.fastmedicine.item.ProductListItem;
 import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
@@ -29,10 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * Created by eggri_000 on 2015/10/13.
  */
 public class Fragment2 extends Fragment {
+    private boolean isRefresh = false;
     private ListView listView;
     private List<ProductCategory> itemList = new ArrayList<>();
 
@@ -40,6 +39,27 @@ public class Fragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment2, null, false);
 
+        final SwipeRefreshLayout refreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swipeRefresh);
+
+        refreshLayout.setColorSchemeResources(android.R.color.holo_red_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.white);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (!isRefresh){
+                    isRefresh=true;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshLayout.setRefreshing(false);
+                            isRefresh=false;
+                        }
+                    },3000);
+                }
+            }
+        });
         //enter SearchActivity
         ImageView imageView = (ImageView) view.findViewById(R.id.search_icon);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +69,7 @@ public class Fragment2 extends Fragment {
                 startActivity(intent);
             }
         });
+
         listView = (ListView) view.findViewById(R.id.categry_listview);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -65,26 +86,6 @@ public class Fragment2 extends Fragment {
         getCategoryList();
 
 
-
-       /* RequestQueue mQueue= Volley.newRequestQueue(getContext());
-
-        StringRequest stringRequest = new StringRequest("http://www.baidu.com",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        content.setText(response);
-                        Log.d("TAG", response);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                content.setText(error.toString());
-                Log.e("TAG", error.getMessage(), error);
-            }
-        });
-        mQueue.add(stringRequest);*/
-
-
         return view;
     }
 
@@ -94,7 +95,7 @@ public class Fragment2 extends Fragment {
                 .get(new ResultCallback<WsResponse>() {
                     @Override
                     public void onError(Request request, Exception e) {
-                        Toast.makeText(getActivity(), "获取数据出错", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -112,7 +113,7 @@ public class Fragment2 extends Fragment {
                             CategoryListAdapter adapter = new CategoryListAdapter(getActivity(), itemList);
                             listView.setAdapter(adapter);
                         } else {
-                            Toast.makeText(getActivity(), "获取数据出错", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -14,11 +14,11 @@
             android:id="@+id/search_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/search_frame"
+            android:layout_marginBottom="6dip"
             android:layout_marginLeft="12dip"
             android:layout_marginRight="12dip"
             android:layout_marginTop="6dip"
-            android:layout_marginBottom="6dip"/>
+            android:background="@drawable/search_frame" />
 
         <View
             android:layout_width="match_parent"
@@ -26,8 +26,15 @@
             android:background="@android:color/darker_gray" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/categry_listview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/categry_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>
