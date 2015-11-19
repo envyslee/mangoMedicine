@@ -173,27 +173,23 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="88dip"
                 android:orientation="horizontal"
                 android:background="@color/white"
                 android:layout_marginTop="6dip"
-
                 android:padding="4dip">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+         <ImageView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:src="@drawable/left"
-                    android:scaleType="fitXY"/>
+                    android:layout_weight="409"
+                    android:src="@drawable/left2"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/right"
-                    android:scaleType="fitXY"
-                    android:layout_marginLeft="4dip"/>
+                    android:layout_weight="274"
+                    android:src="@drawable/right2"/>
             </LinearLayout>
 
             <ImageView
@@ -203,7 +199,7 @@
                 android:layout_marginRight="@dimen/text_padding4"
                 android:layout_marginTop="@dimen/text_padding6"
                 android:scaleType="fitXY"
-                android:src="@drawable/test3" />
+                android:src="@drawable/left2" />
 
             <ImageView
                 android:layout_width="fill_parent"
@@ -221,7 +217,7 @@
                 android:layout_marginRight="@dimen/text_padding4"
                 android:layout_marginTop="@dimen/text_padding6"
                 android:scaleType="fitXY"
-                android:src="@drawable/test3" />
+                android:src="@drawable/left2" />
         </LinearLayout>
     </com.nicholas.fastmedicine.controller.MyScrollView>
 </LinearLayout>

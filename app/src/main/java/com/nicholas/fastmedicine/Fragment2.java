@@ -33,13 +33,14 @@ import java.util.Map;
 public class Fragment2 extends Fragment {
     private boolean isRefresh = false;
     private ListView listView;
+    private SwipeRefreshLayout refreshLayout;
     private List<ProductCategory> itemList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment2, null, false);
 
-        final SwipeRefreshLayout refreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swipeRefresh);
+        refreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swipeRefresh);
 
         refreshLayout.setColorSchemeResources(android.R.color.holo_red_light,
                 android.R.color.holo_green_light,
@@ -50,13 +51,7 @@ public class Fragment2 extends Fragment {
             public void onRefresh() {
                 if (!isRefresh){
                     isRefresh=true;
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshLayout.setRefreshing(false);
-                            isRefresh=false;
-                        }
-                    },3000);
+                    getCategoryList();
                 }
             }
         });
@@ -85,7 +80,6 @@ public class Fragment2 extends Fragment {
 
         getCategoryList();
 
-
         return view;
     }
 
@@ -96,6 +90,8 @@ public class Fragment2 extends Fragment {
                     @Override
                     public void onError(Request request, Exception e) {
                         Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+                        refreshLayout.setRefreshing(false);
+                        isRefresh=false;
                     }
 
                     @Override
@@ -115,6 +111,8 @@ public class Fragment2 extends Fragment {
                         } else {
                             Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
                         }
+                        refreshLayout.setRefreshing(false);
+                        isRefresh=false;
                     }
                 });
     }

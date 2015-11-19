@@ -53,6 +53,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
+        view =new BadgeView(this);
 
         initViews();
         setTabSelection(0);
@@ -141,7 +142,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         //取购物车数据量
-        view =new BadgeView(this);
+
+
 
         view.setTargetView(carImg);
         view.setBadgeGravity(Gravity.RIGHT);
@@ -190,7 +192,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             transaction.hide(fragment2);
         }
         if (fragment3 != null) {
-            transaction.hide(fragment3);
+            transaction.remove(fragment3);
         }
         if (fragment4 != null) {
             transaction.hide(fragment4);

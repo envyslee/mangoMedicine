@@ -35,11 +35,9 @@ import java.util.logging.Logger;
  */
 public class Fragment1 extends Fragment implements View.OnClickListener {
 
-    /*private ViewFlipper myflipper;*/
     private ViewFlow viewFlow;
     private TextView cityTv;
     private Intent intent;
-    //private RelativeLayout toolbar_ly;
 
     //百度定位
     public LocationClient mLocationClient = null;
@@ -88,7 +86,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 else
                 {
                     mLocationClient.start();//重新定位
-                    Toast.makeText(getActivity(),"正在定位",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"正在定位...",Toast.LENGTH_SHORT).show();
                 }
                 break;
            /* case R.id.community_lay:
@@ -211,42 +209,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
 
         return view;
-
-        /*myflipper=(ViewFlipper)view.findViewById(R.id.myflipper);
-        myflipper.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                        startX=event.getX();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                    {
-                        if (event.getX()-startX>100)
-                        {
-                            myflipper.showPrevious();
-                        }
-                        if (startX-event.getX()>100)
-                        {
-                            myflipper.showNext();
-                        }
-                        break;
-                    }
-                }
-                return false;
-            }
-        });
-        for (int i=0;i<resId.length;i++)
-        {
-            myflipper.addView(getImageView(resId[i]));
-        }
-        //���ö���
-        //myflipper.setInAnimation();
-        myflipper.setFlipInterval(3000);
-        myflipper.startFlipping();*/
-
-
     }
 
     /**
@@ -255,26 +217,19 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
      */
     private LocationClientOption initLocationOption(){
         LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//��ѡ��Ĭ�ϸ߾��ȣ����ö�λģʽ���߾��ȣ��͹��ģ����豸
-        option.setCoorType("bd09ll");//��ѡ��Ĭ��gcj02�����÷��صĶ�λ������ϵ
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setCoorType("bd09ll");
         int span=5000;
-        //option.setScanSpan(span);//��ѡ��Ĭ��0��������λһ�Σ����÷���λ����ļ����Ҫ���ڵ���1000ms������Ч��
-        option.setIsNeedAddress(true);//��ѡ�������Ƿ���Ҫ��ַ��Ϣ��Ĭ�ϲ���Ҫ
-        option.setOpenGps(true);//��ѡ��Ĭ��false,�����Ƿ�ʹ��gps
-        option.setLocationNotify(true);//��ѡ��Ĭ��false�������Ƿ�gps��Чʱ����1S1��Ƶ�����GPS���
-        option.setIsNeedLocationDescribe(true);//��ѡ��Ĭ��false�������Ƿ���Ҫλ�����廯��������BDLocation.getLocationDescribe��õ�����������ڡ��ڱ����찲�Ÿ���
-        option.setIsNeedLocationPoiList(true);//��ѡ��Ĭ��false�������Ƿ���ҪPOI��������BDLocation.getPoiList��õ�
-        option.setIgnoreKillProcess(false);//��ѡ��Ĭ��false����λSDK�ڲ���һ��SERVICE�����ŵ��˶�����̣������Ƿ���stop��ʱ��ɱ�������̣�Ĭ��ɱ��
-        option.SetIgnoreCacheException(false);//��ѡ��Ĭ��false�������Ƿ��ռ�CRASH��Ϣ��Ĭ���ռ�
-        option.setEnableSimulateGps(false);//��ѡ��Ĭ��false�������Ƿ���Ҫ����gps������Ĭ����Ҫ
+        option.setScanSpan(span);
+        option.setIsNeedAddress(true);
+        option.setOpenGps(true);
+        option.setLocationNotify(true);
+        option.setIsNeedLocationDescribe(true);
+        option.setIsNeedLocationPoiList(true);
+        option.setIgnoreKillProcess(false);
+        option.SetIgnoreCacheException(false);
+        option.setEnableSimulateGps(false);
         //mLocationClient.setLocOption(option);
         return option;
     }
-   /* private ImageView getImageView(int resId)
-    {
-        ImageView image=new ImageView(getActivity());
-        //image.setImageResource(resId);//����ͼƬ��С
-        image.setBackgroundResource(resId);//����
-        return  image;
-    }*/
 }
