@@ -93,7 +93,7 @@
         <!-- 百度地图key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="YiBuHIZMEYakZajUsFn61kg3" />
+            android:value="AaqFAGSpGEAegpsLNpdQ3uZT" />
 
         <activity android:name=".AddressActivity" >
         </activity>
@@ -118,7 +118,7 @@
         </activity>
         <activity android:name=".FeedbackActivity" >
         </activity>
-        <activity android:name=".ProductDetialActivity" >
+        <activity android:name=".ProductDetailActivity" >
         </activity>
         <activity android:name=".SelfCheckListActivity" >
         </activity>

@@ -10,7 +10,8 @@ public class Constant {
     public final static String mobAppsecret="8a6bf44eda5c81380dd77ca7292911d6";
 
     //百度地图
-    public final static String baiduMapAK="YiBuHIZMEYakZajUsFn61kg3";
+    public final static String baiduMapAKDebug="YiBuHIZMEYakZajUsFn61kg3";
+    public final static String baiduMapAKRelease="AaqFAGSpGEAegpsLNpdQ3uZT";
 
     //摇一摇
     public static final int SENSOR_SHAKE = 10;

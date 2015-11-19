@@ -48,9 +48,7 @@
         android:paddingRight="12dip"
         android:paddingTop="6dip"
         android:paddingBottom="6dip"
-        android:background="@android:color/white">
-
-
+        android:background="@drawable/table_frame_gray">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -126,11 +124,13 @@
             </LinearLayout>
 
     </LinearLayout>
+
+
 <TableLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:stretchColumns="0,1,2"
-    android:layout_marginTop="12dip"
+    android:layout_marginTop="@dimen/text_padding6"
     android:paddingTop="6dip"
     android:paddingBottom="6dip">
     <TableRow>

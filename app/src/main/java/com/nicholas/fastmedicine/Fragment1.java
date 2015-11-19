@@ -205,9 +205,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         else{
             Toast.makeText(getContext(),"亲，网络不给力哦",Toast.LENGTH_SHORT).show();
         }
-
-
-
         return view;
     }
 

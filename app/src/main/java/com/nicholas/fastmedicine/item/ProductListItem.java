@@ -20,7 +20,7 @@ public class ProductListItem
     private String productDesc;// 描述
 
 
-    private Long productId;
+    private Double productId;
 
     private String productSpec;// 商品规格
 
@@ -70,12 +70,12 @@ public class ProductListItem
         this.productDesc = productDesc;
     }
 
-    public Long getProductId()
+    public Double getProductId()
     {
         return productId;
     }
 
-    public void setProductId(Long productId)
+    public void setProductId(Double productId)
     {
         this.productId = productId;
     }

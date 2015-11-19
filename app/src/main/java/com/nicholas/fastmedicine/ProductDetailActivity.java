@@ -25,6 +25,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.nicholas.fastmedicine.common.BitmapCache;
 
+import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
@@ -36,9 +37,9 @@ import java.util.Map;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import litepalDB.CollectionItem;
 
-public class ProductDetialActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String[] ids=new String[]{ "http://img.my.csdn.net/uploads/201508/05/1438760421_2824.jpg",
+    String[] ids = new String[]{"http://img.my.csdn.net/uploads/201508/05/1438760421_2824.jpg",
             "http://img.my.csdn.net/uploads/201508/05/1438760420_2660.jpg",
             "http://img.my.csdn.net/uploads/201508/05/1438760420_7188.jpg",};
 
@@ -47,14 +48,74 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
     private AdapterViewFlipper flipper;
     private ImageView car_img;
     private ImageView favor_img;
+    private TextView name_tv;
     private TextView desc_tv;
+    private TextView price_tv;
+    private TextView spec_tv;
+    private TextView Intro_name;
+    private TextView Intro_ingredients;
+    private TextView Intro_character;
+    private TextView Intro_usage;
+    private TextView Intro_spec;
+    private TextView Intro_amount;
+    private TextView Intro_untowardEffect;
+    private TextView Intro_attention;
+    private TextView Intro_storge;
+    private TextView Intro_enterprise;
+    private Button addtocar_btn;
+
+    private void initView() {
+        //药品名称
+         name_tv = (TextView) findViewById(R.id.name_tv);
+        Intro_name=(TextView)findViewById(R.id.Intro_name);
+
+        //规格
+        spec_tv = (TextView) findViewById(R.id.spec_tv);
+        Intro_spec=(TextView)findViewById(R.id.Intro_spec);
+        //描述
+        desc_tv = (TextView) findViewById(R.id.desc_tv);
+        //价格
+        price_tv=(TextView)findViewById(R.id.price_tv);
+        //成分
+        Intro_ingredients=(TextView)findViewById(R.id.Intro_ingredients);
+        //性状
+        Intro_character=(TextView)findViewById(R.id.Intro_character);
+        //功能主治
+        Intro_usage=(TextView)findViewById(R.id.Intro_usage);
+        //用法用量
+        Intro_amount=(TextView)findViewById(R.id.Intro_amount);
+        //不良反应
+        Intro_untowardEffect=(TextView)findViewById(R.id.Intro_untowardEffect);
+        //注意事项
+        Intro_attention=(TextView)findViewById(R.id.Intro_attention);
+        //贮藏
+        Intro_storge=(TextView)findViewById(R.id.Intro_storge);
+        //生产企业
+        Intro_enterprise=(TextView)findViewById(R.id.Intro_enterprise);
+
+
+        //收藏
+        favor_img = (ImageView) findViewById(R.id.favor_img);
+        favor_img.setOnClickListener(this);
+        //购物车
+        car_img = (ImageView) findViewById(R.id.car_img);
+        car_img.setOnClickListener(this);
+
+        //加入购物车
+        addtocar_btn= (Button) findViewById(R.id.addtocar_btn);
+        addtocar_btn.setOnClickListener(this);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detial);
-        String title=getIntent().getExtras().getString("title");
-        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        Bundle bundle = getIntent().getExtras();
+        String productName = bundle.getString("productName");
+        Integer productId = (int) bundle.getDouble("productId");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("商品详情");
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.backpng);
@@ -72,8 +133,12 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
             }
         });
 
-        flipper=(AdapterViewFlipper)findViewById(R.id.avf);
-        AvfAdapter adapter=new AvfAdapter();
+        initView();
+        name_tv.setText(productName);
+        Intro_name.setText(productName);
+
+        flipper = (AdapterViewFlipper) findViewById(R.id.avf);
+        AvfAdapter adapter = new AvfAdapter();
         flipper.setAdapter(adapter);
         //自动播放
         //flipper.startFlipping();
@@ -101,33 +166,13 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
             }
         });
 
-        //药品名称
-        TextView name_tv=(TextView)findViewById(R.id.name_tv);
-        name_tv.setText(title);
-        //规格
-        TextView spec_tv=(TextView)findViewById(R.id.spec_tv);
-        spec_tv.setText("10ml/支x10支/盒");
-        //描述
-        desc_tv=(TextView)findViewById(R.id.desc_tv);
-        desc_tv.setText("清热解毒，用于外感风所导致的感冒，症见发热、咳嗽、咽痛");
-
-        //收藏
-        favor_img=(ImageView)findViewById(R.id.favor_img);
-        favor_img.setOnClickListener(this);
-        //购物车
-        car_img=(ImageView)findViewById(R.id.car_img);
-        car_img.setOnClickListener(this);
-
-        //加入购物车
-        Button addtocar_btn=(Button)findViewById(R.id.addtocar_btn);
-        addtocar_btn.setOnClickListener(this);
+        GetProductDetail("http://10.151.11.103:8080/fastMedicine/medicine/postProductDetail", productId);
     }
 
 
-    private void GetData()
-    {
-          String url = "https://raw.githubusercontent.com/hongyangAndroid/okhttp-utils/master/user.gson";
-          new OkHttpRequest.Builder().url(url)
+    private void GetData() {
+        String url = "https://raw.githubusercontent.com/hongyangAndroid/okhttp-utils/master/user.gson";
+        new OkHttpRequest.Builder().url(url)
                 .get(new ResultCallback<String>() {
                     @Override
                     public void onError(Request request, Exception e) {
@@ -143,49 +188,61 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
                 });
     }
 
-    private void PostData(String url)
-    {
-        FormEncodingBuilder builder = new FormEncodingBuilder();
-        builder.add("username","bic");
-        builder.add("password", "123456");
-        Map<String ,String > map=new HashMap<>();
-        map.put("username","bic");
-        map.put("password", "123456");
-        new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback() {
+    private void GetProductDetail(String url, Integer productId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("productId", productId.toString());
+        new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
             @Override
             public void onError(Request request, Exception e) {
-
+                Toast.makeText(ProductDetailActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onResponse(Object o) {
+            public void onResponse(WsResponse ws) {
+                if (ws.getResCode().equals("0")) {
+                    Map<String,String> map=(Map)ws.getContent();
+                    String pics=map.get("productPics");
+                    Intro_ingredients.setText(map.get("mainIngredients"));
+                    Intro_character.setText(map.get("productCharacter"));
+                    Intro_usage.setText(map.get("productUsage"));
+                    Intro_amount.setText(map.get("usageAmount"));
+                    Intro_attention.setText(map.get("attentionTip"));
+                    Intro_storge.setText(map.get("productStorage"));
+                    Intro_enterprise.setText(map.get("productEnterprise"));
+                    Intro_untowardEffect.setText(map.get("untowardEffect"));
+                    Intro_spec.setText(map.get("productSpec"));
 
+                    desc_tv.setText(map.get("productUsage").substring(0,28)+"...");
+                    spec_tv.setText(map.get("productSpec"));
+                    price_tv.setText("￥"+String.valueOf(map.get("productPrice")));
+
+                } else {
+                    Toast.makeText(ProductDetailActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_share,menu);
+        getMenuInflater().inflate(R.menu.menu_share, menu);
         return true;
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.favor_img:
                 //检查数据库中是否已存在
 
-                CollectionItem item=new CollectionItem("001","秋季养生","吃胡萝卜吃胡萝卜吃胡萝卜",0);
+                CollectionItem item = new CollectionItem("001", "秋季养生", "吃胡萝卜吃胡萝卜吃胡萝卜", 0);
                 item.save();
-                Toast.makeText(ProductDetialActivity.this,"已收藏",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductDetailActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
                 favor_img.setEnabled(false);
                 break;
             case R.id.car_img:
-                Toast.makeText(this,"购物车图标",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "购物车图标", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.addtocar_btn:
                 GetData();
@@ -195,7 +252,6 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
-
 
 
     /**
@@ -232,28 +288,27 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
     /**
      * 加入购物车时动画
      */
-    private  void CarAnimator()
-    {
+    private void CarAnimator() {
         /*float flipperX=flipper.getTranslationX();
         float flipperY=flipper.getTranslationY();
         ObjectAnimator distanceY=ObjectAnimator.ofFloat(flipper, "translationY", flipperY, getWindowManager().getDefaultDisplay().getHeight());
         ObjectAnimator distanceX=ObjectAnimator.ofFloat(flipper,"translationX",flipperX,-20);
         ObjectAnimator alpha = ObjectAnimator.ofFloat(flipper, "alpha", 1f, 0f);*/
-        ObjectAnimator sizeX=ObjectAnimator.ofFloat(car_img,"scaleX",1f,1.5f,1f);
-        ObjectAnimator sizeY=ObjectAnimator.ofFloat(car_img,"scaleY",1f,1.5f,1f);
-        AnimatorSet set=new AnimatorSet();
+        ObjectAnimator sizeX = ObjectAnimator.ofFloat(car_img, "scaleX", 1f, 1.5f, 1f);
+        ObjectAnimator sizeY = ObjectAnimator.ofFloat(car_img, "scaleY", 1f, 1.5f, 1f);
+        AnimatorSet set = new AnimatorSet();
         set.play(sizeX).with(sizeY);
         set.setDuration(1500);
         set.start();
     }
 
-    class AvfAdapter extends BaseAdapter{
+    class AvfAdapter extends BaseAdapter {
 
-        private AvfAdapter()
-        {
-            RequestQueue queue= Volley.newRequestQueue(ProductDetialActivity.this);
-            imageLoader=new ImageLoader(queue,new BitmapCache());
+        private AvfAdapter() {
+            RequestQueue queue = Volley.newRequestQueue(ProductDetailActivity.this);
+            imageLoader = new ImageLoader(queue, new BitmapCache());
         }
+
         @Override
         public int getCount() {
             return ids.length;
@@ -271,7 +326,7 @@ public class ProductDetialActivity extends AppCompatActivity implements View.OnC
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            NetworkImageView image=new NetworkImageView(ProductDetialActivity.this);
+            NetworkImageView image = new NetworkImageView(ProductDetailActivity.this);
             image.setDefaultImageResId(R.drawable.head);
             image.setErrorImageResId(R.drawable.head);
             image.setImageUrl(ids[position], imageLoader);

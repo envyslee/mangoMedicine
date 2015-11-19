@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nicholas.fastmedicine.ProductDetialActivity">
+    android:background="@color/pageBackground"
+    tools:context="com.nicholas.fastmedicine.ProductDetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,46 +13,204 @@
 
         <include layout="@layout/toorbar_layout"></include>
 
-
-        <AdapterViewFlipper
-            android:id="@+id/avf"
+        <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="150dip" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.8dip"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip">
+            android:layout_marginBottom="@dimen/content_marginBottom">
 
-            <TextView
-                android:id="@+id/name_tv"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/beautyTextColor"
-                android:textSize="22sp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/spec_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp" />
+                <AdapterViewFlipper
+                    android:id="@+id/avf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dip" />
 
-            <TextView
-                android:id="@+id/desc_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/subTitleBg"
-                android:textSize="18sp" />
-        </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dip"
+                    android:background="@android:color/darker_gray" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dip"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="@dimen/text_padding4">
+
+                        <TextView
+                            android:id="@+id/name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/beautyTextColor"
+                            android:textSize="@dimen/textSize18" />
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/spec_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/textSize16" />
+
+                            <TextView
+                                android:id="@+id/price_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:textColor="@color/crimson"
+                                android:textSize="@dimen/textSize16" />
+                        </RelativeLayout>
 
 
+                        <TextView
+                            android:id="@+id/desc_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/subTitleBg"
+                            android:textSize="@dimen/textSize16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dip"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:paddingLeft="8dip"
+                        android:paddingRight="8dip">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/text_padding4"
+                            android:text="说明书"
+                            android:textColor="@color/beautyTextColor"
+                            android:textSize="@dimen/textSize18" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【药品名称】" />
+
+                        <TextView
+                            android:id="@+id/Intro_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【成分】" />
+
+                        <TextView
+                            android:id="@+id/Intro_ingredients"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【性状】" />
+
+                        <TextView
+                            android:id="@+id/Intro_character"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【功能主治】" />
+
+                        <TextView
+                            android:id="@+id/Intro_usage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【规格】" />
+
+                        <TextView
+                            android:id="@+id/Intro_spec"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【用法用量】" />
+
+                        <TextView
+                            android:id="@+id/Intro_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【不良反应】" />
+
+                        <TextView
+                            android:id="@+id/Intro_untowardEffect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【注意事项】" />
+
+                        <TextView
+                            android:id="@+id/Intro_attention"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【贮藏】" />
+
+                        <TextView
+                            android:id="@+id/Intro_storge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="【生产企业】" />
+
+                        <TextView
+                            android:id="@+id/Intro_enterprise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/text_padding6" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -76,18 +235,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon_geo" />
+
         <Button
             android:id="@+id/buy_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="立即购买"/>
+            android:text="立即购买" />
+
         <Button
             android:id="@+id/addtocar_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="加入购物车"/>
+            android:text="加入购物车" />
 
     </LinearLayout>
 </FrameLayout>

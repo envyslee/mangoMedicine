@@ -19,12 +19,10 @@ import com.nicholas.fastmedicine.adapter.ProductListAdapter;
 import com.nicholas.fastmedicine.item.CategoryItem;
 import com.nicholas.fastmedicine.item.ProductListItem;
 import com.nicholas.fastmedicine.item.WsResponse;
-import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
 import com.zhy.http.okhttp.request.OkHttpRequest;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -89,6 +87,7 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
                         item.setProductSpec(s.get(i).get("productSpec").toString());
                         item.setProductSale((Double) s.get(i).get("productSale"));
                         item.setProductPrice((Double) s.get(i).get("productPrice"));
+                        item.setProductId((Double)s.get(i).get("productId"));
                         productList.add(item);
                     }
                     productListAdapter = new ProductListAdapter(ProductListActivity.this, productList);
@@ -123,9 +122,10 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
         product_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String title=((TextView)view.findViewById(R.id.list_name)).getText().toString();
-                Intent intent=new Intent(ProductListActivity.this,ProductDetialActivity.class);
-                intent.putExtra("title",title);
+                String productName=((TextView)view.findViewById(R.id.list_name)).getText().toString();
+                Intent intent=new Intent(ProductListActivity.this,ProductDetailActivity.class);
+                intent.putExtra("productName",productName);
+                intent.putExtra("productId", (Double) view.getTag());
                 startActivity(intent);
             }
         });

@@ -7,6 +7,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="content_marginTop">16dip</dimen>
+    <dimen name="content_marginBottom">50dip</dimen>
     <dimen name="textSize">17sp</dimen>
     <dimen name="text_padding12">12dip</dimen>
     <dimen name="text_padding10">10dip</dimen>

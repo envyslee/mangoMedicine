@@ -7,10 +7,10 @@
 
 
     <include layout="@layout/toorbar_layout"></include>
-    <View
+   <View
         android:layout_marginTop="@dimen/content_marginTop"
         android:layout_width="match_parent"
-        android:layout_height="1dip"
+        android:layout_height="0.8dip"
         android:background="@android:color/darker_gray" />
 
     <EditText

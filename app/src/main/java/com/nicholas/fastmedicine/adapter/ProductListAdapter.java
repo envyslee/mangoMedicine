@@ -67,6 +67,7 @@ public class ProductListAdapter extends BaseAdapter {
         {
             view=convertView;
         }
+        view.setTag(item.getProductId());
         NetworkImageView image=(NetworkImageView)view.findViewById(R.id.product_img);
         TextView titleTV=(TextView)view.findViewById(R.id.list_name);
         TextView subtitleTV=(TextView)view.findViewById(R.id.list_desc);

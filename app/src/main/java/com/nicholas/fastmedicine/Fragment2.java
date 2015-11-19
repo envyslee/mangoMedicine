@@ -2,7 +2,6 @@ package com.nicholas.fastmedicine;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -36,6 +35,8 @@ public class Fragment2 extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private List<ProductCategory> itemList = new ArrayList<>();
 
+    private CategoryListAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment2, null, false);
@@ -44,7 +45,7 @@ public class Fragment2 extends Fragment {
 
         refreshLayout.setColorSchemeResources(android.R.color.holo_red_light,
                 android.R.color.holo_green_light,
-                android.R.color.holo_orange_light, android.R.color.white);
+                android.R.color.holo_orange_light, R.color.beautyGreen);
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -106,7 +107,10 @@ public class Fragment2 extends Fragment {
                                 category.setId((Double) s.get(i).get("id"));
                                 itemList.add(category);
                             }
-                            CategoryListAdapter adapter = new CategoryListAdapter(getActivity(), itemList);
+                            if (adapter==null){
+                                adapter = new CategoryListAdapter(getActivity(), itemList);
+                            }
+                            adapter.notifyDataSetChanged();
                             listView.setAdapter(adapter);
                         } else {
                             Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
