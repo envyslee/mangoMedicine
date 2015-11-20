@@ -1,6 +1,7 @@
 package com.nicholas.fastmedicine;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,9 +14,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.common.Constant;
-import com.nicholas.fastmedicine.common.Method;
+import com.nicholas.fastmedicine.common.MethodSingleton;
+import com.nicholas.fastmedicine.item.WsResponse;
+import com.squareup.okhttp.Request;
+import com.zhy.http.okhttp.callback.ResultCallback;
+import com.zhy.http.okhttp.request.OkHttpRequest;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -30,9 +38,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button sensmsButton, verificationButton;
     private EditText phonEditText, verEditText,passwordEditText,passwordConfirmEditText;
 
-    public String phString;//�ֻ��
-    private String passwordStr;//����
-    private String passwordConfirmStr;//ȷ������
+    public String phString;
+    private String passwordStr;
+    private String passwordConfirmStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1://发送验证码
-                if (Method.isMobileNum(phonEditText.getText().toString())) {
+                if (MethodSingleton.getInstance().isMobileNum(phonEditText.getText().toString())) {
                     SMSSDK.getVerificationCode("86", phonEditText.getText().toString());
                     timerHandler.postDelayed(runnable, 1000);
                     phString = phonEditText.getText().toString();
@@ -99,7 +107,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(this, "两次密码输入不一致", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        SMSSDK.submitVerificationCode("86", phString, verEditText.getText().toString());
+                            /*--------------------zanshi ------------------------*/
+                        register(Constant.baseUrl+"postRegister",phonEditText.getText().toString(),passwordStr,MethodSingleton.getInstance().getDeviceModel(),MethodSingleton.getInstance().getVersionName(RegisterActivity.this),MethodSingleton.getInstance().getOSVersion());
+                        //SMSSDK.submitVerificationCode("86", phString, verEditText.getText().toString());
                     }
                 } else {
                     Toast.makeText(this, "信息填写不完整", Toast.LENGTH_SHORT).show();
@@ -148,7 +158,38 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
+private void register(String url,String n,String p,String d,String v,String o)
+{
+    Map<String ,String> map=new HashMap<>();
+    map.put("phoneNum",n);
+    map.put("password",p);
+    map.put("deviceModel",d);
+    map.put("appVersion",v);
+    map.put("osVersion",o);
+    new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
+        @Override
+        public void onError(Request request, Exception e) {
+            Toast.makeText(RegisterActivity.this, "注册失败，请稍后再试", Toast.LENGTH_SHORT).show();
+        }
 
+        @Override
+        public void onResponse(WsResponse ws) {
+            if (ws.getResCode().equals("0")){
+                String userId=ws.getContent().toString();
+                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                //本地保存用户数据
+
+                //返回
+                Intent intent=getIntent();
+                intent.putExtra("done",true);
+                RegisterActivity.this.setResult(1,intent);
+                finish();
+            }else{
+                Toast.makeText(RegisterActivity.this, ws.getResMsg(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
+}
 
     //sdk销毁
     @Override

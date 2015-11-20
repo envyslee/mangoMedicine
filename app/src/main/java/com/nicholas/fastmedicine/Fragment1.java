@@ -22,13 +22,10 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.nicholas.fastmedicine.adapter.ImageAdapter;
 import com.nicholas.fastmedicine.common.Constant;
-import com.nicholas.fastmedicine.common.Method;
-import com.nicholas.fastmedicine.controller.MyScrollView;
+import com.nicholas.fastmedicine.common.MethodSingleton;
 
 import org.taptwo.android.widget.CircleFlowIndicator;
 import org.taptwo.android.widget.ViewFlow;
-
-import java.util.logging.Logger;
 
 /**
  * Created by eggri_000 on 2015/10/13.
@@ -101,6 +98,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 intent=new Intent(getContext(),SelfCheckListActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.article_lay:
+                intent=new Intent(getContext(),SearchListActivity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -139,6 +140,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
        /* LinearLayout community_lay=(LinearLayout)view.findViewById(R.id.community_lay);
         community_lay.setOnClickListener(this);*/
 
+        LinearLayout article_lay=(LinearLayout)view.findViewById(R.id.article_lay);
+        article_lay.setOnClickListener(this);
+
         //今日特价
         LinearLayout price_lay=(LinearLayout)view.findViewById(R.id.price_lay);
         price_lay.setOnClickListener(this);
@@ -163,7 +167,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         });*/
 
 
-        if (Method.isNetAvailable(getContext()))
+        if (MethodSingleton.getInstance().isNetAvailable(getContext()))
         {
             mLocationClient=new LocationClient(getActivity().getApplication(),initLocationOption());
             /*MyBaiduLocationListener listener=new MyBaiduLocationListener();

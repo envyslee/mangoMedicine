@@ -25,6 +25,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.nicholas.fastmedicine.common.BitmapCache;
 
+import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Request;
@@ -166,7 +167,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             }
         });
 
-        GetProductDetail("http://10.151.11.103:8080/fastMedicine/medicine/postProductDetail", productId);
+        GetProductDetail(Constant.baseUrl+"postProductDetail", productId);
     }
 
 
@@ -194,7 +195,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
             @Override
             public void onError(Request request, Exception e) {
-                Toast.makeText(ProductDetailActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductDetailActivity.this,  Constant.dataError, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -217,7 +218,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     price_tv.setText("￥"+String.valueOf(map.get("productPrice")));
 
                 } else {
-                    Toast.makeText(ProductDetailActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailActivity.this,  Constant.dataError, Toast.LENGTH_SHORT).show();
                 }
             }
         });

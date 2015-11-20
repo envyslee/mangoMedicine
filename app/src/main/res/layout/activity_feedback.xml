@@ -38,11 +38,12 @@
             android:layout_marginRight="8dip"/>
     </FrameLayout>
     <Button
+        android:id="@+id/feedback_btn"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
         android:text="提交"
         android:layout_marginTop="16dp"
-        android:background="@color/beautyGreen"
+        android:background="@drawable/btn_selector"
         android:textSize="@dimen/textSize18"
         android:layout_marginRight="@dimen/text_padding12"
         android:layout_marginLeft="@dimen/text_padding12"/>

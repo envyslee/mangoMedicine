@@ -41,7 +41,7 @@
             android:layout_alignParentRight="true"
             android:layout_weight="1"
             android:text="获取验证码"
-            android:background="@color/beautyGreen"
+            android:background="@drawable/btn_selector"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
@@ -110,7 +110,7 @@
         android:layout_width="fill_parent"
         android:layout_height="48dp"
         android:layout_marginTop="@dimen/content_marginTop"
-        android:background="@color/beautyGreen"
+        android:background="@drawable/btn_selector"
         android:text="注册"
         android:textSize="@dimen/textSize18"
         android:layout_marginRight="@dimen/text_padding12"

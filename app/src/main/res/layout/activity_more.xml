@@ -29,7 +29,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="退出当前账号"
-        android:background="@color/beautyGreen"
+        android:background="@drawable/btn_selector"
         android:layout_marginTop="@dimen/content_marginTop"
         android:textSize="@dimen/textSize18"
         android:layout_marginRight="@dimen/text_padding12"

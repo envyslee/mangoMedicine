@@ -8,6 +8,7 @@
     <color name="pageBackground">#F0F0F0</color>
     <!--美团绿色-->
     <color name="beautyGreen">#32B9AA</color>
+    <color name="beautyGreenBack">#00A9AA</color>
     <!--美团字体色-->
     <color name="beautyTextColor">#3A3A3A</color>
     <!--网易点击背景色-->

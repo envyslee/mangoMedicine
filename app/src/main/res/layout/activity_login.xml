@@ -50,11 +50,12 @@
         android:background="@android:color/darker_gray" />
 
     <Button
+        android:id="@+id/login_btn"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
         android:text="@string/login_str"
         android:layout_marginTop="@dimen/content_marginTop"
-        android:background="@color/beautyGreen"
+        android:background="@drawable/btn_selector"
         android:textSize="@dimen/textSize18"
         android:layout_marginRight="@dimen/text_padding12"
         android:layout_marginLeft="@dimen/text_padding12"/>

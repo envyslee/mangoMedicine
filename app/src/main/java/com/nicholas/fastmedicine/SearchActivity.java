@@ -1,20 +1,21 @@
 package com.nicholas.fastmedicine;
 
-import android.app.Activity;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.nicholas.fastmedicine.item.WsResponse;
+import com.squareup.okhttp.Request;
+import com.zhy.http.okhttp.callback.ResultCallback;
+import com.zhy.http.okhttp.request.OkHttpRequest;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by eggri_000 on 2015/10/16.
@@ -60,13 +61,32 @@ public class SearchActivity extends AppCompatActivity {
                         break;*/
                     case R.id.search_btn:
                         Toast.makeText(SearchActivity.this, keyword.getText(), Toast.LENGTH_SHORT).show();
+
                     break;
                 }
 
                 return true;
             }
         });
+    }
 
+    private void postSearch(String url,String key){
+        Map<String ,String> map=new HashMap<>();
+        map.put("keyword",key);
+        new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                Toast.makeText(SearchActivity.this, "请稍后再试", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onResponse(WsResponse ws) {
+                if (ws.getResCode().equals("0")){
+
+                }else{
+                    Toast.makeText(SearchActivity.this, ws.getResMsg(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
