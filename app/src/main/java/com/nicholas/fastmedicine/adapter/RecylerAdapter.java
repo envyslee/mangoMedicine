@@ -32,26 +32,44 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.MyViewHo
    public RecylerAdapter(Context c,List<String> o){
        this.context=c;
        this.list=o;
-       mHeights = new ArrayList<Integer>();
+       mHeights = new ArrayList<>();
        for (int i = 0; i < list.size(); i++)
        {
            mHeights.add( (int) (100 + Math.random() * 300));
        }
    }
 
+    public interface OnClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public OnClickListener onClickListener;
+
+    public void SetOnClickListener(OnClickListener onClickListener){
+        this.onClickListener=onClickListener;
+    }
+
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder holder = new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.recylerview_item, parent,false));
-        return holder;
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.recylerview_item, parent,false));
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
        /* ViewGroup.LayoutParams lp = holder.layout.getLayoutParams();
         lp.height = mHeights.get(position);
         holder.layout.setLayoutParams(lp);*/
         holder.textView.setText(list.get(position));
         holder.imageView.setImageResource(imgs[position]);
+        if (onClickListener!=null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.onItemClick(holder.itemView,position);
+                }
+            });
+        }
     }
 
     @Override

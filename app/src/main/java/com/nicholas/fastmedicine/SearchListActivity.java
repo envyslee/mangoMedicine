@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.nicholas.fastmedicine.adapter.RecylerAdapter;
 import com.nicholas.fastmedicine.controller.RecylerDivider;
@@ -36,6 +37,12 @@ public class SearchListActivity extends AppCompatActivity {
 
         initData();
         RecylerAdapter adapter=new RecylerAdapter(this,mDatas);
+        adapter.SetOnClickListener(new RecylerAdapter.OnClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(SearchListActivity.this,position+" Click",Toast.LENGTH_SHORT).show();
+            }
+        });
         RecyclerView recyclerView=(RecyclerView)findViewById(R.id.my_recylerview);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
@@ -47,7 +54,7 @@ public class SearchListActivity extends AppCompatActivity {
 
     protected void initData()
     {
-        mDatas = new ArrayList<String>();
+        mDatas = new ArrayList<>();
         for (int i = 0; i <6; i++)
         {
             mDatas.add(i+"");
