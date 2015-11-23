@@ -18,8 +18,8 @@ public class Constant {
 
     //获取到的城市
     public static String cityName="";
-    public static Double latitude;
-    public static Double lontitude;
+    public static Double latitude=31.321253;
+    public static Double lontitude=120.674871;
     public static float radius;
 
     //服务端url

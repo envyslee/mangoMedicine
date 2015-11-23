@@ -4,16 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nicholas.fastmedicine.AddressActivity">
+    tools:context="com.nicholas.fastmedicine.AddressActivity"
+    android:background="@color/pageBackground">
 
     <include layout="@layout/toorbar_layout"></include>
 
-<Button
-    android:id="@+id/addAddress"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="添加地址"/>
-
+<ListView
+    android:id="@+id/addr_list"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"/>
 
 
 </LinearLayout>

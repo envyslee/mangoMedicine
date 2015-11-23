@@ -28,7 +28,17 @@ public class ProductListItem
 
     private Double productSale;// 商品销量
 
+    private Double pharmacyId;// 药店id
 
+    public Double getPharmacyId()
+    {
+        return pharmacyId;
+    }
+
+    public void setPharmacyId(Double pharmacyId)
+    {
+        this.pharmacyId = pharmacyId;
+    }
 
     public Long getId()
     {

@@ -58,8 +58,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         .setPositiveButton("拨打", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:4008365365"));
-                                startActivity(intent);
+                                Intent intentPhone = new Intent(Intent.ACTION_CALL, Uri.parse("tel:4008365365"));
+                                startActivity(intentPhone);
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override

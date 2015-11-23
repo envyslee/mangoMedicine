@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.adapter.ProductListAdapter;
+import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.item.CategoryItem;
 import com.nicholas.fastmedicine.item.ProductListItem;
 import com.nicholas.fastmedicine.item.WsResponse;
@@ -69,34 +70,42 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
         String url="http://10.151.11.103:8080/fastMedicine/medicine/postProductList";
         Map<String ,String > map=new HashMap<>();
         map.put("categoryId", categoryId.toString());
-        new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
-            @Override
-            public void onError(Request request, Exception e) {
-                Toast.makeText(ProductListActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(WsResponse response) {
-                if (response.getResCode().equals("0")) {
-                    List<Map<String, Object>> s = (List) response.getContent();
-                    int size = s.size();
-                    for (int i = 0; i < size; i++) {
-                        ProductListItem item = new ProductListItem();
-                        item.setProductName(s.get(i).get("productName").toString());
-                        item.setProductDesc(s.get(i).get("productDesc").toString());
-                        item.setProductSpec(s.get(i).get("productSpec").toString());
-                        item.setProductSale((Double) s.get(i).get("productSale"));
-                        item.setProductPrice((Double) s.get(i).get("productPrice"));
-                        item.setProductId((Double)s.get(i).get("productId"));
-                        productList.add(item);
-                    }
-                    productListAdapter = new ProductListAdapter(ProductListActivity.this, productList);
-                    product_list.setAdapter(productListAdapter);
+        if (Constant.lontitude!=null&&Constant.latitude!=null) {
+            map.put("lo", Constant.lontitude.toString());
+            map.put("la", Constant.latitude.toString());
+            new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
+                @Override
+                public void onError(Request request, Exception e) {
+                    Toast.makeText(ProductListActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
                     loading_lay.setVisibility(View.INVISIBLE);
                 }
-            }
-        });
 
+                @Override
+                public void onResponse(WsResponse response) {
+                    if (response.getResCode().equals("0")) {
+                        List<Map<String, Object>> s = (List) response.getContent();
+                        int size = s.size();
+                        for (int i = 0; i < size; i++) {
+                            ProductListItem item = new ProductListItem();
+                            item.setProductName(s.get(i).get("productName").toString());
+                            item.setProductDesc(s.get(i).get("productDesc").toString());
+                            item.setProductSpec(s.get(i).get("productSpec").toString());
+                            item.setProductSale((Double) s.get(i).get("productSale"));
+                            item.setProductPrice((Double) s.get(i).get("productPrice"));
+                            item.setProductId((Double) s.get(i).get("productId"));
+                            item.setPharmacyId((Double) s.get(i).get("pharmacyId"));
+                            productList.add(item);
+                        }
+                        productListAdapter = new ProductListAdapter(ProductListActivity.this, productList);
+                        product_list.setAdapter(productListAdapter);
+                        loading_lay.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+        }else{
+            Toast.makeText(ProductListActivity.this, "经纬度加载失败，请稍后再试", Toast.LENGTH_SHORT).show();
+            loading_lay.setVisibility(View.INVISIBLE);
+        }
 
 
         //categoryItems=Images.Get_Product(index);
@@ -124,8 +133,10 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String productName=((TextView)view.findViewById(R.id.list_name)).getText().toString();
                 Intent intent=new Intent(ProductListActivity.this,ProductDetailActivity.class);
+                Map<String,Double> map=(Map)view.getTag();
                 intent.putExtra("productName",productName);
-                intent.putExtra("productId", (Double) view.getTag());
+                intent.putExtra("productId", map.get("productId"));
+                intent.putExtra("pharmacyId",map.get("pharmacyId"));
                 startActivity(intent);
             }
         });

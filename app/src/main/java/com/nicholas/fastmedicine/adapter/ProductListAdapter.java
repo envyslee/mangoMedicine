@@ -16,7 +16,9 @@ import com.nicholas.fastmedicine.item.CategoryItem;
 import com.nicholas.fastmedicine.R;
 import com.nicholas.fastmedicine.item.ProductListItem;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by eggri_000 on 2015/10/26.
@@ -67,7 +69,10 @@ public class ProductListAdapter extends BaseAdapter {
         {
             view=convertView;
         }
-        view.setTag(item.getProductId());
+        Map<String ,Double> map=new HashMap<>();
+        map.put("productId",item.getProductId());
+        map.put("pharmacyId",item.getPharmacyId());
+        view.setTag(map);
         NetworkImageView image=(NetworkImageView)view.findViewById(R.id.product_img);
         TextView titleTV=(TextView)view.findViewById(R.id.list_name);
         TextView subtitleTV=(TextView)view.findViewById(R.id.list_desc);

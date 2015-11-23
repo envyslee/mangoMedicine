@@ -79,6 +79,7 @@ public class MapActivity extends Activity {
                     String poiAddress = poiAddressView.getText().toString();
                     Intent intent = getIntent();
                     intent.putExtra("poiName", poiName);
+                    intent.putExtra("poiAddress",poiAddress);
                     MapActivity.this.setResult(0, intent);
                     finish();
                 } else {
