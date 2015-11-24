@@ -26,7 +26,7 @@ public class ProductListItem
 
     private Double productPrice;// 商品价格
 
-    private Double productSale;// 商品销量
+    private Integer productSale;// 商品销量
 
     private Double pharmacyId;// 药店id
 
@@ -110,12 +110,12 @@ public class ProductListItem
         this.productPrice = productPrice;
     }
 
-    public Double getProductSale()
+    public Integer getProductSale()
     {
         return productSale;
     }
 
-    public void setProductSale(Double productSale)
+    public void setProductSale(Integer productSale)
     {
         this.productSale = productSale;
     }

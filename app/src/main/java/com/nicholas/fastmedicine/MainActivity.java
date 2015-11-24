@@ -18,7 +18,7 @@ import com.nicholas.fastmedicine.controller.BadgeView;
 import cn.sharesdk.framework.ShareSDK;
 
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener ,Fragment3.loadCarDataListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener ,Fragment3.loadDataListener {
 
     private Fragment1 fragment1;
     private Fragment2 fragment2;
@@ -141,6 +141,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     protected void onResume() {
+        //更新用户登录状态
+        if (fragment4!=null){
+            fragment4.updateUserInfo();
+        }
+
+
         //取购物车数据量
 
 

@@ -25,5 +25,9 @@ public class Constant {
     //服务端url
     public static String baseUrl="http://10.151.11.103:8080/fastMedicine/medicine/";
 
-    public static String dataError="获取数据出错";
+    public static String dataError="获取数据出错，请稍后再试";
+    public static String netError="亲，网络不给力哦";
+
+    public static String userId="";
+    public static String userNum="";
 }

@@ -10,68 +10,92 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.controller.BadgeView;
+
+import org.litepal.crud.DataSupport;
+
+import litepalDB.UserInfo;
 
 /**
  * Created by eggri_000 on 2015/10/13.
  */
 public class Fragment4 extends Fragment implements View.OnClickListener {
+
+    private TextView login_txt;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment4, null, false);
         //地址管理
-        LinearLayout addressly=(LinearLayout)view.findViewById(R.id.addressManage);
+        LinearLayout addressly = (LinearLayout) view.findViewById(R.id.addressManage);
         addressly.setOnClickListener(this);
         //登录
-        RelativeLayout relativeLayout=(RelativeLayout)view.findViewById(R.id.login_layout);
+        RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.login_layout);
         relativeLayout.setOnClickListener(this);
         //意见反馈
-        LinearLayout feedbackly=(LinearLayout)view.findViewById(R.id.feedbackly);
+        LinearLayout feedbackly = (LinearLayout) view.findViewById(R.id.feedbackly);
         feedbackly.setOnClickListener(this);
         //更多
-        LinearLayout morely=(LinearLayout)view.findViewById(R.id.morely);
+        LinearLayout morely = (LinearLayout) view.findViewById(R.id.morely);
         morely.setOnClickListener(this);
 
         //收藏
-        LinearLayout collectionly=(LinearLayout)view.findViewById(R.id.collectionly);
+        LinearLayout collectionly = (LinearLayout) view.findViewById(R.id.collectionly);
         collectionly.setOnClickListener(this);
 
+        //登录文字
+        login_txt = (TextView) view.findViewById(R.id.login_txt);
+        updateUserInfo();
+
         //待评价
-        LinearLayout reviewly=(LinearLayout)view.findViewById(R.id.reviewly);
+        LinearLayout reviewly = (LinearLayout) view.findViewById(R.id.reviewly);
         reviewly.setOnClickListener(this);
-        BadgeView badgeView=new BadgeView(getActivity());
+        BadgeView badgeView = new BadgeView(getActivity());
         badgeView.setTargetView(reviewly);
         badgeView.setBadgeCount(3);
 
         return view;
     }
 
+    public void updateUserInfo() {
+        if (Constant.userId.isEmpty()) {
+            login_txt.setText("点击登录");
+        } else {
+            login_txt.setText(Constant.userNum);
+            login_txt.getPaint().setFakeBoldText(true);
+        }
+    }
+
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         Intent intent;
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.addressManage:
-                 intent=new Intent(getActivity(),AddressActivity.class);
+                intent = new Intent(getActivity(), AddressActivity.class);
                 startActivity(intent);
                 break;
             case R.id.login_layout:
-                 intent=new Intent(getActivity(),LoginActivity.class);
-                startActivity(intent);
+                if (Constant.userId.isEmpty()) {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                } else {
+
+                }
                 break;
             case R.id.feedbackly:
-                intent=new Intent(getActivity(),FeedbackActivity.class);
+                intent = new Intent(getActivity(), FeedbackActivity.class);
                 startActivity(intent);
                 break;
             case R.id.morely:
-                intent=new Intent(getActivity(),MoreActivity.class);
+                intent = new Intent(getActivity(), MoreActivity.class);
                 startActivity(intent);
                 break;
             case R.id.collectionly:
-                intent =new Intent(getActivity(),CollectionActivity.class);
+                intent = new Intent(getActivity(), CollectionActivity.class);
                 startActivity(intent);
                 break;
             case R.id.reviewly:

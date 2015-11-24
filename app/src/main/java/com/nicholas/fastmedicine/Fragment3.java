@@ -22,11 +22,12 @@ public class Fragment3 extends Fragment {
         textView.setText(new Date().toString());
 
 
-        ((loadCarDataListener) getActivity()).clearCarCount();
+        ((loadDataListener) getActivity()).clearCarCount();
         return view;
     }
 
-    public interface loadCarDataListener {
+    public interface loadDataListener {
         void clearCarCount();
     }
+
 }

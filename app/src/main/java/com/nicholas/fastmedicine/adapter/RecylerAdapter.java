@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import com.nicholas.fastmedicine.R;
 import com.nicholas.fastmedicine.SearchActivity;
+import com.nicholas.fastmedicine.item.ProductListItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,13 +26,13 @@ import java.util.Objects;
 public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.MyViewHolder> {
 
     private Context context;
-    private List<String> list;
+    private List<ProductListItem> list;
     private List<Integer> mHeights;
 
     private Integer[] imgs=new Integer[]{R.drawable.list,R.drawable.my_address,R.drawable.actionbar_add_icon,R.drawable.home,
     R.drawable.wait_pay,R.drawable.medicinebox};
 
-   public RecylerAdapter(Context c,List<String> o){
+   public RecylerAdapter(Context c,List<ProductListItem> o){
        this.context=c;
        this.list=o;
        mHeights = new ArrayList<>();
@@ -60,7 +63,7 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.MyViewHo
        /* ViewGroup.LayoutParams lp = holder.layout.getLayoutParams();
         lp.height = mHeights.get(position);
         holder.layout.setLayoutParams(lp);*/
-        holder.textView.setText(list.get(position));
+        //holder.textView.setText(list.get(position));
         holder.imageView.setImageResource(imgs[position]);
         if (onClickListener!=null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +73,13 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.MyViewHo
                 }
             });
         }
+        holder.nameView.setText(list.get(position).getProductName());
+        holder.priceView.setText("￥:" + list.get(position).getProductPrice());
+        holder.saleView.setText("销量:"+list.get(position).getProductSale());
+        Map<String ,Double> map=new HashMap<>();
+        map.put("productId", list.get(position).getProductId());
+        map.put("pharmacyId", list.get(position).getPharmacyId());
+        holder.itemView.setTag(map);
     }
 
     @Override
@@ -80,7 +90,7 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder
     {
 
-        TextView textView;
+        TextView nameView,saleView,priceView;
         ImageView imageView;
         LinearLayout layout;
 
@@ -88,7 +98,9 @@ public class RecylerAdapter extends RecyclerView.Adapter<RecylerAdapter.MyViewHo
         {
             super(view);
             layout=(LinearLayout)view.findViewById(R.id.search_list_lay);
-            textView = (TextView) view.findViewById(R.id.id_num);
+            nameView = (TextView) view.findViewById(R.id.search_list_name);
+            saleView=(TextView)view.findViewById(R.id.search_list_sale);
+            priceView=(TextView)view.findViewById(R.id.search_list_price);
             imageView=(ImageView)view.findViewById(R.id.search_list_img);
         }
     }

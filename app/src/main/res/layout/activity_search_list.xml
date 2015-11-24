@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/pageBackground"
     tools:context="com.nicholas.fastmedicine.SearchListActivity">
 
@@ -11,7 +12,27 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/toorbar_layout"></include>
+       <!-- <include layout="@layout/toorbar_layout"></include>-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <AutoCompleteTextView
+                android:id="@+id/keyword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入药品、症状或品牌"
+                android:textColor="@color/beautyTextColor"
+                android:textColorHint="@color/beautyTextColor"
+                android:completionThreshold="1"/>
+
+        </android.support.v7.widget.Toolbar>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewheight06"
+            android:background="@android:color/darker_gray" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recylerview"

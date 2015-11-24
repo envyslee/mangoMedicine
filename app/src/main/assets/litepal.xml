@@ -7,5 +7,7 @@
 
     <list>
         <mapping class="litepalDB.CollectionItem"></mapping>
+        <mapping class="litepalDB.UserInfo"></mapping>
+        <mapping class="litepalDB.SearchData"></mapping>
     </list>
 </litepal>

@@ -7,6 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.nicholas.fastmedicine.common.Constant;
+
+import org.litepal.crud.DataSupport;
+
+import litepalDB.UserInfo;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -14,6 +20,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        UserInfo info= DataSupport.find(UserInfo.class, 1);
+        if (info!=null){
+            Constant.userId=info.getU_i();
+            Constant.userNum=info.getU_n();
+        }
 
 
        new Handler().postDelayed(new Runnable() {
@@ -23,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
                 SplashActivity.this.finish();
             }
-        },2000);
+        },1000);
 
     }
 }

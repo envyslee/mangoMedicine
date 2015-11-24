@@ -90,7 +90,8 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
                             item.setProductName(s.get(i).get("productName").toString());
                             item.setProductDesc(s.get(i).get("productDesc").toString());
                             item.setProductSpec(s.get(i).get("productSpec").toString());
-                            item.setProductSale((Double) s.get(i).get("productSale"));
+                            double tp=(double)s.get(i).get("productSale");
+                            item.setProductSale((int)tp);
                             item.setProductPrice((Double) s.get(i).get("productPrice"));
                             item.setProductId((Double) s.get(i).get("productId"));
                             item.setPharmacyId((Double) s.get(i).get("pharmacyId"));

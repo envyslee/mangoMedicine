@@ -99,8 +99,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.article_lay:
-                intent=new Intent(getContext(),SearchListActivity.class);
-                startActivity(intent);
+
                 break;
             default:
                 break;
@@ -207,7 +206,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             mLocationClient.start();
         }
         else{
-            Toast.makeText(getContext(),"亲，网络不给力哦",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),Constant.netError,Toast.LENGTH_SHORT).show();
         }
         return view;
     }

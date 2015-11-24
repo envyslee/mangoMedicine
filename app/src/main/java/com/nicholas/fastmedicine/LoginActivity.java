@@ -16,13 +16,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.common.Constant;
+import com.nicholas.fastmedicine.common.MD5Util;
 import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
 import com.zhy.http.okhttp.request.OkHttpRequest;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import litepalDB.UserInfo;
 
 /**
  * Created by eggri_000 on 2015/10/13.
@@ -102,10 +107,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void Login(String url, String name, String password) {
+    private void Login(String url,final String name, String password) {
+        final String mp=MD5Util.MD5(password);
         Map<String, String> map = new HashMap<>();
         map.put("phoneNum", name);
-        map.put("password", password);
+        map.put("password",mp);
         new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
             @Override
             public void onError(Request request, Exception e) {
@@ -115,10 +121,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(WsResponse ws) {
                 if (ws.getResCode().equals("0")) {
-                    //Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(LoginActivity.this, ws.getContent().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     //本地保存用户数据
-
+                    DataSupport.deleteAll(UserInfo.class);
+                    UserInfo info=new UserInfo(name,mp,ws.getContent().toString());
+                    info.save();
+                    Constant.userId=info.getU_i();
+                    Constant.userNum=info.getU_n();
                     //返回
                     finish();
                 } else if (ws.getResCode().equals("005") || ws.getResCode().equals("004")) {

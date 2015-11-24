@@ -5,7 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.nicholas.fastmedicine.common.Constant;
+
+import org.litepal.crud.DataSupport;
+
+import litepalDB.UserInfo;
 
 public class MoreActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -27,6 +34,9 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
         TextView about=(TextView)findViewById(R.id.about);
         about.setOnClickListener(this);
 
+        Button exit_btn=(Button)findViewById(R.id.exit_btn);
+        exit_btn.setOnClickListener(this);
+
     }
 
     @Override
@@ -36,6 +46,14 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.about:
                 Intent intent=new Intent(MoreActivity.this,AboutActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.exit_btn:
+                if (!Constant.userId.isEmpty()){
+                    Constant.userId="";
+                    Constant.userNum="";
+                    DataSupport.deleteAll(UserInfo.class);
+                    finish();
+                }
                 break;
             default:
                 break;

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.common.Constant;
+import com.nicholas.fastmedicine.common.MD5Util;
 import com.nicholas.fastmedicine.common.MethodSingleton;
 import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.Request;
@@ -27,6 +28,7 @@ import java.util.Map;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import litepalDB.UserInfo;
 
 /**
  * Created by eggri_000 on 2015/10/14.
@@ -158,11 +160,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
-private void register(String url,String n,String p,String d,String v,String o)
+private void register(String url,final String n,String p,String d,String v,String o)
 {
+    final String mp=MD5Util.MD5(p);
     Map<String ,String> map=new HashMap<>();
     map.put("phoneNum",n);
-    map.put("password",p);
+    map.put("password",mp);
     map.put("deviceModel",d);
     map.put("appVersion",v);
     map.put("osVersion",o);
@@ -178,7 +181,8 @@ private void register(String url,String n,String p,String d,String v,String o)
                 String userId=ws.getContent().toString();
                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                 //本地保存用户数据
-
+                UserInfo info=new UserInfo(n,mp,userId);
+                info.save();
                 //返回
                 Intent intent=getIntent();
                 intent.putExtra("done",true);
