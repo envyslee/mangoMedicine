@@ -15,15 +15,21 @@ import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.common.MethodSingleton;
+import com.nicholas.fastmedicine.item.WsResponse;
+import com.squareup.okhttp.Request;
+import com.zhy.http.okhttp.callback.ResultCallback;
+import com.zhy.http.okhttp.request.OkHttpRequest;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import litepalDB.SearchData;
 
@@ -34,6 +40,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private AutoCompleteTextView keyword;
     private  RelativeLayout recent_row;
+    private TextView hot_row;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,11 +96,12 @@ public class SearchActivity extends AppCompatActivity {
 
 
         initView();
+        loadRemoteSearch();
     }
 
 
     private void initView() {
-        //hot_search=
+        hot_row=(TextView)findViewById(R.id.hot_row);
 
         recent_row=(RelativeLayout)findViewById(R.id.recent_row);
         ImageView delete_search = (ImageView) findViewById(R.id.delete_search_record);
@@ -112,7 +120,25 @@ public class SearchActivity extends AppCompatActivity {
      */
     private void loadRemoteSearch()
     {
+        String url=Constant.baseUrl+"getHotKey";
+        new OkHttpRequest.Builder().url(url).get(new ResultCallback<WsResponse>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                hot_row.setVisibility(View.INVISIBLE);
+            }
 
+            @Override
+            public void onResponse(WsResponse ws) {
+                if (ws.getResCode().equals("0")){
+                    List<String> list=(List) ws.getContent();
+                    GridView   hot_search=(GridView)findViewById(R.id.hot_search);
+                    ArrayAdapter adapter=new ArrayAdapter(SearchActivity.this,R.layout.search_item,list);
+                    hot_search.setAdapter(adapter);
+                }else{
+                    hot_row.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 
     /**
