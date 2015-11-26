@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.GridView;
@@ -74,12 +75,7 @@ public class SearchActivity extends AppCompatActivity {
                                     Toast.makeText(SearchActivity.this, "不可输入表情符号", Toast.LENGTH_SHORT).show();
                                     break;
                                 }
-
-                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                                imm.hideSoftInputFromWindow(keyword.getWindowToken(), 0);
-                                Intent intent = new Intent(SearchActivity.this, SearchListActivity.class);
-                                intent.putExtra("key", key);
-                                startActivity(intent);
+                                GotoSearchListActivity(key);
                             }
                         } else {
                             Toast.makeText(SearchActivity.this, Constant.netError, Toast.LENGTH_SHORT).show();
@@ -99,6 +95,15 @@ public class SearchActivity extends AppCompatActivity {
         loadRemoteSearch();
     }
 
+    private void GotoSearchListActivity(String key) {
+        //关闭软键盘
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(keyword.getWindowToken(), 0);
+        Intent intent = new Intent(SearchActivity.this, SearchListActivity.class);
+        intent.putExtra("key", key);
+        startActivity(intent);
+    }
+
 
     private void initView() {
         hot_row=(TextView)findViewById(R.id.hot_row);
@@ -110,7 +115,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DataSupport.deleteAll(SearchData.class);
                 loadLocalSearch();
-                recent_row.setVisibility(View.INVISIBLE);
+                recent_row.setVisibility(View.GONE);
             }
         });
     }
@@ -134,6 +139,12 @@ public class SearchActivity extends AppCompatActivity {
                     GridView   hot_search=(GridView)findViewById(R.id.hot_search);
                     ArrayAdapter adapter=new ArrayAdapter(SearchActivity.this,R.layout.search_item,list);
                     hot_search.setAdapter(adapter);
+                    hot_search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            GotoSearchListActivity(((TextView)view).getText().toString());
+                        }
+                    });
                 }else{
                     hot_row.setVisibility(View.INVISIBLE);
                 }
@@ -151,7 +162,7 @@ public class SearchActivity extends AppCompatActivity {
             int d = cur.getColumnIndex("s_k");
             String v = cur.getString(d);
             if (v.length() > 5) {
-                list.add(v.substring(0, 5) + "...");
+                list.add(v.substring(0, 4) + "...");
             } else {
                 list.add(v);
             }

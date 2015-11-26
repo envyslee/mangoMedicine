@@ -78,7 +78,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     /*intent=new Intent(getContext(),MapActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);*/
-                    Toast.makeText(getActivity(),"已定位成功",Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(),"已定位成功",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {

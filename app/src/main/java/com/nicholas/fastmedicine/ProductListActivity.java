@@ -62,7 +62,6 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
             }
         });
         loading_lay=(RelativeLayout)findViewById(R.id.loading_lay);
-        loading_lay.setVisibility(View.VISIBLE);
 
         product_list = (ListView) findViewById(R.id.product_list);
 
@@ -77,7 +76,7 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
                 @Override
                 public void onError(Request request, Exception e) {
                     Toast.makeText(ProductListActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
-                    loading_lay.setVisibility(View.INVISIBLE);
+                    loading_lay.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -99,13 +98,13 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
                         }
                         productListAdapter = new ProductListAdapter(ProductListActivity.this, productList);
                         product_list.setAdapter(productListAdapter);
-                        loading_lay.setVisibility(View.INVISIBLE);
+                        loading_lay.setVisibility(View.GONE);
                     }
                 }
             });
         }else{
             Toast.makeText(ProductListActivity.this, "经纬度加载失败，请稍后再试", Toast.LENGTH_SHORT).show();
-            loading_lay.setVisibility(View.INVISIBLE);
+            loading_lay.setVisibility(View.GONE);
         }
 
 

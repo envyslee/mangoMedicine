@@ -56,7 +56,7 @@ public class ArrayColorAdapter extends BaseAdapter{
         TextView textView=(TextView)view;
         textView.setText(dataList.get(position));
         if (currPosition==position)
-            textView.setTextColor(Color.parseColor("#32B9AA"));
+            textView.setTextColor(Color.parseColor("#22b1ed"));
         else
             textView.setTextColor(Color.parseColor("#3A3A3A"));
         return view;

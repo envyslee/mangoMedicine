@@ -278,4 +278,6 @@
             android:text="加入购物车" />
 
     </LinearLayout>
+
+    <include layout="@layout/loading_frame"></include>
 </FrameLayout>

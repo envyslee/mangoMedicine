@@ -1,14 +1,11 @@
 package com.nicholas.fastmedicine;
 
 
-import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +20,7 @@ import android.widget.AdapterViewFlipper;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +73,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     private Button addtocar_btn;
 
+    private RelativeLayout loading;
+
     private void initView() {
         //药品名称
         name_tv = (TextView) findViewById(R.id.name_tv);
@@ -121,6 +121,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         //加入购物车
         addtocar_btn = (Button) findViewById(R.id.addtocar_btn);
         addtocar_btn.setOnClickListener(this);
+
+        //加载动画
+        loading=(RelativeLayout)findViewById(R.id.loading_lay);
     }
 
 
@@ -214,6 +217,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onError(Request request, Exception e) {
                 Toast.makeText(ProductDetailActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
+                loading.setVisibility(View.GONE);
             }
 
             @Override
@@ -239,8 +243,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     spec_tv.setText(map.get("productSpec"));
                     price_tv.setText("￥" + String.valueOf(map.get("productPrice")));
 
+                    loading.setVisibility(View.GONE);
                 } else {
                     Toast.makeText(ProductDetailActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
+                    loading.setVisibility(View.GONE);
                 }
             }
         });

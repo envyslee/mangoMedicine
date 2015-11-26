@@ -1,7 +1,6 @@
 package com.nicholas.fastmedicine;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -72,12 +71,18 @@ public class SelfCheckListActivity extends AppCompatActivity {
         }
         final ArrayAdapter diseaseAdapter=new ArrayAdapter(SelfCheckListActivity.this,R.layout.array_item, diseaseData);
         diseaseList.setAdapter(diseaseAdapter);
+        diseaseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SelfCheckListActivity.this, SearchListActivity.class);
+                intent.putExtra("key", ((TextView)view).getText());
+                startActivity(intent);
+            }
+        });
 
         areaList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*Drawable d= view.getBackground();
-                d.setAlpha(10);*/
                 areaAdapter.CurrentPosition(position);
                 areaAdapter.notifyDataSetChanged();
                 TextView tv = (TextView) view;

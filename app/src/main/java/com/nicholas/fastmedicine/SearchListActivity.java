@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,23 +42,13 @@ public class SearchListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecylerAdapter adapter;
     private AutoCompleteTextView keyword;
+    private RelativeLayout loading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_list);
 
-        keyword=(AutoCompleteTextView)findViewById(R.id.keyword);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.array_item, getResources().getStringArray(R.array.searchKeys));
-        keyword.setAdapter(adapter);
-
-        //recyclerView获取焦点，否则软键盘会自动弹出
-        recyclerView=(RecyclerView)findViewById(R.id.my_recylerview);
-        recyclerView.setFocusable(true);
-        recyclerView.setFocusableInTouchMode(true);
-        recyclerView.requestFocus();
-        recyclerView.requestFocusFromTouch();
-        String key= getIntent().getExtras().getString("key");
-        postSearch(Constant.baseUrl + "postSearch", key);
+        initView();
 
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,7 +79,25 @@ public class SearchListActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
 
+    private void   initView(){
+        loading=(RelativeLayout)findViewById(R.id.loading_lay);
+        loading.setClickable(true);
+
+
+        keyword=(AutoCompleteTextView)findViewById(R.id.keyword);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.array_item, getResources().getStringArray(R.array.searchKeys));
+        keyword.setAdapter(adapter);
+
+        //recyclerView获取焦点，否则软键盘会自动弹出
+        recyclerView=(RecyclerView)findViewById(R.id.my_recylerview);
+        recyclerView.setFocusable(true);
+        recyclerView.setFocusableInTouchMode(true);
+        recyclerView.requestFocus();
+        recyclerView.requestFocusFromTouch();
+        String key= getIntent().getExtras().getString("key");
+        postSearch(Constant.baseUrl + "postSearch", key);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,6 +122,7 @@ public class SearchListActivity extends AppCompatActivity {
                 @Override
                 public void onError(Request request, Exception e) {
                     Toast.makeText(SearchListActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
+                    loading.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -150,8 +161,10 @@ public class SearchListActivity extends AppCompatActivity {
                         });
                         recyclerView.setAdapter(adapter);
                         //recyclerView.addItemDecoration(new RecylerDivider(this));
+                        loading.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(SearchListActivity.this, ws.getResMsg(), Toast.LENGTH_SHORT).show();
+                        loading.setVisibility(View.GONE);
                     }
                 }
             });
@@ -161,7 +174,9 @@ public class SearchListActivity extends AppCompatActivity {
             searchData.save();
         }else{
             Toast.makeText(SearchListActivity.this, "经纬度加载失败，请稍后再试", Toast.LENGTH_SHORT).show();
+            loading.setVisibility(View.GONE);
         }
+
     }
 
 }
