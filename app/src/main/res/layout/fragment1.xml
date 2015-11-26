@@ -23,21 +23,26 @@
 
         <ImageView
             android:id="@+id/searchBanner"
-            android:layout_width="48dip"
-            android:layout_height="48dip"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/text_padding4"
-            android:layout_marginRight="48dip"
-            android:layout_marginTop="@dimen/text_padding4"
-            android:src="@drawable/actionbar_search_icon" />
+            android:layout_marginRight="60dip"
+            android:layout_marginTop="@dimen/text_padding12"
+            android:layout_marginBottom="@dimen/text_padding12"
+            android:src="@drawable/seach_icon"
+            android:layout_centerVertical="true"/>
 
         <ImageView
             android:id="@+id/servicePhone"
-            android:layout_width="48dip"
-            android:layout_height="46dip"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
             android:layout_alignParentRight="true"
             android:layout_gravity="center_vertical|right"
-            android:background="@drawable/telephone" />
+            android:background="@drawable/phone_icon"
+            android:layout_marginTop="@dimen/text_padding12"
+            android:layout_marginBottom="@dimen/text_padding12"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/text_padding12"/>
     </RelativeLayout>
 
     <com.nicholas.fastmedicine.controller.MyScrollView
@@ -101,9 +106,9 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/cat_40" />
+                            android:layout_width="@dimen/img_size6"
+                            android:layout_height="@dimen/img_size6"
+                            android:src="@drawable/special" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -120,9 +125,9 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/cat_40" />
+                            android:layout_width="@dimen/img_size6"
+                            android:layout_height="@dimen/img_size6"
+                            android:src="@drawable/shake" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -139,9 +144,9 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/cat_40" />
+                            android:layout_width="@dimen/img_size6"
+                            android:layout_height="@dimen/img_size6"
+                            android:src="@drawable/artical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -158,9 +163,9 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/cat_40" />
+                            android:layout_width="@dimen/img_size6"
+                            android:layout_height="@dimen/img_size6"
+                            android:src="@drawable/disease" />
 
                         <TextView
                             android:layout_width="wrap_content"

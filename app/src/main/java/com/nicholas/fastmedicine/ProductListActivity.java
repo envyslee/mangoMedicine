@@ -32,16 +32,15 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductListActivity extends AppCompatActivity implements View.OnClickListener {
-
-    //private List<CategoryItem> categoryItems;
     private ProductListAdapter productListAdapter;
-    private boolean sortbyprice=false;
-    private boolean sortbysales=false;
-    private int index=0;
-    private boolean haveData=true;
+    private boolean sortbyprice = false;
+    private boolean sortbysales = false;
+    private Integer index = 0;
+    private boolean haveData = true;
     private RelativeLayout loading_lay;
     private ListView product_list;
-    private List<ProductListItem> productList=new ArrayList<>();
+    private List<ProductListItem> productList = new ArrayList<>();
+    private Integer categoryId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_product_list);
         Bundle bundle = getIntent().getExtras();
         String title = bundle.getString("title");
-        Integer categoryId=(int)bundle.getDouble("categoryId");
+        categoryId = (int) bundle.getDouble("categoryId");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(title);
@@ -61,56 +60,11 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
                 finish();
             }
         });
-        loading_lay=(RelativeLayout)findViewById(R.id.loading_lay);
+        loading_lay = (RelativeLayout) findViewById(R.id.loading_lay);
 
         product_list = (ListView) findViewById(R.id.product_list);
 
-
-        String url="http://10.151.11.103:8080/fastMedicine/medicine/postProductList";
-        Map<String ,String > map=new HashMap<>();
-        map.put("categoryId", categoryId.toString());
-        if (Constant.lontitude!=null&&Constant.latitude!=null) {
-            map.put("lo", Constant.lontitude.toString());
-            map.put("la", Constant.latitude.toString());
-            new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
-                @Override
-                public void onError(Request request, Exception e) {
-                    Toast.makeText(ProductListActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
-                    loading_lay.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onResponse(WsResponse response) {
-                    if (response.getResCode().equals("0")) {
-                        List<Map<String, Object>> s = (List) response.getContent();
-                        int size = s.size();
-                        for (int i = 0; i < size; i++) {
-                            ProductListItem item = new ProductListItem();
-                            item.setProductName(s.get(i).get("productName").toString());
-                            item.setProductDesc(s.get(i).get("productDesc").toString());
-                            item.setProductSpec(s.get(i).get("productSpec").toString());
-                            double tp=(double)s.get(i).get("productSale");
-                            item.setProductSale((int)tp);
-                            item.setProductPrice((Double) s.get(i).get("productPrice"));
-                            item.setProductId((Double) s.get(i).get("productId"));
-                            item.setPharmacyId((Double) s.get(i).get("pharmacyId"));
-                            productList.add(item);
-                        }
-                        productListAdapter = new ProductListAdapter(ProductListActivity.this, productList);
-                        product_list.setAdapter(productListAdapter);
-                        loading_lay.setVisibility(View.GONE);
-                    }
-                }
-            });
-        }else{
-            Toast.makeText(ProductListActivity.this, "经纬度加载失败，请稍后再试", Toast.LENGTH_SHORT).show();
-            loading_lay.setVisibility(View.GONE);
-        }
-
-
-        //categoryItems=Images.Get_Product(index);
-
-
+        getData(categoryId, index);
         product_list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -131,42 +85,90 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
         product_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String productName=((TextView)view.findViewById(R.id.list_name)).getText().toString();
-                Intent intent=new Intent(ProductListActivity.this,ProductDetailActivity.class);
-                Map<String,Double> map=(Map)view.getTag();
-                intent.putExtra("productName",productName);
+                String productName = ((TextView) view.findViewById(R.id.list_name)).getText().toString();
+                Intent intent = new Intent(ProductListActivity.this, ProductDetailActivity.class);
+                Map<String, Double> map = (Map) view.getTag();
+                intent.putExtra("productName", productName);
                 intent.putExtra("productId", map.get("productId"));
-                intent.putExtra("pharmacyId",map.get("pharmacyId"));
+                intent.putExtra("pharmacyId", map.get("pharmacyId"));
                 startActivity(intent);
             }
         });
 
-        Button sale_btn=(Button)findViewById(R.id.sort_sale);
-        Button price_btn=(Button)findViewById(R.id.sort_price);
+        Button sale_btn = (Button) findViewById(R.id.sort_sale);
+        Button price_btn = (Button) findViewById(R.id.sort_price);
         sale_btn.setOnClickListener(this);
         price_btn.setOnClickListener(this);
-        FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
+    }
+
+    private void getData(Integer categoryId, Integer i) {
+        String url = Constant.baseUrl;
+        if (categoryId == 0) {
+            url += "postSprecialPrice";
+        } else {
+            url += "postProductList";
+        }
+        Map<String, String> map = new HashMap<>();
+        map.put("categoryId", categoryId.toString());
+        if (Constant.lontitude != null && Constant.latitude != null) {
+            map.put("lo", Constant.lontitude.toString());
+            map.put("la", Constant.latitude.toString());
+            map.put("index", i.toString());
+            new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
+                @Override
+                public void onError(Request request, Exception e) {
+                    Toast.makeText(ProductListActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
+                    loading_lay.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onResponse(WsResponse response) {
+                    if (response.getResCode().equals("0")) {
+                        List<Map<String, Object>> s = (List) response.getContent();
+                        int size = s.size();
+                        if (size > 0) {
+                            for (int i = 0; i < size; i++) {
+                                ProductListItem item = new ProductListItem();
+                                item.setProductName(s.get(i).get("productName").toString());
+                                item.setProductDesc(s.get(i).get("productDesc").toString());
+                                item.setProductSpec(s.get(i).get("productSpec").toString());
+                                double tp = (double) s.get(i).get("productSale");
+                                item.setProductSale((int) tp);
+                                item.setProductPrice((Double) s.get(i).get("productPrice"));
+                                item.setProductId((Double) s.get(i).get("productId"));
+                                item.setPharmacyId((Double) s.get(i).get("pharmacyId"));
+                                productList.add(item);
+                            }
+                            if (productListAdapter == null) {
+                                productListAdapter = new ProductListAdapter(ProductListActivity.this, productList);
+                                product_list.setAdapter(productListAdapter);
+                            } else {
+                                productListAdapter.notifyDataSetChanged();
+                            }
+                            loading_lay.setVisibility(View.GONE);
+                            index++;
+                        }else{
+                            haveData=false;
+                            loading_lay.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            });
+        } else {
+            Toast.makeText(ProductListActivity.this, "经纬度加载失败，请稍后再试", Toast.LENGTH_SHORT).show();
+            loading_lay.setVisibility(View.GONE);
+        }
     }
 
     /**
      * 滑动到底部加载更多
      */
-    private void AddMoreData()
-    {
-        if (haveData)
-        {
+    private void AddMoreData() {
+        if (haveData) {
             loading_lay.setVisibility(View.VISIBLE);
-            index++;
-            List<CategoryItem> tmpItems = Images.Get_Product(index);
-            if (tmpItems.size() > 0) {
-                //categoryItems.addAll(tmpItems);
-                productListAdapter.notifyDataSetChanged();
-            } else {
-                haveData = false;
-            }
-
-            loading_lay.setVisibility(View.INVISIBLE);
+            getData(categoryId, index);
         }
     }
 
@@ -175,36 +177,30 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sort_sale:
-                if (!sortbysales)
-                {
+                if (!sortbysales) {
                     Collections.sort(productList, new Comparator<ProductListItem>() {
                         @Override
                         public int compare(ProductListItem lhs, ProductListItem rhs) {
                             return lhs.getProductSale().compareTo(rhs.getProductSale());
                         }
                     });
-                    sortbysales=true;
-                }
-                else
-                {
+                    sortbysales = true;
+                } else {
                     Collections.reverse(productList);
                 }
                 productListAdapter.notifyDataSetChanged();
                 break;
 
             case R.id.sort_price:
-                if (!sortbyprice)
-                {
+                if (!sortbyprice) {
                     Collections.sort(productList, new Comparator<ProductListItem>() {
                         @Override
                         public int compare(ProductListItem lhs, ProductListItem rhs) {
-                            return  lhs.getProductPrice().compareTo(rhs.getProductPrice());
+                            return lhs.getProductPrice().compareTo(rhs.getProductPrice());
                         }
                     });
-                    sortbyprice=true;
-                }
-                else
-                {
+                    sortbyprice = true;
+                } else {
                     Collections.reverse(productList);
                 }
 

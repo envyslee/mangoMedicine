@@ -5,9 +5,8 @@
 		<ImageView android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:id="@+id/imgView"
-		    android:src="@drawable/test1"
+		    android:src="@drawable/head"
 		    android:layout_gravity="center_vertical|center_horizontal"
-		    android:scaleType="fitXY"
-		    >
+		    android:scaleType="fitXY">
 		</ImageView>
 </LinearLayout>

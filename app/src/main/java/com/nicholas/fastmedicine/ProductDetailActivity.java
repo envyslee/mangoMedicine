@@ -3,10 +3,10 @@ package com.nicholas.fastmedicine;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -279,7 +279,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.call_ph:
                 new AlertDialog.Builder(ProductDetailActivity.this)
-                        .setMessage("客服电话：" + ph_phone)
+                        .setMessage("药房电话：" + ph_phone)
                         .setPositiveButton("拨打", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

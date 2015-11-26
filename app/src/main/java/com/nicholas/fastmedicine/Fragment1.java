@@ -1,12 +1,13 @@
 package com.nicholas.fastmedicine;
 
-import android.app.AlertDialog;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.servicePhone:
-                new AlertDialog.Builder(getContext())
+                new AlertDialog.Builder(getActivity())
                         .setMessage("客服电话：4008-365-365")
                         .setPositiveButton("拨打", new DialogInterface.OnClickListener() {
                             @Override
@@ -91,7 +92,8 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;*/
             case R.id.price_lay:
-                intent=new Intent(getContext(),WebActivity.class);
+                intent=new Intent(getContext(),ProductListActivity.class);
+                intent.putExtra("categoryId",0);
                 startActivity(intent);
                 break;
             case R.id.disease_lay:

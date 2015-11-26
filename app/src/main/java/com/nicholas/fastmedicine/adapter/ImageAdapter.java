@@ -32,7 +32,7 @@ public class ImageAdapter extends BaseAdapter {
 
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private static final int[] ids = {R.drawable.test1, R.drawable.test2, R.drawable.test3,R.drawable.img_0 };
+	private static final int[] ids = {R.drawable.user_bg, R.drawable.test2, R.drawable.test3,R.drawable.img_0 };
 
 	public ImageAdapter(Context context) {
 		mContext = context;

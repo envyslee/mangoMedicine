@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class SearchListActivity extends AppCompatActivity {
     private RecylerAdapter adapter;
     private AutoCompleteTextView keyword;
     private RelativeLayout loading;
+    private ImageView search_no_img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +87,7 @@ public class SearchListActivity extends AppCompatActivity {
         loading=(RelativeLayout)findViewById(R.id.loading_lay);
         loading.setClickable(true);
 
+        search_no_img=(ImageView)findViewById(R.id.search_no_img);
 
         keyword=(AutoCompleteTextView)findViewById(R.id.keyword);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.array_item, getResources().getStringArray(R.array.searchKeys));
@@ -123,6 +126,7 @@ public class SearchListActivity extends AppCompatActivity {
                 public void onError(Request request, Exception e) {
                     Toast.makeText(SearchListActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
                     loading.setVisibility(View.GONE);
+                    search_no_img.setVisibility(View.VISIBLE);
                 }
 
                 @Override
@@ -165,6 +169,7 @@ public class SearchListActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(SearchListActivity.this, ws.getResMsg(), Toast.LENGTH_SHORT).show();
                         loading.setVisibility(View.GONE);
+                        search_no_img.setVisibility(View.VISIBLE);
                     }
                 }
             });

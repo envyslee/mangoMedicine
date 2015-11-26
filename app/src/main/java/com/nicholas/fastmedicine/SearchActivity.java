@@ -173,6 +173,12 @@ public class SearchActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(SearchActivity.this, R.layout.search_item, list);
         GridView recent_search = (GridView) findViewById(R.id.recent_search_grid_view);
         recent_search.setAdapter(adapter);
+        recent_search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GotoSearchListActivity(((TextView)view).getText().toString());
+            }
+        });
     }
 
     @Override

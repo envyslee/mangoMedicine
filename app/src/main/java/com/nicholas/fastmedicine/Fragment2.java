@@ -5,16 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.adapter.CategoryListAdapter;
+import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.item.ProductCategory;
 import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.Request;
@@ -36,10 +39,14 @@ public class Fragment2 extends Fragment {
     private List<ProductCategory> itemList = new ArrayList<>();
 
     private CategoryListAdapter adapter;
+    private RelativeLayout loading;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment2, null, false);
+
+        loading=(RelativeLayout)view.findViewById(R.id.loading_lay);
+        loading.setClickable(true);
 
         refreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swipeRefresh);
 
@@ -85,19 +92,21 @@ public class Fragment2 extends Fragment {
     }
 
     private void getCategoryList() {
-        String url = "http://10.151.11.103:8080/fastMedicine/medicine/getProductCategoryList";
+        String url = Constant.baseUrl+ "getProductCategoryList";
         new OkHttpRequest.Builder().url(url)
                 .get(new ResultCallback<WsResponse>() {
                     @Override
                     public void onError(Request request, Exception e) {
-                        Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), Constant.dataError, Toast.LENGTH_SHORT).show();
                         refreshLayout.setRefreshing(false);
                         isRefresh=false;
+                        loading.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onResponse(WsResponse response) {
                         if (response.getResCode().equals("0")) {
+                            itemList.clear();
                             List<Map<String, Object>> s = (List) response.getContent();
                             int size = s.size();
                             for (int i = 0; i < size; i++) {
@@ -117,6 +126,7 @@ public class Fragment2 extends Fragment {
                         }
                         refreshLayout.setRefreshing(false);
                         isRefresh=false;
+                        loading.setVisibility(View.GONE);
                     }
                 });
     }

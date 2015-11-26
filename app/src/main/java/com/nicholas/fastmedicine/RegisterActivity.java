@@ -99,8 +99,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(this, "手机号码不正确", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.button2://校验验证码
-
+            case R.id.button2://提交注册，校验验证码
                 if (!TextUtils.isEmpty(verEditText.getText().toString())||!TextUtils.isEmpty(passwordEditText.getText().toString())||!TextUtils.isEmpty(passwordConfirmEditText.getText().toString())){
                     passwordStr=passwordEditText.getText().toString();
                     passwordConfirmStr=passwordConfirmEditText.getText().toString();
@@ -109,9 +108,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(this, "两次密码输入不一致", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                            /*--------------------zanshi ------------------------*/
-                        register(Constant.baseUrl+"postRegister",phonEditText.getText().toString(),passwordStr,MethodSingleton.getInstance().getDeviceModel(),MethodSingleton.getInstance().getVersionName(RegisterActivity.this),MethodSingleton.getInstance().getOSVersion());
-                        //SMSSDK.submitVerificationCode("86", phString, verEditText.getText().toString());
+                        SMSSDK.submitVerificationCode("86", phString, verEditText.getText().toString());
                     }
                 } else {
                     Toast.makeText(this, "信息填写不完整", Toast.LENGTH_SHORT).show();
@@ -131,14 +128,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Object data = msg.obj;
             if (result == SMSSDK.RESULT_COMPLETE) {
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码
-                    Toast.makeText(getApplicationContext(), "验证成功", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "验证成功", Toast.LENGTH_SHORT).show();
                     //验证成功 注册入库
-                    //
-                    //
-
-
-
-
+                    register(Constant.baseUrl+"postRegister",phonEditText.getText().toString(),passwordStr,MethodSingleton.getInstance().getDeviceModel(),MethodSingleton.getInstance().getVersionName(RegisterActivity.this),MethodSingleton.getInstance().getOSVersion());
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     Toast.makeText(getApplicationContext(), "验证码已发送", Toast.LENGTH_SHORT).show();
                 }
