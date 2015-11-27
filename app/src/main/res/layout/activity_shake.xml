@@ -3,13 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pageBackground"
     android:orientation="vertical"
     tools:context="com.nicholas.fastmedicine.ShakeActivity">
+
+
     <include layout="@layout/toorbar_layout"></include>
 
-<TextView
-    android:id="@+id/shake_tv"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="请摇晃手机"/>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:id="@+id/content_fl"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200dip"
+                android:layout_height="200dip"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/content_marginBottom"
+                android:src="@drawable/shake_png" />
+
+            <TextView
+                android:id="@+id/shake_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/content_marginTop"
+                android:text="摇一摇，发现优惠"
+                android:textSize="@dimen/textSize20" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/no_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/search_result"
+            android:visibility="gone" />
+
+    </FrameLayout>
 </LinearLayout>

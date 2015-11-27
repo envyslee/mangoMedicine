@@ -169,6 +169,10 @@ private void register(String url,final String n,String p,String d,String v,Strin
 
         @Override
         public void onResponse(WsResponse ws) {
+            if (ws.getResCode()==null){
+                Toast.makeText(RegisterActivity.this, "注册失败，请稍后再试", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (ws.getResCode().equals("0")){
                 String userId=ws.getContent().toString();
                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();

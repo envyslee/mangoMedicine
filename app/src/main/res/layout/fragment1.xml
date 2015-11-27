@@ -29,7 +29,7 @@
             android:layout_marginRight="60dip"
             android:layout_marginTop="@dimen/text_padding12"
             android:layout_marginBottom="@dimen/text_padding12"
-            android:src="@drawable/seach_icon"
+            android:src="@drawable/h_search"
             android:layout_centerVertical="true"/>
 
         <ImageView
@@ -38,7 +38,7 @@
             android:layout_height="36dip"
             android:layout_alignParentRight="true"
             android:layout_gravity="center_vertical|right"
-            android:background="@drawable/phone_icon"
+            android:background="@drawable/h_phone"
             android:layout_marginTop="@dimen/text_padding12"
             android:layout_marginBottom="@dimen/text_padding12"
             android:layout_centerVertical="true"
@@ -106,8 +106,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="@dimen/img_size6"
-                            android:layout_height="@dimen/img_size6"
+                            android:layout_width="@dimen/img_size5"
+                            android:layout_height="@dimen/img_size5"
                             android:src="@drawable/special" />
 
                         <TextView
@@ -125,8 +125,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="@dimen/img_size6"
-                            android:layout_height="@dimen/img_size6"
+                            android:layout_width="@dimen/img_size5"
+                            android:layout_height="@dimen/img_size5"
                             android:src="@drawable/shake" />
 
                         <TextView
@@ -144,8 +144,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="@dimen/img_size6"
-                            android:layout_height="@dimen/img_size6"
+                            android:layout_width="@dimen/img_size5"
+                            android:layout_height="@dimen/img_size5"
                             android:src="@drawable/artical" />
 
                         <TextView
@@ -163,8 +163,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="@dimen/img_size6"
-                            android:layout_height="@dimen/img_size6"
+                            android:layout_width="@dimen/img_size5"
+                            android:layout_height="@dimen/img_size5"
                             android:src="@drawable/disease" />
 
                         <TextView

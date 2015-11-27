@@ -120,6 +120,10 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(WsResponse ws) {
+                if (ws.getResCode()==null){
+                    Toast.makeText(LoginActivity.this, "登录失败，请稍后再试", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (ws.getResCode().equals("0")) {
                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     //本地保存用户数据

@@ -202,10 +202,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
                     @Override
                     public void onResponse(String response) {
-                        desc_tv.setText(response);
+
                     }
-
-
                 });
     }
 
@@ -222,6 +220,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onResponse(WsResponse ws) {
+                if (ws.getResCode()==null){
+                    Toast.makeText(ProductDetailActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
+                    finish();
+                    return;
+                }
                 if (ws.getResCode().equals("0")) {
                     Map<String, String> map = (Map) ws.getContent();
                     String pics = map.get("productPics");
@@ -274,7 +277,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 Toast.makeText(this, "购物车图标", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.addtocar_btn:
-                GetData();
                 CarAnimator();
                 break;
             case R.id.call_ph:

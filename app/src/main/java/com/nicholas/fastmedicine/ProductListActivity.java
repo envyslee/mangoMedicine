@@ -119,12 +119,17 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
             new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
                 @Override
                 public void onError(Request request, Exception e) {
-                    Toast.makeText(ProductListActivity.this, "获取数据出错", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductListActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
                     loading_lay.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onResponse(WsResponse response) {
+                    if (response.getResCode()==null){
+                        Toast.makeText(ProductListActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
                     if (response.getResCode().equals("0")) {
                         List<Map<String, Object>> s = (List) response.getContent();
                         int size = s.size();
@@ -157,7 +162,7 @@ public class ProductListActivity extends AppCompatActivity implements View.OnCli
                 }
             });
         } else {
-            Toast.makeText(ProductListActivity.this, "经纬度加载失败，请稍后再试", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductListActivity.this, Constant.mapError, Toast.LENGTH_SHORT).show();
             loading_lay.setVisibility(View.GONE);
         }
     }

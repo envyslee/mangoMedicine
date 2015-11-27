@@ -17,6 +17,7 @@
     <dimen name="view_line_height">0.8dip</dimen>
     <dimen name="img_size">70dip</dimen>
     <dimen name="img_size6">60dip</dimen>
+    <dimen name="img_size5">50dip</dimen>
     <dimen name="textSize12">12sp</dimen>
     <dimen name="textSize14">14sp</dimen>
     <dimen name="textSize16">16sp</dimen>
