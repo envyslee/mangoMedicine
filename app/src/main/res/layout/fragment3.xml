@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -11,23 +13,91 @@
             android:id="@+id/car"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_padding12"
-            android:text="购物车"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/textSize22"
-            android:layout_marginTop="@dimen/text_padding10"
             android:layout_marginBottom="@dimen/text_padding10"
-            android:textColor="@color/beautyTextColor"/>
+            android:layout_marginLeft="@dimen/text_padding12"
+            android:layout_marginTop="@dimen/text_padding10"
+            android:text="购物车"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize22" />
+
         <View
-            android:layout_below="@id/car"
             android:layout_width="match_parent"
             android:layout_height="@dimen/viewheight06"
+            android:layout_below="@id/car"
             android:background="@android:color/darker_gray" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/fragthree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="frag3"/>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/content_marginBottom"
+            android:orientation="vertical"
+            android:padding="@dimen/text_padding6">
+
+
+            <ExpandableListView
+                android:id="@+id/car_list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:groupIndicator="@null">
+
+            </ExpandableListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:alpha="0.7"
+            android:background="@android:color/black"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="2dip">
+
+                <CheckBox
+                    android:id="@+id/allChoose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:text="全选"
+                    android:textColor="@color/subTitleBg" />
+            </LinearLayout>
+
+          <TextView
+                android:id="@+id/totalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_padding6"
+                android:text="合计"
+                android:textColor="@color/red"
+                android:textSize="@dimen/textSize18" />
+
+            <Button
+                android:id="@+id/goPay"
+                android:layout_width="36dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_padding6"
+                android:layout_marginRight="@dimen/text_padding6"
+                android:layout_weight="1"
+                android:text="去结算" />
+
+        </LinearLayout>
+
+        <include layout="@layout/loading_frame"></include>
+
+    </FrameLayout>
 </LinearLayout>

@@ -55,6 +55,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         fragmentManager = getSupportFragmentManager();
         view =new BadgeView(this);
 
+        if (getIntent().getExtras()!=null) {
+            String s = getIntent().getExtras().getString("comeFrom");
+            if (s != null && s.equals("productDetail")) {
+                setTabSelection(2);
+
+            }
+        }
+
         initViews();
         setTabSelection(0);
         //初始化分享
@@ -120,9 +128,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case 2:
                 carImg.setImageResource(R.drawable.car);
                 carText.setTextColor(Color.parseColor("#32B9AA"));
-                fragment3 = new Fragment3();
+                /*fragment3 = new Fragment3();
                 transaction.add(R.id.content, fragment3);
-                transaction.show(fragment3);
+                transaction.show(fragment3);*/
+                if (fragment3== null) {
+                    fragment3 = new Fragment3();
+                    transaction.add(R.id.content, fragment3);
+                } else {
+                    transaction.show(fragment3);
+                }
                 break;
             case 3:
             default:
@@ -151,9 +165,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
 
-        view.setTargetView(carImg);
+        /*view.setTargetView(carImg);
         view.setBadgeGravity(Gravity.RIGHT);
-        view.setBadgeCount(2);
+        view.setBadgeCount(2);*/
         super.onResume();
     }
 
@@ -198,7 +212,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             transaction.hide(fragment2);
         }
         if (fragment3 != null) {
-            transaction.remove(fragment3);
+            transaction.hide(fragment3);
         }
         if (fragment4 != null) {
             transaction.hide(fragment4);

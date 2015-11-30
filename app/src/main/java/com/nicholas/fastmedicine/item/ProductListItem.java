@@ -30,6 +30,26 @@ public class ProductListItem
 
     private Double pharmacyId;// 药店id
 
+    private String pharmacyName;//药店名称
+
+    private boolean isCheck=true;//是否选中
+
+    public boolean getIscheck() {
+        return isCheck;
+    }
+
+    public void setIscheck(boolean ischeck) {
+        this.isCheck = ischeck;
+    }
+
+    public String getPharmacyName() {
+        return pharmacyName;
+    }
+
+    public void setPharmacyName(String pharmacyName) {
+        this.pharmacyName = pharmacyName;
+    }
+
     public Double getPharmacyId()
     {
         return pharmacyId;

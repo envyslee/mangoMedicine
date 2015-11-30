@@ -258,24 +258,27 @@
 
         <ImageView
             android:id="@+id/car_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="46dip"
+            android:layout_height="46dip"
             android:layout_weight="1"
-            android:src="@drawable/icon_geo" />
+            android:src="@drawable/car" />
 
         <Button
             android:id="@+id/buy_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="立即购买" />
+            android:text="立即购买"
+            />
 
         <Button
             android:id="@+id/addtocar_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="加入购物车" />
+            android:text="加入购物车"
+            android:layout_marginLeft="@dimen/text_padding6"
+            android:layout_marginRight="@dimen/text_padding6"/>
 
     </LinearLayout>
 

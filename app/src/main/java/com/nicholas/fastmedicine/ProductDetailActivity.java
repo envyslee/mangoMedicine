@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -31,6 +30,7 @@ import com.android.volley.toolbox.Volley;
 import com.nicholas.fastmedicine.common.BitmapCache;
 
 import com.nicholas.fastmedicine.common.Constant;
+import com.nicholas.fastmedicine.controller.BadgeView;
 import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
@@ -74,6 +74,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private Button addtocar_btn;
 
     private RelativeLayout loading;
+
+    private String priceId;
+
+    private Integer count=0;
+    private BadgeView badgeView;
 
     private void initView() {
         //药品名称
@@ -124,6 +129,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         //加载动画
         loading=(RelativeLayout)findViewById(R.id.loading_lay);
+
+        badgeView=new BadgeView(ProductDetailActivity.this);
     }
 
 
@@ -190,23 +197,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         GetProductDetail(Constant.baseUrl + "postProductDetail", productId, pharmacyId);
     }
 
-
-    private void GetData() {
-        String url = "https://raw.githubusercontent.com/hongyangAndroid/okhttp-utils/master/user.gson";
-        new OkHttpRequest.Builder().url(url)
-                .get(new ResultCallback<String>() {
-                    @Override
-                    public void onError(Request request, Exception e) {
-                        Log.e("TAG", "onError , e = " + e.getMessage());
-                    }
-
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
-                });
-    }
-
     private void GetProductDetail(String url, Double productId, Double pharmacyId) {
         Map<String, String> map = new HashMap<>();
         map.put("productId", String.valueOf(productId.intValue()));
@@ -220,31 +210,33 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onResponse(WsResponse ws) {
-                if (ws.getResCode()==null){
+                if (ws.getResCode() == null) {
                     Toast.makeText(ProductDetailActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
                     finish();
                     return;
                 }
                 if (ws.getResCode().equals("0")) {
-                    Map<String, String> map = (Map) ws.getContent();
-                    String pics = map.get("productPics");
-                    Intro_ingredients.setText(map.get("mainIngredients"));
-                    Intro_character.setText(map.get("productCharacter"));
-                    Intro_usage.setText(map.get("productUsage"));
-                    Intro_amount.setText(map.get("usageAmount"));
-                    Intro_attention.setText(map.get("attentionTip"));
-                    Intro_storge.setText(map.get("productStorage"));
-                    Intro_enterprise.setText(map.get("productEnterprise"));
-                    Intro_untowardEffect.setText(map.get("untowardEffect"));
-                    Intro_spec.setText(map.get("productSpec"));
+                    Map<String, Object> map = (Map) ws.getContent();
+                    //String pics = map.get("productPics").toString();
+                    Intro_ingredients.setText(map.get("mainIngredients").toString());
+                    Intro_character.setText(map.get("productCharacter").toString());
+                    Intro_usage.setText(map.get("productUsage").toString());
+                    Intro_amount.setText(map.get("usageAmount").toString());
+                    Intro_attention.setText(map.get("attentionTip").toString());
+                    Intro_storge.setText(map.get("productStorage").toString());
+                    Intro_enterprise.setText(map.get("productEnterprise").toString());
+                    Intro_untowardEffect.setText(map.get("untowardEffect").toString());
+                    Intro_spec.setText(map.get("productSpec").toString());
 
-                    ph_address.setText(map.get("pharmacyAddress"));
-                    ph_name.setText(map.get("pharmacyName"));
-                    ph_phone = map.get("pharmacyPhone");
+                    ph_address.setText(map.get("pharmacyAddress").toString());
+                    ph_name.setText(map.get("pharmacyName").toString());
+                    ph_phone = map.get("pharmacyPhone").toString();
 
-                    desc_tv.setText(map.get("productUsage").substring(0, 28) + "...");
-                    spec_tv.setText(map.get("productSpec"));
+                    desc_tv.setText(map.get("productUsage").toString().substring(0, 28) + "...");
+                    spec_tv.setText(map.get("productSpec").toString());
                     price_tv.setText("￥" + String.valueOf(map.get("productPrice")));
+                    double p=(double)map.get("priceId");
+                    priceId=String.valueOf((int) p);
 
                     loading.setVisibility(View.GONE);
                 } else {
@@ -275,9 +267,14 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.car_img:
                 Toast.makeText(this, "购物车图标", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(ProductDetailActivity.this,MainActivity.class);
+                intent.putExtra("comeFrom","productDetail");
+                startActivity(intent);
+                finish();
                 break;
             case R.id.addtocar_btn:
-                CarAnimator();
+
+                AddToCar();
                 break;
             case R.id.call_ph:
                 new AlertDialog.Builder(ProductDetailActivity.this)
@@ -297,6 +294,40 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 break;
             default:
                 break;
+        }
+    }
+
+    private void AddToCar(){
+        String url=Constant.baseUrl+"postIntoCar";
+        Map<String ,String> map=new HashMap<>();
+        if (!Constant.userId.isEmpty()){
+            map.put("userId",Constant.userId);
+            map.put("priceId",priceId);
+            map.put("count", count + 1 + "");
+            new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
+                @Override
+                public void onError(Request request, Exception e) {
+                    Toast.makeText(ProductDetailActivity.this,Constant.dataError,Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onResponse(WsResponse ws) {
+                    if (ws.getResCode() != null) {
+                        if (ws.getResCode().equals("0")) {
+                            CarAnimator();
+                            count++;
+                            badgeView.setBadgeCount(count);
+                        } else {
+                            Toast.makeText(ProductDetailActivity.this, ws.getResMsg(), Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(ProductDetailActivity.this,Constant.dataError,Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }else{
+            Toast.makeText(ProductDetailActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
         }
     }
 
