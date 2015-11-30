@@ -162,7 +162,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
         //取购物车数据量
-
+        if (fragment3!=null){
+            fragment3.GetCarData();
+        }
 
 
         /*view.setTargetView(carImg);

@@ -1,20 +1,25 @@
 package com.nicholas.fastmedicine;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.adapter.CarExpandAdapter;
+import com.nicholas.fastmedicine.adapter.RecylerAdapter;
 import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.item.ExpandGroup;
 import com.nicholas.fastmedicine.item.ProductListItem;
@@ -40,13 +45,21 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
     private CarExpandAdapter cea;
     private Map<String ,List<ProductListItem>> children;
     private List<ExpandGroup> group;
+    private LinearLayout bottom_banner;
+    private Button login_from_car;
+    private LinearLayout no_result;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment3, null, false);
         initView(view);
 
-        GetCarData();
+        if (!Constant.userId.isEmpty()) {
+            GetCarData();
+        }else {
+            loading.setVisibility(View.GONE);
+            no_result.setVisibility(View.VISIBLE);
+        }
 
         //((loadDataListener) getActivity()).clearCarCount();
         return view;
@@ -68,14 +81,15 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
         cea.notifyDataSetChanged();
     }
 
+
     public interface loadDataListener {
         void clearCarCount();
     }
 
 
-    private void GetCarData(){
+    public   void GetCarData(){
+
         String url= Constant.baseUrl+"getCarList";
-        if (!Constant.userId.isEmpty()) {
             Map<String ,String> map=new HashMap<>();
             map.put("userId",Constant.userId);
             new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
@@ -89,6 +103,7 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
                 public void onResponse(WsResponse ws) {
                     if (ws.getResCode()!=null){
                         if (ws.getResCode().equals("0")){
+                            bottom_banner.setVisibility(View.VISIBLE);
                             group=new ArrayList<>();
                             List<Map<String, Object>> s = (List) ws.getContent();
                             int size = s.size();
@@ -140,13 +155,11 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
                         }else if(ws.getResCode().equals("011")){
                             loading.setVisibility(View.GONE);
                         }
+                    }else{
+                        loading.setVisibility(View.GONE);
                     }
                 }
             });
-        }else {
-            loading.setVisibility(View.GONE);
-            Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void initView(View view){
@@ -154,7 +167,17 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
         car_list=(ExpandableListView)view.findViewById(R.id.car_list);
         allChoose=(CheckBox)view.findViewById(R.id.allChoose);
         totalPrice=(TextView)view.findViewById(R.id.totalPrice);
-
+        bottom_banner=(LinearLayout)view.findViewById(R.id.bottom_banner);
+        //search_no_img=(ImageView)view.findViewById(R.id.search_no_img);
+        no_result=(LinearLayout)view.findViewById(R.id.no_result);
+        login_from_car=(Button)view.findViewById(R.id.login_from_car);
+        login_from_car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

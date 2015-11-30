@@ -49,13 +49,14 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <ImageView
+<!--    <ImageView
         android:id="@+id/search_no_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/search_result"
-        android:visibility="gone"/>
+        android:visibility="gone"/>-->
+    <include layout="@layout/no_result_img"></include>
 
     <include layout="@layout/loading_frame"></include>
 </FrameLayout>
