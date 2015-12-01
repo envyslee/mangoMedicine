@@ -32,15 +32,44 @@ public class ProductListItem
 
     private String pharmacyName;//药店名称
 
-    private boolean isCheck=true;//是否选中
+    private boolean isChecked=true;//是否选中
 
-    public boolean getIscheck() {
-        return isCheck;
+    public boolean isChecked() {
+        return isChecked;
     }
 
-    public void setIscheck(boolean ischeck) {
-        this.isCheck = ischeck;
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
     }
+
+    private Integer count=1;//商品数量
+
+    private Double maxCount;//库存
+
+    private Double priceId;//对应药店商品id
+    public Double getPriceId() {
+        return priceId;
+    }
+
+    public void setPriceId(Double priceId) {
+        this.priceId = priceId;
+    }
+    public Double getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(Double maxCount) {
+        this.maxCount = maxCount;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
 
     public String getPharmacyName() {
         return pharmacyName;

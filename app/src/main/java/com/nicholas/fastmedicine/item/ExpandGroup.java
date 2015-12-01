@@ -6,7 +6,7 @@ package com.nicholas.fastmedicine.item;
 public class ExpandGroup {
     private String GName;
 
-    private boolean isChecked=true;
+    private boolean isChecked;
 
     public String getGName() {
         return GName;

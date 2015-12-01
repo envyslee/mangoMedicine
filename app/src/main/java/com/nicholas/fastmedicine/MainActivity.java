@@ -55,16 +55,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         fragmentManager = getSupportFragmentManager();
         view =new BadgeView(this);
 
+        initViews();
+
         if (getIntent().getExtras()!=null) {
             String s = getIntent().getExtras().getString("comeFrom");
             if (s != null && s.equals("productDetail")) {
+                lastIndex = 2;
                 setTabSelection(2);
-
             }
+        }else{
+            setTabSelection(0);
         }
-
-        initViews();
-        setTabSelection(0);
         //初始化分享
         ShareSDK.initSDK(this);
 

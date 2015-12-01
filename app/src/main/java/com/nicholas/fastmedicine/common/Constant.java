@@ -23,8 +23,8 @@ public class Constant {
     public static float radius;
 
     //服务端url
-    //public static String baseUrl="http://10.151.11.103:8080/fastMedicine/medicine/";
-    public static String baseUrl="http://115.28.200.185:8080/fastMedicine/medicine/";
+    public static String baseUrl="http://10.151.11.103:8080/fastMedicine/medicine/";
+    //public static String baseUrl="http://115.28.200.185:8080/fastMedicine/medicine/";
 
     public static String dataError="获取数据出错，请稍后再试";
     public static String netError="亲，网络不给力哦";

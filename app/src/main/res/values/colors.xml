@@ -17,6 +17,8 @@
     <!--网易字体-->
     <color name="subTitleBg">#999999</color>
 
+    <color name="bottomBannerBlack">#272623</color>
+
     <color name="toolbarColor">#F9F9F9</color>
 
     <color name="white">#FFFFFF</color><!--白色 -->

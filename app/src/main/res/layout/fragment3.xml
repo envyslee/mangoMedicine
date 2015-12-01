@@ -30,16 +30,17 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        >
+        android:layout_height="fill_parent">
 
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/content_marginBottom"
+            android:paddingBottom="57dip"
             android:orientation="vertical"
-            android:padding="@dimen/text_padding6">
+            android:paddingRight="@dimen/text_padding6"
+            android:paddingLeft="@dimen/text_padding6"
+            >
 
 
             <ExpandableListView
@@ -47,7 +48,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:divider="@null"
-                android:groupIndicator="@null">
+                android:groupIndicator="@null"
+                android:scrollbars="none">
 
             </ExpandableListView>
         </LinearLayout>
@@ -57,28 +59,34 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:alpha="0.7"
-            android:background="@android:color/black"
+            android:background="@color/bottomBannerBlack"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:alpha=".85"
+           >
 
+            <!--android:visibility="gone"-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="2dip">
+                android:paddingTop="2dip"
+                android:paddingBottom="2dip"
+                android:paddingRight="2dip"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center">
 
-                <CheckBox
+          <CheckBox
                     android:id="@+id/allChoose"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|center_horizontal"
                     android:text="全选"
-                    android:textColor="@color/subTitleBg" />
+                    android:textColor="@color/subTitleBg"
+                    android:layout_marginTop="-4dip"/>
             </LinearLayout>
 
             <TextView
@@ -87,17 +95,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/text_padding6"
                 android:text="合计"
-                android:textColor="@color/red"
-                android:textSize="@dimen/textSize18" />
+                android:textColor="@color/crimson"
+                android:textSize="@dimen/textSize18"
+                android:layout_weight="4"
+                android:layout_gravity="center_vertical"/>
 
             <Button
                 android:id="@+id/goPay"
-                android:layout_width="36dip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/text_padding6"
-                android:layout_marginRight="@dimen/text_padding6"
-                android:layout_weight="1"
-                android:text="去结算" />
+                android:layout_weight="2"
+                android:text="去结算"
+                android:textSize="@dimen/textSize18"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/btn_selector"
+                android:layout_margin="@dimen/text_padding4"/>
 
         </LinearLayout>
 
@@ -125,6 +137,7 @@
                 android:layout_marginTop="@dimen/content_marginTop"/>
 
             <LinearLayout
+                android:id="@+id/sub_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 

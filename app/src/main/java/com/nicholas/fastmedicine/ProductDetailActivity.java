@@ -266,7 +266,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 favor_img.setEnabled(false);
                 break;
             case R.id.car_img:
-                Toast.makeText(this, "购物车图标", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(ProductDetailActivity.this,MainActivity.class);
                 intent.putExtra("comeFrom","productDetail");
                 startActivity(intent);
@@ -316,8 +315,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                         if (ws.getResCode().equals("0")) {
                             CarAnimator();
                             count++;
-                            badgeView.setBadgeCount(count);
-                        } else {
+                            //badgeView.setBadgeCount(count);
+                        }else if (ws.getResCode().equals("010")){
+                            Toast.makeText(ProductDetailActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
+                        }else {
                             Toast.makeText(ProductDetailActivity.this, ws.getResMsg(), Toast.LENGTH_SHORT).show();
                         }
                     }else{
