@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground"
+    android:orientation="vertical"
+    tools:context="com.nicholas.fastmedicine.BalanceActivity">
+
+    <include layout="@layout/toorbar_layout"></include>
+
+    <LinearLayout
+        android:id="@+id/address_lay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/text_padding6">
+
+        <TextView
+            android:id="@+id/receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="李冰冰"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="李冰冰"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="李冰冰"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_marginTop"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/text_padding6">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/icon_geo"
+            android:text="付款方式"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize16"
+            android:gravity="center_vertical"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/point"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="可用33积分抵用0.33元"
+                android:textColor="@color/beautyTextColor"
+                android:textSize="@dimen/textSize16"
+                android:gravity="bottom" />
+
+            <CheckBox
+                android:id="@+id/userPointCb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/card"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/icon_geo"
+            android:text="优惠券"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize16"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/mark"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/icon_geo"
+            android:text="备注"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize16"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_marginTop"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/text_padding6">
+        <TextView
+            android:id="@+id/pharmacy"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="药店名称"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize16"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/medicine"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="药品名称"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize16"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/spec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="药品规格"
+                android:textColor="@color/beautyTextColor"
+                android:textSize="@dimen/textSize16"/>
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="药品价格"
+                android:textColor="@color/crimson"
+                android:textSize="@dimen/textSize14" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="数量"
+            android:textColor="@color/beautyTextColor"
+            android:textSize="@dimen/textSize16"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_marginTop"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/text_padding6">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="订单总额"
+                android:textColor="@color/beautyTextColor"
+                android:textSize="@dimen/textSize16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="￥1212.12"
+                android:textColor="@color/crimson"
+                android:textSize="@dimen/textSize16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="商品总额"
+                android:textColor="@color/beautyTextColor"
+                android:textSize="@dimen/textSize16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:text="￥1212.12"
+                android:textColor="@color/crimson"
+                android:textSize="@dimen/textSize16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="卡券积分优惠"
+                android:textColor="@color/beautyTextColor"
+                android:textSize="@dimen/textSize16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:text="￥1212.12"
+                android:textColor="@color/crimson"
+                android:textSize="@dimen/textSize16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="运费金额"
+                android:textColor="@color/beautyTextColor"
+                android:textSize="@dimen/textSize16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:text="￥12.12"
+                android:textColor="@color/crimson"
+                android:textSize="@dimen/textSize16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

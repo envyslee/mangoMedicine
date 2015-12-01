@@ -152,10 +152,12 @@ public class CarExpandAdapter extends BaseExpandableListAdapter {
         if (item.getMaxCount()==0){
             stock.setVisibility(View.VISIBLE);
             quantity.setVisibility(View.GONE);
+            checkBox.setChecked(false);
         }else{
             stock.setVisibility(View.GONE);
             quantity.setVisibility(View.VISIBLE);
             quantity.setMaxQuantity(item.getMaxCount().intValue());
+            checkBox.setChecked(item.isChecked());
         }
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +175,6 @@ public class CarExpandAdapter extends BaseExpandableListAdapter {
         nameTV.setText(item.getProductName());
         priceTV.setText("￥" + item.getProductPrice());
         specTV.setText(item.getProductSpec());
-        checkBox.setChecked(item.isChecked());
         return view;
     }
 

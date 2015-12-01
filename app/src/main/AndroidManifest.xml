@@ -131,6 +131,8 @@
         </activity>
         <activity android:name=".SearchListActivity" >
         </activity>
+        <activity android:name=".BalanceActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -280,14 +280,6 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
                 }
             }
         });
-        car_list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Toast.makeText(getActivity(),  "dd"  ,Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
     }
 
 }
