@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -133,7 +132,7 @@ public class ShakeActivity extends AppCompatActivity {
         Display display = getWindow().getWindowManager().getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
-        final View contentView = LayoutInflater.from(ShakeActivity.this).inflate(R.layout.pop_window, null);
+        final View contentView = LayoutInflater.from(ShakeActivity.this).inflate(R.layout.pop_shake, null);
         final PopupWindow popupWindow = new PopupWindow(contentView, metrics.widthPixels*3 / 4, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setTouchable(true);
         popupWindow.setBackgroundDrawable(getResources().getDrawable(R.color.white));
@@ -143,6 +142,7 @@ public class ShakeActivity extends AppCompatActivity {
                 isOpen=false;
             }
         });
+
         Button btn = (Button) contentView.findViewById(R.id.butt);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +181,9 @@ public class ShakeActivity extends AppCompatActivity {
                             name.setText(p_name);
                             price.setText("￥:" + map.get("productPrice"));
                             popupWindow.showAtLocation(contentView, Gravity.CENTER, 0, 0);
-                            isOpen=true;
+                            if (popupWindow.isShowing()) {
+                                isOpen = true;
+                            }
                         }
                     }
                 }

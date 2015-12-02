@@ -246,7 +246,7 @@
         android:layout_gravity="bottom"
         android:alpha="0.7"
         android:background="@android:color/black"
-        android:gravity="bottom"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
@@ -254,7 +254,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/icon_geo" />
+            android:src="@drawable/favor" />
 
         <ImageView
             android:id="@+id/car_img"

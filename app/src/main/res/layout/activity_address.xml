@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.nicholas.fastmedicine.AddressActivity"
-    android:background="@color/pageBackground">
+    tools:context="com.nicholas.fastmedicine.AddressActivity">
 
-    <include layout="@layout/toorbar_layout"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-<ListView
-    android:id="@+id/addr_list"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"/>
+        <include layout="@layout/toorbar_layout"></include>
 
+        <ListView
+            android:id="@+id/addr_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
 
-</LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/loading_frame"/>
+</FrameLayout>

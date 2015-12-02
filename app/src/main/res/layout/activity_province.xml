@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.nicholas.fastmedicine.ProvinceActivity"
-    android:background="@color/pageBackground">
+    tools:context="com.nicholas.fastmedicine.ProvinceActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <include layout="@layout/toorbar_layout"></include>
 
-<!--    <ListView
-        android:id="@+id/list_province"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"></ListView>-->
+
 <GridLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -47,4 +46,6 @@
         android:textSize="@dimen/textSize18"
         android:layout_marginRight="@dimen/text_padding12"
         android:layout_marginLeft="@dimen/text_padding12"/>
-</LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/loading_frame"></include>
+</RelativeLayout>

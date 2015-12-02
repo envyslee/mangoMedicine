@@ -5,6 +5,8 @@ package com.nicholas.fastmedicine.item;
  */
 public class AddressListItem {
 
+    private Integer id;//地址id
+
     private String receiver;// 收货人
 
     private String city;// 城市
@@ -14,6 +16,14 @@ public class AddressListItem {
     private String detailAdd;// 手动填写部分地址
 
     private String phoneNum;// 收货人手机号
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getReceiver() {
         return receiver;

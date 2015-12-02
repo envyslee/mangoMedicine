@@ -207,7 +207,7 @@ private void register(String url,final String n,String p,String d,String v,Strin
             if (recLen<60) {
                 recLen++;
                 sensmsButton.setEnabled(false);
-                sensmsButton.setText(60-recLen+"S后可重新获取");
+                sensmsButton.setText("重新获取("+(60-recLen)+")");
                 timerHandler.postDelayed(this, 1000);
             }
             else

@@ -8,20 +8,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.adapter.CarExpandAdapter;
-import com.nicholas.fastmedicine.adapter.RecylerAdapter;
 import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.item.ExpandGroup;
 import com.nicholas.fastmedicine.item.ProductListItem;
@@ -33,7 +29,6 @@ import com.zhy.http.okhttp.request.OkHttpRequest;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +48,8 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
     private Button login_from_car;
     private LinearLayout no_result;
     private LinearLayout sub_login;
-
+    private Button goPay;
+    private  BigDecimal total;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment3, null, false);
@@ -239,11 +235,12 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
                 if (p.isChecked()&&p.getMaxCount()>0) {
                     BigDecimal pb = new BigDecimal(p.getProductPrice());
                     BigDecimal cb = new BigDecimal(p.getCount());
-                    price = price.add(pb.multiply(cb)).setScale(1,RoundingMode.HALF_UP);
+                    price = price.add(pb.multiply(cb)).setScale(2,RoundingMode.HALF_UP);
                 }
             }
         }
         totalPrice.setText("总价:"+price);
+        total=price;
     }
 
 
@@ -257,6 +254,7 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
         //search_no_img=(ImageView)view.findViewById(R.id.search_no_img);
         no_result=(LinearLayout)view.findViewById(R.id.no_result);
         sub_login=(LinearLayout)view.findViewById(R.id.sub_login);
+        goPay=(Button)view.findViewById(R.id.goPay);
         login_from_car=(Button)view.findViewById(R.id.login_from_car);
         login_from_car.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,6 +276,14 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
                     ischeckgroup(i, isChecked);
                     cea.notifyDataSetChanged();
                 }
+            }
+        });
+        goPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),BalanceActivity.class);
+                intent.putExtra("totalPay",total);
+                startActivity(intent);
             }
         });
     }

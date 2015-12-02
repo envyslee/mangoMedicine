@@ -205,6 +205,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     }
                 }
             });
+            //百度地图开始定位
             mLocationClient.start();
         }
         else{

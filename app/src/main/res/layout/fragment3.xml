@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.nicholas.fastmedicine.MainActivity">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -36,11 +38,10 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="57dip"
+            android:paddingBottom="@dimen/content_marginBottom"
             android:orientation="vertical"
             android:paddingRight="@dimen/text_padding6"
-            android:paddingLeft="@dimen/text_padding6"
-            >
+            android:paddingLeft="@dimen/text_padding6">
 
 
             <ExpandableListView
@@ -62,18 +63,14 @@
             android:background="@color/bottomBannerBlack"
             android:orientation="horizontal"
             android:alpha=".85"
-           >
+            android:visibility="gone">
 
             <!--android:visibility="gone"-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="2dip"
-                android:paddingBottom="2dip"
                 android:paddingRight="2dip"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:layout_gravity="center">
 
           <CheckBox
@@ -85,8 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="全选"
-                    android:textColor="@color/subTitleBg"
-                    android:layout_marginTop="-4dip"/>
+                    android:textColor="@color/subTitleBg"/>
             </LinearLayout>
 
             <TextView
@@ -94,10 +90,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/text_padding6"
-                android:text="合计"
                 android:textColor="@color/crimson"
                 android:textSize="@dimen/textSize18"
-                android:layout_weight="4"
+                android:layout_weight="5"
                 android:layout_gravity="center_vertical"/>
 
             <Button
@@ -108,8 +103,7 @@
                 android:text="去结算"
                 android:textSize="@dimen/textSize18"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/btn_selector"
-                android:layout_margin="@dimen/text_padding4"/>
+                android:background="@drawable/btn_selector"/>
 
         </LinearLayout>
 

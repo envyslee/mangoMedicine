@@ -1,45 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pageBackground"
-    android:orientation="vertical"
     tools:context="com.nicholas.fastmedicine.BalanceActivity">
-
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <include layout="@layout/toorbar_layout"></include>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/content_marginBottom"
+        android:scrollbars="none">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/address_lay"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="@dimen/text_padding6">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/receiver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="李冰冰"
             android:textColor="@color/beautyTextColor"
-            android:textSize="@dimen/textSize16" />
+            android:textSize="@dimen/textSize16"
+            android:padding="@dimen/text_padding8"/>
 
         <TextView
             android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="李冰冰"
             android:textColor="@color/beautyTextColor"
-            android:textSize="@dimen/textSize16" />
+            android:textSize="@dimen/textSize16"
+            android:padding="@dimen/text_padding8"/>
 
         <TextView
             android:id="@+id/address"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="李冰冰"
             android:textColor="@color/beautyTextColor"
-            android:textSize="@dimen/textSize16" />
+            android:textSize="@dimen/textSize16"
+            android:padding="@dimen/text_padding8"/>
     </LinearLayout>
 
     <LinearLayout
@@ -47,36 +58,39 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content_marginTop"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="@dimen/text_padding6">
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/payMethod"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:drawableRight="@drawable/icon_geo"
+            android:drawableRight="@drawable/come_pay"
             android:text="付款方式"
             android:textColor="@color/beautyTextColor"
             android:textSize="@dimen/textSize16"
-            android:gravity="center_vertical"/>
-
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_padding8"/>
         <RelativeLayout
+            android:id="@+id/point_lay"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding8"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/point"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="可用33积分抵用0.33元"
                 android:textColor="@color/beautyTextColor"
                 android:textSize="@dimen/textSize16"
-                android:gravity="bottom" />
+                android:layout_centerVertical="true"/>
 
             <CheckBox
                 android:id="@+id/userPointCb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
         </RelativeLayout>
 
         <TextView
@@ -87,7 +101,8 @@
             android:text="优惠券"
             android:textColor="@color/beautyTextColor"
             android:textSize="@dimen/textSize16"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_padding8"/>
 
         <TextView
             android:id="@+id/mark"
@@ -97,7 +112,8 @@
             android:text="备注"
             android:textColor="@color/beautyTextColor"
             android:textSize="@dimen/textSize16"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_padding8"/>
     </LinearLayout>
 
     <LinearLayout
@@ -106,7 +122,7 @@
         android:layout_marginTop="@dimen/content_marginTop"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="@dimen/text_padding6">
+        >
         <TextView
             android:id="@+id/pharmacy"
             android:layout_width="fill_parent"
@@ -114,18 +130,21 @@
             android:text="药店名称"
             android:textColor="@color/beautyTextColor"
             android:textSize="@dimen/textSize16"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:padding="@dimen/text_padding8"/>
         <TextView
             android:id="@+id/medicine"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="药品名称"
             android:textColor="@color/beautyTextColor"
-            android:textSize="@dimen/textSize16"/>
+            android:textSize="@dimen/textSize16"
+            android:padding="@dimen/text_padding8"/>
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding8">
             <TextView
                 android:id="@+id/spec"
                 android:layout_width="wrap_content"
@@ -148,38 +167,48 @@
             android:layout_height="fill_parent"
             android:text="数量"
             android:textColor="@color/beautyTextColor"
-            android:textSize="@dimen/textSize16"/>
+            android:textSize="@dimen/textSize16"
+            android:padding="@dimen/text_padding8"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content_marginTop"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="@dimen/text_padding6">
+        android:orientation="vertical">
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding8">
             <TextView
                 android:text="订单总额"
                 android:textColor="@color/beautyTextColor"
-                android:textSize="@dimen/textSize16"
+                android:textSize="@dimen/textSize18"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
             <TextView
                 android:text="￥1212.12"
                 android:textColor="@color/crimson"
                 android:textSize="@dimen/textSize16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
         </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_line_height"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="@dimen/text_padding8"
+            android:layout_marginRight="@dimen/text_padding8"/>
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding8">
             <TextView
                 android:text="商品总额"
-                android:textColor="@color/beautyTextColor"
+                android:textColor="@color/subTitleBg"
                 android:textSize="@dimen/textSize16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -193,10 +222,11 @@
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding8">
             <TextView
                 android:text="卡券积分优惠"
-                android:textColor="@color/beautyTextColor"
+                android:textColor="@color/subTitleBg"
                 android:textSize="@dimen/textSize16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -210,20 +240,57 @@
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_padding8">
             <TextView
                 android:text="运费金额"
-                android:textColor="@color/beautyTextColor"
+                android:textColor="@color/subTitleBg"
                 android:textSize="@dimen/textSize16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_alignParentRight="true"
-                android:text="￥12.12"
+                android:text="￥0.00"
                 android:textColor="@color/crimson"
                 android:textSize="@dimen/textSize16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bottom_banner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/bottomBannerBlack"
+        android:orientation="horizontal"
+        android:alpha=".85"
+        >
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_padding6"
+            android:text="应付金额"
+            android:textColor="@color/crimson"
+            android:textSize="@dimen/textSize18"
+            android:layout_weight="4"
+            android:layout_gravity="center_vertical"/>
+
+        <Button
+            android:id="@+id/goPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="提交订单"
+            android:textSize="@dimen/textSize18"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_selector"/>
+
+    </LinearLayout>
+    <include layout="@layout/loading_frame"></include>
+</FrameLayout>

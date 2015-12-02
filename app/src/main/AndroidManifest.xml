@@ -133,6 +133,8 @@
         </activity>
         <activity android:name=".BalanceActivity" >
         </activity>
+        <activity android:name=".CardActivity" >
+        </activity>
     </application>
 
 </manifest>
