@@ -26,6 +26,7 @@ import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
 import com.zhy.http.okhttp.request.OkHttpRequest;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -49,7 +50,9 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
     private LinearLayout no_result;
     private LinearLayout sub_login;
     private Button goPay;
-    private  BigDecimal total;
+    private  String total;
+    private List<ProductListItem> buyProducts;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment3, null, false);
@@ -147,7 +150,7 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
 
         String url= Constant.baseUrl+"getCarList";
             Map<String ,String> map=new HashMap<>();
-            map.put("userId",Constant.userId);
+            map.put("userId", Constant.userId);
             new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
                 @Override
                 public void onError(Request request, Exception e) {
@@ -197,7 +200,7 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
                                         children.put(pn,items);
                                     }
                                 }
-                                    cea = new CarExpandAdapter(getActivity(), group, children);
+                                cea = new CarExpandAdapter(getActivity(), group, children);
                                 car_list.setAdapter(cea);
                                 cea.setIscheck(Fragment3.this);
                                 setTotalPrice();
@@ -229,6 +232,7 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
      * 设置总价
      */
     private void setTotalPrice(){
+        buyProducts=new ArrayList<>();
         BigDecimal price=new BigDecimal("0");
         for (List<ProductListItem> item:children.values()){
             for (ProductListItem p:item){
@@ -236,11 +240,13 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
                     BigDecimal pb = new BigDecimal(p.getProductPrice());
                     BigDecimal cb = new BigDecimal(p.getCount());
                     price = price.add(pb.multiply(cb)).setScale(2,RoundingMode.HALF_UP);
+                    //用于传值
+                    buyProducts.add(p);
                 }
             }
         }
-        totalPrice.setText("总价:"+price);
-        total=price;
+        totalPrice.setText("总价:" + price);
+        total=price.toString();
     }
 
 
@@ -283,9 +289,19 @@ public class Fragment3 extends Fragment implements CarExpandAdapter.isCheckListe
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(),BalanceActivity.class);
                 intent.putExtra("totalPay",total);
+                intent.putExtra("children", (Serializable) buyProducts);
                 startActivity(intent);
+                //startActivityForResult(intent,0);
             }
         });
     }
 
+    @Override
+    public void onResume() {
+        if (Constant.carDataChanged){
+            Constant.carDataChanged=false;
+            GetCarData();
+        }
+        super.onResume();
+    }
 }

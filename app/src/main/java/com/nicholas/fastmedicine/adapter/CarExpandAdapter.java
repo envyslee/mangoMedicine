@@ -86,7 +86,7 @@ public class CarExpandAdapter extends BaseExpandableListAdapter {
         View view;
         if (convertView==null)
         {
-            view= LayoutInflater.from(activity).inflate(R.layout.expand_list_group,null);
+            view= LayoutInflater.from(activity).inflate(R.layout.car_expand_list_group,null);
         }
         else
         {

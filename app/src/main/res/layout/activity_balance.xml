@@ -12,9 +12,9 @@
     <include layout="@layout/toorbar_layout"></include>
 
     <ScrollView
+        android:id="@+id/sv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/content_marginBottom"
         android:scrollbars="none">
     <LinearLayout
         android:layout_width="fill_parent"
@@ -56,7 +56,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_marginTop"
+        android:layout_marginTop="@dimen/text_padding6"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -90,21 +90,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:button="@drawable/cb_selector" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/card"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:drawableRight="@drawable/icon_geo"
+            android:drawableRight="@drawable/card_off"
             android:text="优惠券"
             android:textColor="@color/beautyTextColor"
             android:textSize="@dimen/textSize16"
             android:gravity="center_vertical"
             android:padding="@dimen/text_padding8"/>
 
-        <TextView
+     <!--   <TextView
             android:id="@+id/mark"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -113,67 +114,19 @@
             android:textColor="@color/beautyTextColor"
             android:textSize="@dimen/textSize16"
             android:gravity="center_vertical"
-            android:padding="@dimen/text_padding8"/>
+            android:padding="@dimen/text_padding8"/>-->
     </LinearLayout>
+
+<com.nicholas.fastmedicine.controller.ListViewFitScrollView
+    android:id="@+id/order_product_list"
+    android:layout_marginTop="@dimen/text_padding6"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_marginTop"
-        android:background="@color/white"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/pharmacy"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="药店名称"
-            android:textColor="@color/beautyTextColor"
-            android:textSize="@dimen/textSize16"
-            android:textStyle="bold"
-            android:padding="@dimen/text_padding8"/>
-        <TextView
-            android:id="@+id/medicine"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="药品名称"
-            android:textColor="@color/beautyTextColor"
-            android:textSize="@dimen/textSize16"
-            android:padding="@dimen/text_padding8"/>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/text_padding8">
-            <TextView
-                android:id="@+id/spec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="药品规格"
-                android:textColor="@color/beautyTextColor"
-                android:textSize="@dimen/textSize16"/>
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="药品价格"
-                android:textColor="@color/crimson"
-                android:textSize="@dimen/textSize14" />
-        </RelativeLayout>
-        <TextView
-            android:id="@+id/count"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="数量"
-            android:textColor="@color/beautyTextColor"
-            android:textSize="@dimen/textSize16"
-            android:padding="@dimen/text_padding8"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_marginTop"
+        android:layout_marginTop="@dimen/text_padding6"
         android:background="@color/white"
         android:orientation="vertical">
         <RelativeLayout
@@ -188,7 +141,7 @@
                 android:layout_height="wrap_content"
                 />
             <TextView
-                android:text="￥1212.12"
+                android:id="@+id/orderTotalPrice"
                 android:textColor="@color/crimson"
                 android:textSize="@dimen/textSize16"
                 android:layout_width="wrap_content"
@@ -213,8 +166,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/productTotalPrice"
                 android:layout_alignParentRight="true"
-                android:text="￥1212.12"
                 android:textColor="@color/crimson"
                 android:textSize="@dimen/textSize16"
                 android:layout_width="wrap_content"
@@ -231,12 +184,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/favourablePrice"
                 android:layout_alignParentRight="true"
-                android:text="￥1212.12"
                 android:textColor="@color/crimson"
                 android:textSize="@dimen/textSize16"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="-￥0.00"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -250,14 +204,16 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_alignParentRight="true"
-                android:text="￥0.00"
+                android:text="+￥0.00"
                 android:textColor="@color/crimson"
                 android:textSize="@dimen/textSize16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/content_marginBottom"/>
     </LinearLayout>
     </ScrollView>
 </LinearLayout>
@@ -271,7 +227,7 @@
         android:alpha=".85"
         >
         <TextView
-            android:id="@+id/totalPrice"
+            android:id="@+id/shouldPay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/text_padding6"

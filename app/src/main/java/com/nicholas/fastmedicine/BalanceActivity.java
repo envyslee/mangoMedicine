@@ -6,21 +6,25 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nicholas.fastmedicine.adapter.OrderProductAdapter;
 import com.nicholas.fastmedicine.common.Constant;
+import com.nicholas.fastmedicine.controller.ListViewFitScrollView;
+import com.nicholas.fastmedicine.item.ProductListItem;
 import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
@@ -35,12 +39,18 @@ import java.util.Map;
 public class BalanceActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RelativeLayout loading,point_lay;
-    private TextView  receiver,phone,address,payMethod,point,card;
+    private TextView  receiver,phone,address,payMethod,point,card,productTotalPrice,orderTotalPrice,favourablePrice,shouldPay;
     private Button goPay;
+    private CheckBox userPointCb;
+    private ListViewFitScrollView order_product_list;
+    private ScrollView sv;
     private boolean addressAlready=false;
     private int payMethodTag=0;//0到付1支付宝2微信
     private PopupWindow pop;
-    private double totalPrice;
+    private String totalPrice;
+    private   int cardAmount=0;
+    private BigDecimal b;//可用积分
+    private List<ProductListItem> children;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +68,23 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        Bundle bundle=getIntent().getExtras();
         //获取商品总价
-        totalPrice=getIntent().getExtras().getDouble("totalPay");
+        totalPrice=bundle.getString("totalPay");
+        children =(List<ProductListItem>) bundle.getSerializable("children");
 
         initView();
+
+        productTotalPrice.setText("￥" + totalPrice);
+        orderTotalPrice.setText("￥" + totalPrice);
+        shouldPay.setText("应付金额:￥"+totalPrice);
+
         if (!Constant.userId.isEmpty()) {
             getPoint(Constant.userId);
         }
+        order_product_list.setAdapter(new OrderProductAdapter(this,R.layout.order_product_list_item,children));
+
+        sv.smoothScrollTo(0,0);
     }
 
     private void initView() {
@@ -102,6 +122,42 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
         //优惠券
         card=(TextView)findViewById(R.id.card);
         card.setOnClickListener(this);
+
+        //商品总价
+        productTotalPrice=(TextView)findViewById(R.id.productTotalPrice);
+
+        //订单总价
+        orderTotalPrice=(TextView)findViewById(R.id.orderTotalPrice);
+
+        //优惠价格
+        favourablePrice=(TextView)findViewById(R.id.favourablePrice);
+
+        //商品列表
+        order_product_list=(ListViewFitScrollView)findViewById(R.id.order_product_list);
+
+        //实际应付
+        shouldPay=(TextView)findViewById(R.id.shouldPay);
+
+        //外层scrollview
+        sv=(ScrollView)findViewById(R.id.sv);
+
+        //是否使用积分
+        userPointCb=(CheckBox)findViewById(R.id.userPointCb);
+        userPointCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                BigDecimal pointAmount=b.divide(new BigDecimal(100)).setScale(2, RoundingMode.HALF_UP);
+                if (isChecked){
+                    favourablePrice.setText("-￥" +pointAmount.add(new BigDecimal(cardAmount)));
+                    orderTotalPrice.setText("￥"+calcOrderPrice().subtract(pointAmount));
+                    shouldPay.setText("应付金额:￥"+calcOrderPrice().subtract(pointAmount));
+                }else{
+                    favourablePrice.setText("-￥" +cardAmount+".00");
+                    orderTotalPrice.setText("￥"+calcOrderPrice());
+                    shouldPay.setText("应付金额:￥"+calcOrderPrice());
+                }
+            }
+        });
     }
 
     @Override
@@ -148,8 +204,8 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.card:
                 Intent intent=new Intent(BalanceActivity.this,CardActivity.class);
-                intent.putExtra("totalPrice",totalPrice);
-                startActivity(intent);
+                intent.putExtra("totalPrice", totalPrice);
+                startActivityForResult(intent, 0);
                 break;
             default:
                 break;
@@ -161,8 +217,33 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
         if (!Constant.userId.isEmpty()) {
-            getAddressList(Constant.userId);
+            //getAddressList(Constant.userId);
+            getAddressList("2");
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==0&&resultCode==0){
+            if (data!=null){
+                Bundle bundle=data.getExtras();
+                int cardId= bundle.getInt("cardId");
+                cardAmount=bundle.getInt("cardAmount");
+                Drawable drawable = getResources().getDrawable(R.drawable.card_on);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight()); //设置边界
+                card.setCompoundDrawables(null, null, drawable, null);
+                favourablePrice.setText("-￥" + cardAmount + ".00");
+
+                orderTotalPrice.setText("￥"+calcOrderPrice());
+                shouldPay.setText("应付金额:￥"+calcOrderPrice());
+            }
+        }
+    }
+
+    //计算订单价格
+    private BigDecimal calcOrderPrice(){
+        BigDecimal pt=new BigDecimal(totalPrice);
+        return pt.subtract(new BigDecimal(cardAmount));
     }
 
     private void getAddressList(String userId) {
@@ -220,7 +301,7 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
                     if (ws.getResCode().equals("0")){
                         int p=((Double)ws.getContent()).intValue();
                         if (p>0){
-                            BigDecimal b=new BigDecimal(p);
+                             b=new BigDecimal(p);
                             point_lay.setVisibility(View.VISIBLE);
                             point.setText("可用"+p+"积分抵扣"+b.divide(new BigDecimal(100)).setScale(2,RoundingMode.HALF_UP)+"元");
                         }else {
@@ -235,9 +316,6 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private  void showPop(){
-        Display display=getWindow().getWindowManager().getDefaultDisplay();
-        DisplayMetrics metrics=new DisplayMetrics();
-        display.getMetrics(metrics);
         View view= LayoutInflater.from(BalanceActivity.this).inflate(R.layout.pop_pay,null);
         pop=new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,true);
 
@@ -251,7 +329,7 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
         ColorDrawable cd = new ColorDrawable(0x000000);
         pop.setBackgroundDrawable(cd);
         WindowManager.LayoutParams lp=getWindow().getAttributes();
-        lp.alpha=0.2f;
+        lp.alpha=0.4f;
         getWindow().setAttributes(lp);
 
         pop.setTouchable(true);
@@ -268,5 +346,6 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
         pop.showAtLocation(view, Gravity.CENTER, 0, 0);
 
     }
+
 
 }

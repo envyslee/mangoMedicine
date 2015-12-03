@@ -51,6 +51,10 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
         login_txt = (TextView) view.findViewById(R.id.login_txt);
         updateUserInfo();
 
+        //优惠券
+        LinearLayout cardly=(LinearLayout)view.findViewById(R.id.cardly);
+        cardly.setOnClickListener(this);
+
         //待评价
         LinearLayout reviewly = (LinearLayout) view.findViewById(R.id.reviewly);
         reviewly.setOnClickListener(this);
@@ -99,6 +103,10 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.reviewly:
+                break;
+            case R.id.cardly:
+                intent=new Intent(getActivity(),CardCenterActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

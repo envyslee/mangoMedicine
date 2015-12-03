@@ -1,11 +1,12 @@
 package com.nicholas.fastmedicine.item;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * Created by Administrator on 2015/11/16.
  */
-public class ProductListItem
+public class ProductListItem implements Serializable
 {
 
     private Long id;

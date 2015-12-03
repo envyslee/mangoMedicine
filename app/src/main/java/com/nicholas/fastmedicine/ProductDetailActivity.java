@@ -77,7 +77,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     private String priceId;
 
-    private Integer count=0;
     private BadgeView badgeView;
 
     private void initView() {
@@ -193,7 +192,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 return true;
             }
         });
-
+        GetCarCount();
         GetProductDetail(Constant.baseUrl + "postProductDetail", productId, pharmacyId);
     }
 
@@ -296,13 +295,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void AddToCar(){
-        String url=Constant.baseUrl+"postIntoCar";
-        Map<String ,String> map=new HashMap<>();
+    private void GetCarCount(){
+        String url=Constant.baseUrl+"getCarCount";
         if (!Constant.userId.isEmpty()){
+            Map<String ,String> map=new HashMap<>();
             map.put("userId",Constant.userId);
-            map.put("priceId",priceId);
-            map.put("count", count + 1 + "");
             new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
                 @Override
                 public void onError(Request request, Exception e) {
@@ -312,10 +309,40 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onResponse(WsResponse ws) {
                     if (ws.getResCode() != null) {
+                        if (ws.getResCode().equals("0")){
+                            badgeView.setBadgeCount(((Double) ws.getContent()).intValue());
+                            badgeView.setTargetView(car_img);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private void AddToCar(){
+        loading.setVisibility(View.VISIBLE);
+        String url=Constant.baseUrl+"postIntoCar";
+        Map<String ,String> map=new HashMap<>();
+        if (!Constant.userId.isEmpty()){
+            map.put("userId",Constant.userId);
+            map.put("priceId",priceId);
+            map.put("count", "1");
+            new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
+                @Override
+                public void onError(Request request, Exception e) {
+                    loading.setVisibility(View.GONE);
+                    Toast.makeText(ProductDetailActivity.this,Constant.dataError,Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onResponse(WsResponse ws) {
+                    loading.setVisibility(View.GONE);
+                    if (ws.getResCode() != null) {
                         if (ws.getResCode().equals("0")) {
+                            Constant.carDataChanged=true;
                             CarAnimator();
-                            count++;
-                            //badgeView.setBadgeCount(count);
+                            badgeView.setBadgeCount(((Double) ws.getContent()).intValue());
+                            badgeView.setTargetView(car_img);
                         }else if (ws.getResCode().equals("010")){
                             Toast.makeText(ProductDetailActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
                         }else {
@@ -326,7 +353,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     }
                 }
             });
-
         }else{
             Toast.makeText(ProductDetailActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
         }

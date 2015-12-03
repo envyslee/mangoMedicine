@@ -161,7 +161,7 @@ public class QuantityChoose extends LinearLayout implements View.OnClickListener
                     onQuantityChangeListener.onQuantityChanged(quantity, false);
             }
         } else if (v == mTextViewQuantity) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             //builder.setTitle("改变数量");
 
             View inflate = LayoutInflater.from(getContext()).inflate(R.layout.qv_dialog_changequantity, null, false);
@@ -179,7 +179,7 @@ public class QuantityChoose extends LinearLayout implements View.OnClickListener
                     }
                 }
             }).setNegativeButton("取消", null);
-            builder.show();
+            builder.show();*/
         }
     }
 

@@ -6,6 +6,8 @@ import java.util.Date;
  * Created by Administrator on 2015/12/2.
  */
 public class MyCard {
+    private Integer cardId;//卡券id
+
     private Integer cardAmount;// 卡券面值
 
     private Integer useConditon;// 使用条件（0：通用 1：满10使用 2：满20...）
@@ -17,12 +19,21 @@ public class MyCard {
     private String cardDesc;// 卡券描述
 
 
-    public MyCard(Integer cardAmount, Integer useConditon, String overTime, String cardName, String cardDesc) {
+    public MyCard( Integer cardId,Integer cardAmount, Integer useConditon, String overTime, String cardName, String cardDesc) {
+        this.cardId=cardId;
         this.cardAmount = cardAmount;
         this.useConditon = useConditon;
         this.overTime = overTime;
         this.cardName = cardName;
         this.cardDesc = cardDesc;
+    }
+
+    public Integer getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Integer cardId) {
+        this.cardId = cardId;
     }
 
     public Integer getCardAmount() {

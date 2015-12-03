@@ -32,4 +32,6 @@ public class Constant {
 
     public static String userId="";
     public static String userNum="";
+
+    public static  boolean carDataChanged=false;
 }

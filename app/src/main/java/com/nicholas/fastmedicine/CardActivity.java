@@ -1,5 +1,6 @@
 package com.nicholas.fastmedicine;
 
+import android.content.Intent;
 import android.graphics.LinearGradient;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ public class CardActivity extends AppCompatActivity {
     private ListView card_list;
     private RelativeLayout loading;
     private double totalPrice;
+    private List<MyCard> cards;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +50,7 @@ public class CardActivity extends AppCompatActivity {
                 finish();
             }
         });
-        totalPrice=getIntent().getExtras().getDouble("totalPrice");
+        totalPrice=Double.valueOf(getIntent().getExtras().getString("totalPrice"));
         initView();
     }
 
@@ -58,7 +61,17 @@ public class CardActivity extends AppCompatActivity {
         card_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(CardActivity.this,position+"",Toast.LENGTH_SHORT).show();
+                MyCard card=cards.get(position);
+                if (totalPrice<card.getUseConditon()*10){
+                    Toast.makeText(CardActivity.this,"该券不可用",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent=getIntent();
+                    intent.putExtra("cardId",card.getCardId());
+                    intent.putExtra("cardAmount",card.getCardAmount());
+                    setResult(0,intent);
+                    finish();
+                }
+
             }
         });
         if (!Constant.userId.isEmpty()){
@@ -82,7 +95,7 @@ public class CardActivity extends AppCompatActivity {
             public void onResponse(WsResponse ws) {
                 if (ws.getResCode()!=null){
                     if (ws.getResCode().equals("0")){
-                        List<MyCard> cards=new ArrayList<>();
+                        cards=new ArrayList<>();
                         List<Map<String,Object>> s=(List)ws.getContent();
                        int size= s.size();
                         if (size>0){
@@ -90,7 +103,7 @@ public class CardActivity extends AppCompatActivity {
                                     Map<String,Object> m=s.get(i);
                                     double time=(double)m.get("overTime");
                                     SimpleDateFormat format=new SimpleDateFormat("yyyy.MM.dd");
-                                    MyCard myCard=new MyCard(((Double)m.get("cardAmount")).intValue(),((Double)m.get("useConditon")).intValue(), format.format(time),m.get("cardName").toString(),m.get("cardDesc").toString());
+                                    MyCard myCard=new MyCard(((Double)m.get("id")).intValue(),((Double)m.get("cardAmount")).intValue(),((Double)m.get("useConditon")).intValue(), format.format(time),m.get("cardName").toString(),m.get("cardDesc").toString());
                                     cards.add(myCard);
                                 }
                             CardAdapter ca=new CardAdapter(CardActivity.this,R.layout.card_list_item,cards,totalPrice);

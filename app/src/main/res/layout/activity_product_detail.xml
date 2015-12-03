@@ -244,7 +244,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:alpha="0.7"
+        android:alpha="0.8"
         android:background="@android:color/black"
         android:gravity="center"
         android:orientation="horizontal">
@@ -263,13 +263,13 @@
             android:layout_weight="1"
             android:src="@drawable/car" />
 
-        <Button
+  <!--      <Button
             android:id="@+id/buy_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="立即购买"
-            />
+            />-->
 
         <Button
             android:id="@+id/addtocar_btn"
@@ -277,8 +277,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="加入购物车"
-            android:layout_marginLeft="@dimen/text_padding6"
-            android:layout_marginRight="@dimen/text_padding6"/>
+            android:textSize="@dimen/textSize18"
+            android:background="@drawable/btn_selector"/>
 
     </LinearLayout>
 

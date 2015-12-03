@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:focusable="false" />
+        android:focusable="false"
+        android:button="@drawable/cb_selector"/>
 
     <LinearLayout
         android:id="@+id/click_area"

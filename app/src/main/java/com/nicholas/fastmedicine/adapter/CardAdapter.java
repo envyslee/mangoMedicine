@@ -39,9 +39,10 @@ public class CardAdapter extends ArrayAdapter<MyCard> {
         amount.setText(myCard.getCardAmount()+".00");
         over.setText("有效期至:"+myCard.getOverTime());
         if (totalPrice<myCard.getUseConditon()*10){
-            view.setEnabled(false);
-            view.setClickable(false);
+            view.setBackgroundColor(view.getResources().getColor(R.color.grey));
         }
         return view;
     }
+
+
 }
