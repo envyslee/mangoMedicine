@@ -16,6 +16,8 @@
     <color name="listItemPressBg">#EEEEEE</color>
     <!--网易字体-->
     <color name="subTitleBg">#999999</color>
+    <!--button不能点击时的背景色-->
+    <color name="btnEnable">#CACACA</color>
 
     <color name="bottomBannerBlack">#272623</color>
 

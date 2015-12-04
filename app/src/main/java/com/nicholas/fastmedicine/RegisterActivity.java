@@ -7,7 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,12 +35,12 @@ import litepalDB.UserInfo;
 /**
  * Created by eggri_000 on 2015/10/14.
  */
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
 
     private int recLen = 0;
     private Button sensmsButton, verificationButton;
-    private EditText phonEditText, verEditText,passwordEditText,passwordConfirmEditText;
+    private EditText phonEditText, verEditText, passwordEditText, passwordConfirmEditText;
 
     public String phString;
     private String passwordStr;
@@ -63,15 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //短信sdk
         SMSSDK.initSDK(this, Constant.mobAppkey, Constant.mobAppsecret);
 
-        sensmsButton = (Button) findViewById(R.id.button1);
-        verificationButton = (Button) findViewById(R.id.button2);
-        phonEditText = (EditText) findViewById(R.id.editText1);
-        verEditText = (EditText) findViewById(R.id.editText2);
-        passwordEditText=(EditText)findViewById(R.id.password);
-        passwordConfirmEditText=(EditText)findViewById(R.id.password_confirm);
-        sensmsButton.setOnClickListener(this);
-        verificationButton.setOnClickListener(this);
-
+        initView();
 
 
         EventHandler eh = new EventHandler() {
@@ -87,11 +81,27 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         SMSSDK.registerEventHandler(eh);
     }
 
+    private void initView() {
+        sensmsButton = (Button) findViewById(R.id.button1);
+        verificationButton = (Button) findViewById(R.id.button2);
+        phonEditText = (EditText) findViewById(R.id.editText1);
+        verEditText = (EditText) findViewById(R.id.editText2);
+        passwordEditText = (EditText) findViewById(R.id.password);
+        passwordConfirmEditText = (EditText) findViewById(R.id.password_confirm);
+        phonEditText.addTextChangedListener(this);
+        verEditText.addTextChangedListener(this);
+        passwordConfirmEditText.addTextChangedListener(this);
+
+        sensmsButton.setOnClickListener(this);
+        verificationButton.setOnClickListener(this);
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1://发送验证码
-                if (MethodSingleton.getInstance().isMobileNum(phonEditText.getText().toString())) {
+                  if (MethodSingleton.getInstance().isMobileNum(phonEditText.getText().toString())) {
                     SMSSDK.getVerificationCode("86", phonEditText.getText().toString());
                     timerHandler.postDelayed(runnable, 1000);
                     phString = phonEditText.getText().toString();
@@ -100,18 +110,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.button2://提交注册，校验验证码
-                if (!TextUtils.isEmpty(verEditText.getText().toString())||!TextUtils.isEmpty(passwordEditText.getText().toString())||!TextUtils.isEmpty(passwordConfirmEditText.getText().toString())){
-                    passwordStr=passwordEditText.getText().toString();
-                    passwordConfirmStr=passwordConfirmEditText.getText().toString();
-                    if (!passwordStr.equals(passwordConfirmStr))
-                    {
-                        Toast.makeText(this, "两次密码输入不一致", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        SMSSDK.submitVerificationCode("86", phString, verEditText.getText().toString());
-                    }
+                passwordStr = passwordEditText.getText().toString();
+                passwordConfirmStr = passwordConfirmEditText.getText().toString();
+                if (!MethodSingleton.getInstance().isMobileNum(passwordStr)) {
+                    Toast.makeText(RegisterActivity.this, "密码必须为6-16位字母和数字组合", Toast.LENGTH_SHORT).show();
+                } else if (!passwordStr.equals(passwordConfirmStr)) {
+                    Toast.makeText(this, "两次密码输入不一致", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "信息填写不完整", Toast.LENGTH_SHORT).show();
+                    SMSSDK.submitVerificationCode("86", phString, verEditText.getText().toString());
                 }
                 break;
             default:
@@ -130,7 +136,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码
                     //Toast.makeText(getApplicationContext(), "验证成功", Toast.LENGTH_SHORT).show();
                     //验证成功 注册入库
-                    register(Constant.baseUrl+"postRegister",phonEditText.getText().toString(),passwordStr,MethodSingleton.getInstance().getDeviceModel(),MethodSingleton.getInstance().getVersionName(RegisterActivity.this),MethodSingleton.getInstance().getOSVersion());
+                    register(Constant.baseUrl + "postRegister", phonEditText.getText().toString(), passwordStr, MethodSingleton.getInstance().getDeviceModel(), MethodSingleton.getInstance().getVersionName(RegisterActivity.this), MethodSingleton.getInstance().getOSVersion());
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     Toast.makeText(getApplicationContext(), "验证码已发送", Toast.LENGTH_SHORT).show();
                 }
@@ -152,44 +158,43 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
-private void register(String url,final String n,String p,String d,String v,String o)
-{
-    final String mp=MD5Util.MD5(p);
-    Map<String ,String> map=new HashMap<>();
-    map.put("phoneNum",n);
-    map.put("password",mp);
-    map.put("deviceModel",d);
-    map.put("appVersion",v);
-    map.put("osVersion",o);
-    new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
-        @Override
-        public void onError(Request request, Exception e) {
-            Toast.makeText(RegisterActivity.this, "注册失败，请稍后再试", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onResponse(WsResponse ws) {
-            if (ws.getResCode()==null){
+    private void register(String url, final String n, String p, String d, String v, String o) {
+        final String mp = MD5Util.MD5(p);
+        Map<String, String> map = new HashMap<>();
+        map.put("phoneNum", n);
+        map.put("password", mp);
+        map.put("deviceModel", d);
+        map.put("appVersion", v);
+        map.put("osVersion", o);
+        new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
+            @Override
+            public void onError(Request request, Exception e) {
                 Toast.makeText(RegisterActivity.this, "注册失败，请稍后再试", Toast.LENGTH_SHORT).show();
-                return;
             }
-            if (ws.getResCode().equals("0")){
-                String userId=ws.getContent().toString();
-                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                //本地保存用户数据
-                UserInfo info=new UserInfo(n,mp,userId);
-                info.save();
-                //返回
-                Intent intent=getIntent();
-                intent.putExtra("done",true);
-                RegisterActivity.this.setResult(1,intent);
-                finish();
-            }else{
-                Toast.makeText(RegisterActivity.this, ws.getResMsg(), Toast.LENGTH_SHORT).show();
+
+            @Override
+            public void onResponse(WsResponse ws) {
+                if (ws.getResCode() == null) {
+                    Toast.makeText(RegisterActivity.this, "注册失败，请稍后再试", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (ws.getResCode().equals("0")) {
+                    String userId = ws.getContent().toString();
+                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    //本地保存用户数据
+                    UserInfo info = new UserInfo(n, mp, userId);
+                    info.save();
+                    //返回
+                    Intent intent = getIntent();
+                    intent.putExtra("done", true);
+                    RegisterActivity.this.setResult(1, intent);
+                    finish();
+                } else {
+                    Toast.makeText(RegisterActivity.this, ws.getResMsg(), Toast.LENGTH_SHORT).show();
+                }
             }
-        }
-    });
-}
+        });
+    }
 
     //sdk销毁
     @Override
@@ -204,15 +209,13 @@ private void register(String url,final String n,String p,String d,String v,Strin
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            if (recLen<60) {
+            if (recLen < 60) {
                 recLen++;
                 sensmsButton.setEnabled(false);
-                sensmsButton.setText("重新获取("+(60-recLen)+")");
+                sensmsButton.setText("重新获取(" + (60 - recLen) + ")");
                 timerHandler.postDelayed(this, 1000);
-            }
-            else
-            {
-                recLen=0;
+            } else {
+                recLen = 0;
                 sensmsButton.setEnabled(true);
                 sensmsButton.setText("获取验证码");
             }
@@ -220,4 +223,22 @@ private void register(String url,final String n,String p,String d,String v,Strin
     };
 
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (!MethodSingleton.getInstance().isMobileNum(phonEditText.getText().toString())||TextUtils.isEmpty(verEditText.getText().toString()) || TextUtils.isEmpty(passwordEditText.getText().toString()) || TextUtils.isEmpty(passwordConfirmEditText.getText().toString())) {
+            verificationButton.setEnabled(false);
+        } else {
+            verificationButton.setEnabled(true);
+        }
+    }
 }

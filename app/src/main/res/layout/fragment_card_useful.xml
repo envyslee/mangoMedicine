@@ -1,10 +1,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.nicholas.fastmedicine.CardUsefulFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="carduseful" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/text_padding8"
+        android:paddingLeft="@dimen/text_padding6"
+        android:paddingRight="@dimen/text_padding6">
 
+        <ListView
+            android:id="@+id/useful_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/pageBackground"
+            android:dividerHeight="@dimen/text_padding12" />
+    </LinearLayout>
 </FrameLayout>

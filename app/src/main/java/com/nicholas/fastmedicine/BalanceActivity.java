@@ -217,8 +217,8 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
         if (!Constant.userId.isEmpty()) {
-            //getAddressList(Constant.userId);
-            getAddressList("2");
+            getAddressList(Constant.userId);
+            //getAddressList("2");
         }
     }
 

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ProvinceActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProvinceActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
     private ListView list_province;
     private Bundle bundle;
@@ -63,6 +66,7 @@ public class ProvinceActivity extends AppCompatActivity implements View.OnClickL
         if (c.isEmpty()) {
             city_et.setText("获取城市信息失败");
             locateSuccess = false;
+
         } else {
             locateSuccess = true;
             city_et.setText(c);
@@ -77,6 +81,11 @@ public class ProvinceActivity extends AppCompatActivity implements View.OnClickL
         reciever_et = (EditText) findViewById(R.id.reciever_et);
         phone_et = (EditText) findViewById(R.id.phone_et);
         detail_address = (EditText) findViewById(R.id.detail_address);
+
+        address_et.addTextChangedListener(this);
+        reciever_et.addTextChangedListener(this);
+        phone_et.addTextChangedListener(this);
+        detail_address.addTextChangedListener(this);
 
     }
 
@@ -93,10 +102,6 @@ public class ProvinceActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(ProvinceActivity.this, "手机号码不正确", Toast.LENGTH_SHORT).show();
                         break;
                     }
-                    if (receiver == null || receiver.isEmpty() || mapAdd == null || mapAdd.isEmpty() || detailAdd == null || detailAdd.isEmpty()) {
-                        Toast.makeText(ProvinceActivity.this, "信息填写不完整", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
                     if (receiver.length() > 10) {
                         Toast.makeText(ProvinceActivity.this, "请填入合适的姓名", Toast.LENGTH_SHORT).show();
                         break;
@@ -107,6 +112,7 @@ public class ProvinceActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.address_et:
+                if (locateSuccess) {
                 Intent intent = new Intent(ProvinceActivity.this, MapActivity.class);
                 bundle = new Bundle();
                 bundle.putDouble("latitude", Constant.latitude);//维度
@@ -115,6 +121,9 @@ public class ProvinceActivity extends AppCompatActivity implements View.OnClickL
                 bundle.putString("city", Constant.cityName);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 0);
+                } else {
+                    Toast.makeText(ProvinceActivity.this, "定位失败，请允许相应权限", Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
                 break;
@@ -164,4 +173,22 @@ public class ProvinceActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (TextUtils.isEmpty(reciever_et.getText().toString())||TextUtils.isEmpty(phone_et.getText().toString())||TextUtils.isEmpty(detail_address.getText().toString())||TextUtils.isEmpty(address_et.getText().toString())) {
+            address_btn.setEnabled(false);
+        }else{
+            address_btn.setEnabled(true);
+        }
+    }
 }

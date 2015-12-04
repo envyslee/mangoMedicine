@@ -79,8 +79,13 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
         Intent intent;
         switch (v.getId()) {
             case R.id.addressManage:
-                intent = new Intent(getActivity(), AddressActivity.class);
-                startActivity(intent);
+                if (Constant.userId.isEmpty()) {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else{
+                    intent = new Intent(getActivity(), AddressActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.login_layout:
                 if (Constant.userId.isEmpty()) {
@@ -91,8 +96,13 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.feedbackly:
-                intent = new Intent(getActivity(), FeedbackActivity.class);
-                startActivity(intent);
+                if (Constant.userId.isEmpty()) {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent = new Intent(getActivity(), FeedbackActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.morely:
                 intent = new Intent(getActivity(), MoreActivity.class);
@@ -105,8 +115,13 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
             case R.id.reviewly:
                 break;
             case R.id.cardly:
-                intent=new Intent(getActivity(),CardCenterActivity.class);
-                startActivity(intent);
+                if (Constant.userId.isEmpty()) {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent = new Intent(getActivity(), CardCenterActivity.class);
+                    startActivity(intent);
+                }
                 break;
             default:
                 break;

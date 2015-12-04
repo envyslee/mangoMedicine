@@ -102,4 +102,20 @@ public  class MethodSingleton {
         }
         return false;
     }
+
+
+    /**
+     * 校验密码
+     * @param p
+     * @return
+     */
+    public static boolean isRightPassword(String p)
+    {
+        String m="^(?!\\D+$)(?!\\d+$)[a-zA-Z0-9]{6,16}$";
+        if (p.matches(m)){
+            return  true;
+        }else {
+            return false;
+        }
+    }
 }

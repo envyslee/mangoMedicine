@@ -5,18 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.common.MD5Util;
+import com.nicholas.fastmedicine.common.MethodSingleton;
 import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
@@ -32,10 +36,10 @@ import litepalDB.UserInfo;
 /**
  * Created by eggri_000 on 2015/10/13.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements TextWatcher {
 
-    private TextView userName;
-    private TextView password;
+    private EditText userName;
+    private EditText password;
     private Button login_btn;
 
 
@@ -86,23 +90,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        userName = (TextView) findViewById(R.id.userName);
-        password = (TextView) findViewById(R.id.password);
+        userName = (EditText) findViewById(R.id.userName);
+        password = (EditText) findViewById(R.id.password);
+        userName.addTextChangedListener(this);
+        password.addTextChangedListener(this);
         login_btn = (Button) findViewById(R.id.login_btn);
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String n = userName.getText().toString();
-                String p = password.getText().toString();
-                if (n == null || n.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "手机号不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (p == null || p.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Login(Constant.baseUrl + "postLogin", n, p);
+                Login(Constant.baseUrl + "postLogin", userName.getText().toString(), password.getText().toString());
             }
         });
     }
@@ -137,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (ws.getResCode().equals("005") || ws.getResCode().equals("004")) {
                     Toast.makeText(LoginActivity.this, ws.getResMsg(), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "登录失败，请稍后再试", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -152,4 +148,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        String n = userName.getText().toString();
+        String p = password.getText().toString();
+        if (n == null || n.isEmpty()||!MethodSingleton.getInstance().isMobileNum(n)||p == null || p.isEmpty()) {
+           login_btn.setEnabled(false);
+        }else {
+            login_btn.setEnabled(true);
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.nicholas.fastmedicine;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +43,10 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView clear=(TextView)findViewById(R.id.clear);
         clear.setOnClickListener(this);
+
+        if (Constant.userId.isEmpty()){
+            exit_btn.setEnabled(false);
+        }
 
     }
 

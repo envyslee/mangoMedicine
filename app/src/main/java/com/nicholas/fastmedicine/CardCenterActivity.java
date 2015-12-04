@@ -121,9 +121,9 @@ public class CardCenterActivity extends AppCompatActivity {
                         useful.setTextColor(Color.BLACK);
                      break;
                     case 1:
-                        used.setTextColor(Color.BLACK);
                         useful.setTextColor(Color.parseColor("#999999"));
                         over.setTextColor(Color.parseColor("#999999"));
+                        used.setTextColor(Color.BLACK);
                         break;
                     case 2:
                         used.setTextColor(Color.parseColor("#999999"));

@@ -58,5 +58,6 @@
         android:background="@drawable/btn_selector"
         android:textSize="@dimen/textSize18"
         android:layout_marginRight="@dimen/text_padding12"
-        android:layout_marginLeft="@dimen/text_padding12"/>
+        android:layout_marginLeft="@dimen/text_padding12"
+        android:enabled="false"/>
 </LinearLayout>

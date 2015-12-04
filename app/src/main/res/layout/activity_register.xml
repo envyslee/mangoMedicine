@@ -75,7 +75,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:hint="请输入密码"
+        android:hint="请输入密码(6-16位字母和数字组合)"
         android:inputType="textPassword"
         android:paddingBottom="8dip"
         android:paddingLeft="8dip"
@@ -114,8 +114,6 @@
         android:text="注册"
         android:textSize="@dimen/textSize18"
         android:layout_marginRight="@dimen/text_padding12"
-        android:layout_marginLeft="@dimen/text_padding12"/>
-
-
-
+        android:layout_marginLeft="@dimen/text_padding12"
+        android:enabled="false"/>
 </LinearLayout>
