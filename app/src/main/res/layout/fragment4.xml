@@ -48,6 +48,7 @@
         android:background="@drawable/table_frame_gray">
 
             <LinearLayout
+                android:id="@+id/order_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -66,6 +67,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/order_wait_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -84,6 +86,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/order_wait_receive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

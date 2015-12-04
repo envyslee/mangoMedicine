@@ -84,6 +84,7 @@ public class BalanceActivity extends AppCompatActivity implements View.OnClickLi
         }
         order_product_list.setAdapter(new OrderProductAdapter(this,R.layout.order_product_list_item,children));
 
+        //默认显示在listview 所以手动滚动到顶部
         sv.smoothScrollTo(0,0);
     }
 

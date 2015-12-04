@@ -31,12 +31,17 @@ import com.nicholas.fastmedicine.common.BitmapCache;
 
 import com.nicholas.fastmedicine.common.Constant;
 import com.nicholas.fastmedicine.controller.BadgeView;
+import com.nicholas.fastmedicine.item.ReviewItem;
 import com.nicholas.fastmedicine.item.WsResponse;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.ResultCallback;
 import com.zhy.http.okhttp.request.OkHttpRequest;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -70,6 +75,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private TextView Intro_enterprise;
     private TextView ph_name;
     private TextView ph_address;
+    private TextView review_count;
 
     private Button addtocar_btn;
 
@@ -78,6 +84,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private String priceId;
 
     private BadgeView badgeView;
+
+    private List<ReviewItem> reviewItems;
 
     private void initView() {
         //药品名称
@@ -125,6 +133,15 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         //加入购物车
         addtocar_btn = (Button) findViewById(R.id.addtocar_btn);
         addtocar_btn.setOnClickListener(this);
+
+        //评论条数
+        review_count=(TextView)findViewById(R.id.review_count);
+
+        //进入评论页
+        RelativeLayout go_review=(RelativeLayout)findViewById(R.id.go_review);
+        go_review.setOnClickListener(this);
+
+
 
         //加载动画
         loading=(RelativeLayout)findViewById(R.id.loading_lay);
@@ -194,6 +211,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         });
         GetCarCount();
         GetProductDetail(Constant.baseUrl + "postProductDetail", productId, pharmacyId);
+
     }
 
     private void GetProductDetail(String url, Double productId, Double pharmacyId) {
@@ -234,10 +252,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     desc_tv.setText(map.get("productUsage").toString().substring(0, 28) + "...");
                     spec_tv.setText(map.get("productSpec").toString());
                     price_tv.setText("￥" + String.valueOf(map.get("productPrice")));
-                    double p=(double)map.get("priceId");
-                    priceId=String.valueOf((int) p);
+                    double p = (double) map.get("priceId");
+                    priceId = String.valueOf((int) p);
 
                     loading.setVisibility(View.GONE);
+                    GetReview();
                 } else {
                     Toast.makeText(ProductDetailActivity.this, Constant.dataError, Toast.LENGTH_SHORT).show();
                     loading.setVisibility(View.GONE);
@@ -290,6 +309,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     }
                 }).create().show();
                 break;
+            case R.id.go_review:
+                Intent intent_re=new Intent(ProductDetailActivity.this,ReviewActivity.class);
+                intent_re.putExtra("reviews",(Serializable)reviewItems);
+                startActivity(intent_re);
+                break;
             default:
                 break;
         }
@@ -317,6 +341,39 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 }
             });
         }
+    }
+
+    private void GetReview(){
+        String url= Constant.baseUrl+"getReview";
+        Map<String ,String> map=new HashMap<>();
+        map.put("priceId", priceId);
+        new OkHttpRequest.Builder().url(url).params(map).post(new ResultCallback<WsResponse>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                //Toast.makeText(ProductDetailActivity.this,Constant.dataError,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(WsResponse ws) {
+                    if (ws.getResCode()!=null){
+                        if (ws.getResCode().equals("0")){
+                           reviewItems=new ArrayList<>();
+                            List<Map<String ,Object>> s=(List)ws.getContent();
+                            int size=s.size();
+                            review_count.setText("("+size+"人评价)");
+                            if (size>0){
+                                for (int i=0;i<size;i++) {
+                                    Map<String ,Object> m=s.get(i);
+                                    double time=(double)m.get("createdTime");
+                                    SimpleDateFormat format=new SimpleDateFormat("yyyy.MM.dd");
+                                    ReviewItem item = new ReviewItem(((Double)m.get("id")).intValue(),m.get("content").toString(),format.format(time),m.get("userName").toString());
+                                    reviewItems.add(item);
+                                }
+                            }
+                        }
+                    }
+            }
+        });
     }
 
     private void AddToCar(){

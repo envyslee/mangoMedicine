@@ -15,8 +15,7 @@
 
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/content_marginBottom">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -32,11 +31,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.8dip"
                     android:background="@android:color/darker_gray" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -235,7 +229,34 @@
                             android:layout_height="wrap_content"
                             android:paddingLeft="@dimen/text_padding6" />
                     </LinearLayout>
-                </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/go_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dip"
+                        android:padding="@dimen/text_padding6"
+                        android:background="@color/white">
+                        <TextView
+                            android:text="商品评价"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/beautyTextColor"
+                            android:textSize="@dimen/textSize18"
+                            android:layout_centerVertical="true"/>
+                        <TextView
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/review_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/subTitleBg"
+                            android:textSize="@dimen/textSize16"
+                            android:text="(0人评价)"
+                            android:layout_centerVertical="true"/>
+                    </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/content_marginBottom"/>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -244,7 +265,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:alpha="0.8"
+        android:alpha="0.85"
         android:background="@android:color/black"
         android:gravity="center"
         android:orientation="horizontal">

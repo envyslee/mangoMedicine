@@ -30,6 +30,11 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment4, null, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
         //地址管理
         LinearLayout addressly = (LinearLayout) view.findViewById(R.id.addressManage);
         addressly.setOnClickListener(this);
@@ -55,14 +60,24 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
         LinearLayout cardly=(LinearLayout)view.findViewById(R.id.cardly);
         cardly.setOnClickListener(this);
 
+        //全部订单
+        LinearLayout order_all=(LinearLayout)view.findViewById(R.id.order_all);
+        order_all.setOnClickListener(this);
+
+        //待支付
+        LinearLayout order_wait_pay=(LinearLayout)view.findViewById(R.id.order_wait_pay);
+        order_wait_pay.setOnClickListener(this);
+
+        //待收货
+        LinearLayout order_wait_receive=(LinearLayout)view.findViewById(R.id.order_wait_receive);
+        order_wait_receive.setOnClickListener(this);
+
         //待评价
         LinearLayout reviewly = (LinearLayout) view.findViewById(R.id.reviewly);
         reviewly.setOnClickListener(this);
         BadgeView badgeView = new BadgeView(getActivity());
         badgeView.setTargetView(reviewly);
         badgeView.setBadgeCount(3);
-
-        return view;
     }
 
     public void updateUserInfo() {
@@ -121,6 +136,30 @@ public class Fragment4 extends Fragment implements View.OnClickListener {
                 }else {
                     intent = new Intent(getActivity(), CardCenterActivity.class);
                     startActivity(intent);
+                }
+                break;
+            case R.id.order_all:
+                if (Constant.userId.isEmpty()) {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+
+                }
+                break;
+            case R.id.order_wait_pay:
+                if (Constant.userId.isEmpty()) {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+
+                }
+                break;
+            case R.id.order_wait_receive:
+                if (Constant.userId.isEmpty()) {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+
                 }
                 break;
             default:
