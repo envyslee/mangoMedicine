@@ -74,9 +74,9 @@ public class CardCenterActivity extends AppCompatActivity {
         imageView.setLayoutParams(layoutParams);
         bmpW=screenWidth/3;
         //offset = (screenWidth / 3 - bmpW) / 2;
-        Matrix matrix=new Matrix();
-        matrix.postTranslate(0,0);//起始位置
-        imageView.setImageMatrix(matrix);
+        //Matrix matrix=new Matrix();
+        //matrix.postTranslate(0,0);//起始位置
+       // imageView.setImageMatrix(matrix);
     }
 
     private void initViewPager() {
