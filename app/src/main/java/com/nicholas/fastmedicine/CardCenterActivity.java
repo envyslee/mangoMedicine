@@ -98,6 +98,8 @@ public class CardCenterActivity extends AppCompatActivity {
             public int getCount() {
                 return fragments.size();
             }
+
+            
         };
 
         vp.setAdapter(adapter);
